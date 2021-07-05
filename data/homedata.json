@@ -1,0 +1,87 @@
+{
+  "composer": [
+    {
+      "id": "WAM",
+      "name": "Mozart",
+      "name_jp": "モーツァルト",
+      "musics": [
+        {
+          "id": "A0001",
+          "title": "Piano Concerto No. 23",
+          "title_jp": "ピアノ協奏曲第23番",
+          "opus": "K.488"
+        },
+        {
+          "id": "A0004",
+          "title": "Divertimento in F major",
+          "title_jp": "ディヴェルティメント ヘ長調",
+          "opus": "K.138"
+        }
+      ]
+    },
+    {
+      "id": "LVB",
+      "name": "Beethoven",
+      "name_jp": "ベートーヴェン",
+      "musics": [
+        {
+          "id": "A0003",
+          "title": "Symphony No. 7 in A major",
+          "title_jp": "交響曲第7番 イ長調",
+          "opus": "Op.92"
+        }
+      ]
+    },
+    {
+      "id": "EEL",
+      "name": "Elgar",
+      "name_jp": "エルガー",
+      "musics": [
+        {
+          "id": "A0002",
+          "title": "Serenade for Strings",
+          "title_jp": "弦楽のためのセレナーデ",
+          "opus": "Op.20"
+        }
+      ]
+    },
+    {
+      "id": "JBR",
+      "name": "Johannes Brahms",
+      "name_jp": "ブラームス",
+      "musics": [
+        {
+          "id": "A0006",
+          "title": "Academic Festival Overture",
+          "title_jp": "大学祝典序曲",
+          "opus": "Op.80"
+        }
+      ]
+    },
+    {
+      "id": "JSI",
+      "name": "Jean Sibelius",
+      "name_jp": "シベリウス",
+      "musics": [
+        {
+          "id": "A0005",
+          "title": "Finlandia",
+          "title_jp": "フィンランディア",
+          "opus": "Op.26"
+        }
+      ]
+    },
+    {
+      "id": "PTC",
+      "name": "Tchaikovsky",
+      "name_jp": "チャイコフスキー",
+      "musics": [
+        {
+          "id": "A0007",
+          "title": "Romeo and Juliet, Fantasy Overture",
+          "title_jp": "幻想序曲『ロメオとジュリエット』"
+        }
+      ]
+    }
+  ]
+}

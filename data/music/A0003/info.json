@@ -1,0 +1,96 @@
+{
+  "musicId": "A0003",
+  "type": "symphony",
+  "title": "Symphony No. 7 in A major",
+  "title_jp": "交響曲第7番 イ長調",
+  "composerId": "LVB",
+  "composer": "Beethoven",
+  "composer_jp": "ベートーヴェン",
+  "opus": "Op.92",
+  "videos": [
+    {
+      "videoId": "-4788Tmz9Zo",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Iván Fischer",
+          "name_jp": "イヴァン・フィッシャー"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "Royal Concertgebouw Orchestra",
+          "name_jp": "ロイヤル・コンセルトヘボウ管弦楽団"
+        }
+      ]
+    }
+  ],
+  "scores": [
+    {
+      "scoreId": "312601",
+      "source": "imslp",
+      "publisher": "Ludwig van Beethovens Werke, Serie 1: Symphonien, Nr.7\nLeipzig: Breitkopf und Härtel, n.d.[n.d.[1863]]. Plate B.7.",
+      "copyright": "Public Domain",
+      "summary": "Breitkopf & Härtel, 1863"
+    }
+  ],
+  "blockId_reservations": [
+    { "num": 0, "description": "1st movement" },
+    { "num": 1000, "description": "2nd movement" },
+    { "num": 2000, "description": "3rd movement" },
+    { "num": 3000, "description": "4th movement" },
+    { "num": 4000, "description": "free" },
+    { "num": 9800, "description": "Start times" },
+    { "num": 9900, "description": "End times" },
+    { "num": 9999, "description": "null" }
+  ],
+  "movements": [
+    {
+      "movement": 1,
+      "first_blockId": 1,
+      "reservation": {
+        "from": "0",
+        "to": "1000"
+      },
+      "measure_num": 450,
+      "title": "1st mov. Poco sostenuto - Vivace",
+      "title_jp": "第一楽章 Poco sostenuto - Vivace"
+    },
+    {
+      "movement": 2,
+      "first_blockId": 1001,
+      "reservation": {
+        "from": "1000",
+        "to": "2000"
+      },
+      "measure_num": 278,
+      "title": "2nd mov. Allegretto",
+      "title_jp": "第二楽章 Allegretto"
+    },
+    {
+      "movement": 3,
+      "first_blockId": 2000,
+      "reservation": {
+        "from": "2000",
+        "to": "3000"
+      },
+      "measure_num": 657,
+      "title": "3rd mov. Presto – Assai meno presto",
+      "title_jp": "第三楽章 Presto – Assai meno presto",
+      "doubled_measures": [24, 240, 500]
+    },
+    {
+      "movement": 4,
+      "first_blockId": 3001,
+      "reservation": {
+        "from": "3000",
+        "to": "4000"
+      },
+      "measure_num": 476,
+      "title": "4th mov. Allegro con brio",
+      "title_jp": "第四楽章 Allegro con brio"
+    }
+  ]
+}

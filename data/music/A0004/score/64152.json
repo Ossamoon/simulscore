@@ -1,0 +1,512 @@
+{
+  "scoreId": "64152",
+  "musicId": "A0004",
+  "positions": [
+    {
+      "page": 1,
+      "rows": [
+        {
+          "id": 1,
+          "top": 113,
+          "height": 65,
+          "blocks": [
+            { "id": 1, "width": 69, "left": 93 },
+            { "id": 2, "width": 54, "left": 0 },
+            { "id": 3, "width": 43, "left": 0 },
+            { "id": 4, "width": 63, "left": 0 },
+            { "id": 5, "width": 70, "left": 0 },
+            { "id": 6, "width": 76, "left": 0 }
+          ]
+        },
+        {
+          "id": 2,
+          "top": 201,
+          "height": 65,
+          "blocks": [
+            { "id": 7, "width": 89, "left": 45 },
+            { "id": 8, "width": 72, "left": 0 },
+            { "id": 9, "width": 89, "left": 0 },
+            { "id": 10, "width": 86, "left": 0 },
+            { "id": 11, "width": 87, "left": 0 }
+          ]
+        },
+        {
+          "id": 3,
+          "top": 289,
+          "height": 65,
+          "blocks": [
+            { "id": 12, "width": 83, "left": 45 },
+            { "id": 13, "width": 83, "left": 0 },
+            { "id": 14, "width": 88, "left": 0 },
+            { "id": 15, "width": 84, "left": 0 },
+            { "id": 16, "width": 85, "left": 0 }
+          ]
+        },
+        {
+          "id": 4,
+          "top": 377,
+          "height": 66,
+          "blocks": [
+            { "id": 17, "width": 93, "left": 45 },
+            { "id": 18, "width": 84, "left": 0 },
+            { "id": 19, "width": 78, "left": 0 },
+            { "id": 20, "width": 90, "left": 0 },
+            { "id": 21, "width": 78, "left": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "rows": [
+        {
+          "id": 5,
+          "top": 45,
+          "height": 63,
+          "blocks": [
+            { "id": 22, "width": 76, "left": 41 },
+            { "id": 23, "width": 68, "left": 0 },
+            { "id": 24, "width": 68, "left": 0 },
+            { "id": 25, "width": 55, "left": 0 },
+            { "id": 26, "width": 45, "left": 0 },
+            { "id": 27, "width": 53, "left": 0 },
+            { "id": 28, "width": 55, "left": 0 }
+          ]
+        },
+        {
+          "id": 6,
+          "top": 130,
+          "height": 64,
+          "blocks": [
+            { "id": 29, "width": 78, "left": 41 },
+            { "id": 30, "width": 63, "left": 0 },
+            { "id": 31, "width": 57, "left": 0 },
+            { "id": 32, "width": 60, "left": 0 },
+            { "id": 33, "width": 57, "left": 0 },
+            { "id": 34, "width": 59, "left": 0 },
+            { "id": 35, "width": 45, "left": 0 }
+          ]
+        },
+        {
+          "id": 7,
+          "top": 215,
+          "height": 64,
+          "blocks": [
+            { "id": 36, "width": 62, "left": 61 },
+            { "id": 37, "width": 67, "left": 0 },
+            { "id": 38, "width": 66, "left": 0 },
+            { "id": 39, "width": 67, "left": 0 },
+            { "id": 40, "width": 62, "left": 0 },
+            { "id": 41, "width": 75, "left": 0 }
+          ]
+        },
+        {
+          "id": 8,
+          "top": 301,
+          "height": 63,
+          "blocks": [
+            { "id": 42, "width": 82, "left": 41 },
+            { "id": 43, "width": 61, "left": 0 },
+            { "id": 44, "width": 68, "left": 0 },
+            { "id": 45, "width": 65, "left": 0 },
+            { "id": 46, "width": 68, "left": 0 },
+            { "id": 47, "width": 75, "left": 0 }
+          ]
+        },
+        {
+          "id": 9,
+          "top": 386,
+          "height": 66,
+          "blocks": [
+            { "id": 48, "width": 83, "left": 41 },
+            { "id": 49, "width": 65, "left": 0 },
+            { "id": 50, "width": 65, "left": 0 },
+            { "id": 51, "width": 61, "left": 0 },
+            { "id": 52, "width": 56, "left": 0 },
+            { "id": 53, "width": 50, "left": 0 },
+            { "id": 54, "width": 40, "left": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "page": 3,
+      "rows": [
+        {
+          "id": 10,
+          "top": 46,
+          "height": 64,
+          "blocks": [
+            { "id": 55, "width": 65, "left": 49 },
+            { "id": 56, "width": 39, "left": 0 },
+            { "id": 57, "width": 53, "left": 0 },
+            { "id": 58, "width": 64, "left": 0 },
+            { "id": 59, "width": 69, "left": 0 },
+            { "id": 60, "width": 63, "left": 0 },
+            { "id": 61, "width": 70, "left": 0 }
+          ]
+        },
+        {
+          "id": 11,
+          "top": 132,
+          "height": 65,
+          "blocks": [
+            { "id": 62, "width": 105, "left": 50 },
+            { "id": 63, "width": 89, "left": 0 },
+            { "id": 64, "width": 79, "left": 0 },
+            { "id": 65, "width": 63, "left": 0 },
+            { "id": 66, "width": 87, "left": 0 }
+          ]
+        },
+        {
+          "id": 12,
+          "top": 218,
+          "height": 64,
+          "blocks": [
+            { "id": 67, "width": 105, "left": 50 },
+            { "id": 68, "width": 80, "left": 0 },
+            { "id": 69, "width": 84, "left": 0 },
+            { "id": 70, "width": 72, "left": 0 },
+            { "id": 71, "width": 82, "left": 0 }
+          ]
+        },
+        {
+          "id": 13,
+          "top": 304,
+          "height": 65,
+          "blocks": [
+            { "id": 72, "width": 96, "left": 49 },
+            { "id": 73, "width": 88, "left": 0 },
+            { "id": 74, "width": 75, "left": 0 },
+            { "id": 75, "width": 83, "left": 0 },
+            { "id": 76, "width": 82, "left": 0 }
+          ]
+        },
+        {
+          "id": 14,
+          "top": 391,
+          "height": 65,
+          "blocks": [
+            { "id": 77, "width": 70, "left": 49 },
+            { "id": 78, "width": 65, "left": 0 },
+            { "id": 79, "width": 69, "left": 0 },
+            { "id": 80, "width": 56, "left": 0 },
+            { "id": 81, "width": 48, "left": 0 },
+            { "id": 82, "width": 59, "left": 0 },
+            { "id": 83, "width": 57, "left": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "page": 4,
+      "rows": [
+        {
+          "id": 15,
+          "top": 49,
+          "height": 66,
+          "blocks": [
+            { "id": 84, "width": 80, "left": 38 },
+            { "id": 85, "width": 63, "left": 0 },
+            { "id": 86, "width": 55, "left": 0 },
+            { "id": 87, "width": 62, "left": 0 },
+            { "id": 88, "width": 60, "left": 0 },
+            { "id": 89, "width": 58, "left": 0 },
+            { "id": 90, "width": 42, "left": 0 }
+          ]
+        },
+        {
+          "id": 16,
+          "top": 140,
+          "height": 63,
+          "blocks": [
+            { "id": 1001, "width": 101, "left": 51 },
+            { "id": 1002, "width": 81, "left": 0 },
+            { "id": 1003, "width": 75, "left": 0 },
+            { "id": 1004, "width": 74, "left": 0 },
+            { "id": 1005, "width": 76, "left": 0 }
+          ]
+        },
+        {
+          "id": 17,
+          "top": 224,
+          "height": 64,
+          "blocks": [
+            { "id": 1006, "width": 97, "left": 38 },
+            { "id": 1007, "width": 85, "left": 0 },
+            { "id": 1008, "width": 82, "left": 0 },
+            { "id": 1009, "width": 76, "left": 0 },
+            { "id": 1010, "width": 80, "left": 0 }
+          ]
+        },
+        {
+          "id": 18,
+          "top": 309,
+          "height": 64,
+          "blocks": [
+            { "id": 1011, "width": 79, "left": 38 },
+            { "id": 1012, "width": 76, "left": 0 },
+            { "id": 1013, "width": 54, "left": 0 },
+            { "id": 1014, "width": 65, "left": 0 },
+            { "id": 1015, "width": 62, "left": 0 },
+            { "id": 1016, "width": 84, "left": 0 }
+          ]
+        },
+        {
+          "id": 19,
+          "top": 394,
+          "height": 64,
+          "blocks": [
+            { "id": 1017, "width": 97, "left": 38 },
+            { "id": 1018, "width": 85, "left": 0 },
+            { "id": 1019, "width": 86, "left": 0 },
+            { "id": 1020, "width": 53, "left": 0 },
+            { "id": 1021, "width": 43, "left": 0 },
+            { "id": 1022, "width": 56, "left": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "page": 5,
+      "rows": [
+        {
+          "id": 20,
+          "top": 50,
+          "height": 65,
+          "blocks": [
+            { "id": 1023, "width": 64, "left": 45 },
+            { "id": 1024, "width": 53, "left": 0 },
+            { "id": 1025, "width": 81, "left": 0 },
+            { "id": 1026, "width": 66, "left": 0 },
+            { "id": 1027, "width": 85, "left": 0 },
+            { "id": 1028, "width": 76, "left": 0 }
+          ]
+        },
+        {
+          "id": 21,
+          "top": 136,
+          "height": 63,
+          "blocks": [
+            { "id": 1029, "width": 97, "left": 46 },
+            { "id": 1030, "width": 87, "left": 0 },
+            { "id": 1031, "width": 82, "left": 0 },
+            { "id": 1032, "width": 76, "left": 0 },
+            { "id": 1033, "width": 81, "left": 0 }
+          ]
+        },
+        {
+          "id": 22,
+          "top": 220,
+          "height": 64,
+          "blocks": [
+            { "id": 1034, "width": 82, "left": 46 },
+            { "id": 1035, "width": 77, "left": 0 },
+            { "id": 1036, "width": 75, "left": 0 },
+            { "id": 1037, "width": 58, "left": 0 },
+            { "id": 1038, "width": 67, "left": 0 },
+            { "id": 1039, "width": 65, "left": 0 }
+          ]
+        },
+        {
+          "id": 23,
+          "top": 304,
+          "height": 64,
+          "blocks": [
+            { "id": 1040, "width": 77, "left": 45 },
+            { "id": 1041, "width": 74, "left": 0 },
+            { "id": 1042, "width": 64, "left": 0 },
+            { "id": 1043, "width": 76, "left": 0 },
+            { "id": 1044, "width": 51, "left": 0 },
+            { "id": 1045, "width": 45, "left": 0 },
+            { "id": 1046, "width": 37, "left": 0 }
+          ]
+        },
+        {
+          "id": 24,
+          "top": 394,
+          "height": 65,
+          "blocks": [
+            { "id": 2001, "width": 73, "left": 60 },
+            { "id": 2002, "width": 57, "left": 0 },
+            { "id": 2003, "width": 45, "left": 0 },
+            { "id": 2004, "width": 57, "left": 0 },
+            { "id": 2005, "width": 45, "left": 0 },
+            { "id": 2006, "width": 55, "left": 0 },
+            { "id": 2007, "width": 49, "left": 0 },
+            { "id": 2008, "width": 29, "left": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "page": 6,
+      "rows": [
+        {
+          "id": 25,
+          "top": 50,
+          "height": 65,
+          "blocks": [
+            { "id": 2009, "width": 59, "left": 44 },
+            { "id": 2010, "width": 43, "left": 0 },
+            { "id": 2011, "width": 39, "left": 0 },
+            { "id": 2012, "width": 56, "left": 0 },
+            { "id": 2013, "width": 55, "left": 0 },
+            { "id": 2014, "width": 55, "left": 0 },
+            { "id": 2015, "width": 54, "left": 0 },
+            { "id": 2016, "width": 57, "left": 0 }
+          ]
+        },
+        {
+          "id": 26,
+          "top": 136,
+          "height": 65,
+          "blocks": [
+            { "id": 2017, "width": 72, "left": 44 },
+            { "id": 2018, "width": 41, "left": 0 },
+            { "id": 2019, "width": 43, "left": 0 },
+            { "id": 2020, "width": 61, "left": 0 },
+            { "id": 2021, "width": 39, "left": 0 },
+            { "id": 2022, "width": 47, "left": 0 },
+            { "id": 2023, "width": 58, "left": 0 },
+            { "id": 2024, "width": 57, "left": 0 }
+          ]
+        },
+        {
+          "id": 27,
+          "top": 221,
+          "height": 64,
+          "blocks": [
+            { "id": 2025, "width": 49, "left": 44 },
+            { "id": 2026, "width": 45, "left": 0 },
+            { "id": 2027, "width": 55, "left": 0 },
+            { "id": 2028, "width": 46, "left": 0 },
+            { "id": 2029, "width": 53, "left": 0 },
+            { "id": 2030, "width": 44, "left": 0 },
+            { "id": 2031, "width": 53, "left": 0 },
+            { "id": 2032, "width": 46, "left": 0 },
+            { "id": 2033, "width": 27, "left": 0 }
+          ]
+        },
+        {
+          "id": 28,
+          "top": 307,
+          "height": 64,
+          "blocks": [
+            { "id": 2034, "width": 39, "left": 63 },
+            { "id": 2035, "width": 36, "left": 0 },
+            { "id": 2036, "width": 38, "left": 0 },
+            { "id": 2037, "width": 37, "left": 0 },
+            { "id": 2038, "width": 39, "left": 0 },
+            { "id": 2039, "width": 41, "left": 0 },
+            { "id": 2040, "width": 43, "left": 0 },
+            { "id": 2041, "width": 40, "left": 0 },
+            { "id": 2042, "width": 45, "left": 0 },
+            { "id": 2043, "width": 41, "left": 0 }
+          ]
+        },
+        {
+          "id": 29,
+          "top": 392,
+          "height": 64,
+          "blocks": [
+            { "id": 2044, "width": 52, "left": 44 },
+            { "id": 2045, "width": 33, "left": 0 },
+            { "id": 2046, "width": 40, "left": 0 },
+            { "id": 2047, "width": 36, "left": 0 },
+            { "id": 2048, "width": 43, "left": 0 },
+            { "id": 2049, "width": 23, "left": 0 },
+            { "id": 2050, "width": 44, "left": 0 },
+            { "id": 2051, "width": 51, "left": 0 },
+            { "id": 2052, "width": 39, "left": 0 },
+            { "id": 2053, "width": 57, "left": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "page": 7,
+      "rows": [
+        {
+          "id": 30,
+          "top": 44,
+          "height": 64,
+          "blocks": [
+            { "id": 2054, "width": 65, "left": 45 },
+            { "id": 2055, "width": 52, "left": 0 },
+            { "id": 2056, "width": 49, "left": 0 },
+            { "id": 2057, "width": 28, "left": 0 },
+            { "id": 2058, "width": 42, "left": 0 },
+            { "id": 2059, "width": 39, "left": 0 },
+            { "id": 2060, "width": 37, "left": 0 },
+            { "id": 2061, "width": 36, "left": 0 },
+            { "id": 2062, "width": 35, "left": 0 },
+            { "id": 2063, "width": 39, "left": 0 }
+          ]
+        },
+        {
+          "id": 31,
+          "top": 129,
+          "height": 65,
+          "blocks": [
+            { "id": 2064, "width": 57, "left": 45 },
+            { "id": 2065, "width": 40, "left": 0 },
+            { "id": 2066, "width": 44, "left": 0 },
+            { "id": 2067, "width": 39, "left": 0 },
+            { "id": 2068, "width": 40, "left": 0 },
+            { "id": 2069, "width": 40, "left": 0 },
+            { "id": 2070, "width": 42, "left": 0 },
+            { "id": 2071, "width": 35, "left": 0 },
+            { "id": 2072, "width": 43, "left": 0 },
+            { "id": 2073, "width": 41, "left": 0 }
+          ]
+        },
+        {
+          "id": 32,
+          "top": 214,
+          "height": 65,
+          "blocks": [
+            { "id": 2074, "width": 67, "left": 45 },
+            { "id": 2075, "width": 58, "left": 0 },
+            { "id": 2076, "width": 46, "left": 0 },
+            { "id": 2077, "width": 58, "left": 0 },
+            { "id": 2078, "width": 49, "left": 0 },
+            { "id": 2079, "width": 59, "left": 0 },
+            { "id": 2080, "width": 54, "left": 0 },
+            { "id": 2081, "width": 31, "left": 0 }
+          ]
+        },
+        {
+          "id": 33,
+          "top": 299,
+          "height": 66,
+          "blocks": [
+            { "id": 2082, "width": 70, "left": 45 },
+            { "id": 2083, "width": 50, "left": 0 },
+            { "id": 2084, "width": 50, "left": 0 },
+            { "id": 2085, "width": 52, "left": 0 },
+            { "id": 2086, "width": 50, "left": 0 },
+            { "id": 2087, "width": 50, "left": 0 },
+            { "id": 2088, "width": 55, "left": 0 },
+            { "id": 2089, "width": 45, "left": 0 }
+          ]
+        },
+        {
+          "id": 34,
+          "top": 385,
+          "height": 66,
+          "blocks": [
+            { "id": 2090, "width": 66, "left": 46 },
+            { "id": 2091, "width": 57, "left": 0 },
+            { "id": 2092, "width": 45, "left": 0 },
+            { "id": 2093, "width": 57, "left": 0 },
+            { "id": 2094, "width": 51, "left": 0 },
+            { "id": 2095, "width": 59, "left": 0 },
+            { "id": 2096, "width": 52, "left": 0 },
+            { "id": 2097, "width": 34, "left": 0 }
+          ]
+        }
+      ]
+    }
+  ]
+}
