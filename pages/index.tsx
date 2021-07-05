@@ -1,8 +1,7 @@
 import { GetStaticProps } from "next";
-import { VFC } from "react";
+import { VFC, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
 
 import { getHomeData, HomeData } from "library/getHomeData";
 
@@ -11,6 +10,14 @@ type Props = {
 };
 
 const Home: VFC<Props> = ({ homeData }) => {
+  // Create <script> element and append child
+  useEffect(() => {
+    const s = document.createElement("script");
+    s.setAttribute("src", "https://platform.twitter.com/widgets.js");
+    s.setAttribute("async", "true");
+    s.setAttribute("charset", "utf-8");
+    document.head.appendChild(s);
+  }, []);
   return (
     <div>
       <Head>
@@ -109,12 +116,7 @@ const Home: VFC<Props> = ({ homeData }) => {
               href="https://twitter.com/simulscore?ref_src=twsrc%5Etfw"
             >
               Tweets by simulscore
-            </a>{" "}
-            <script
-              async
-              src="https://platform.twitter.com/widgets.js"
-              charSet="utf-8"
-            ></script>
+            </a>
           </div>
         </div>
       </main>
