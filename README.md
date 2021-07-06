@@ -1,8 +1,8 @@
 # SmartScore
 
-このリポジトリは、[`https://github.com/Ossamoon/simulscore-log/commit/38ceb9343b9905ce581be3f0787251267238747f`](https://github.com/Ossamoon/simulscore-log/commit/38ceb9343b9905ce581be3f0787251267238747f)のファイルをコピーしたものから作成されました。
+このリポジトリは、[`simulscore-logリポジトリのcommit履歴`](https://github.com/Ossamoon/simulscore-log/tree/38ceb9343b9905ce581be3f0787251267238747f)からファイルをコピーして作成されました。
 
-commitの履歴は[`https://github.com/Ossamoon/simulscore-log`](https://github.com/Ossamoon/simulscore-log)や[`https://github.com/Ossamoon/smart-score-reader`](https://github.com/Ossamoon/smart-score-reader)を参照してください。
+このプロジェクトのcommit履歴は[`https://github.com/Ossamoon/simulscore-log`](https://github.com/Ossamoon/simulscore-log)、および[`https://github.com/Ossamoon/smart-score-reader`](https://github.com/Ossamoon/smart-score-reader)を参照してください。
 
 
 
