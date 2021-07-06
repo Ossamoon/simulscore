@@ -1,9 +1,14 @@
 # SmartScore
 
 このリポジトリは、[`https://github.com/Ossamoon/simulscore-log/commit/38ceb9343b9905ce581be3f0787251267238747f`](https://github.com/Ossamoon/simulscore-log/commit/38ceb9343b9905ce581be3f0787251267238747f)のファイルをコピーしたものから作成されました。
+
 commitの履歴は[`https://github.com/Ossamoon/simulscore-log`](https://github.com/Ossamoon/simulscore-log)や[`https://github.com/Ossamoon/smart-score-reader`](https://github.com/Ossamoon/smart-score-reader)を参照してください。
 
+
+
 以下、Next.jsのドキュメント
+
+-------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
