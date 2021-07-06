@@ -92,7 +92,8 @@ const Home: VFC<Props> = ({ homeData }) => {
                         <li key={music.id}>
                           <Link href={`/view/${music.id}`}>
                             <a className="text-left text-blue-700 hover:text-blue-500 hover:underline">
-                              {music.title_jp ?? music.title}
+                              {music.title_jp ?? music.title}{" "}
+                              <span className="text-sm">{music.opus}</span>
                             </a>
                           </Link>
                         </li>
