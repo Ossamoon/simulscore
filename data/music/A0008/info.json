@@ -1,0 +1,95 @@
+{
+  "musicId": "A0008",
+  "type": "symphony",
+  "title": "Symphony No. 9 in E minor, \"From the New World\"",
+  "title_jp": "交響曲第9番 ホ短調『新世界より』",
+  "composerId": "ADV",
+  "composer": "Dvořák",
+  "composer_jp": "ドヴォルザーク",
+  "opus": "Op.95",
+  "videos": [
+    {
+      "videoId": "jOofzffyDSA",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Andrés Orozco-Estrada",
+          "name_jp": "アンドレス・オロスコ＝エストラーダ"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "hr-Sinfonieorchester - Frankfurt Radio Symphony",
+          "name_jp": "hr交響楽団（フランクフルト放送交響楽団）"
+        }
+      ]
+    }
+  ],
+  "scores": [
+    {
+      "scoreId": "405834",
+      "source": "imslp",
+      "publisher": "Berlin: N. Simrock, 1894. Plate 10139.",
+      "copyright": "Public Domain",
+      "summary": "N. Simrock, 1894"
+    }
+  ],
+  "blockId_reservations": [
+    { "num": 0, "description": "1st movement" },
+    { "num": 1000, "description": "2nd movement" },
+    { "num": 2000, "description": "3rd movement" },
+    { "num": 3000, "description": "4th movement" },
+    { "num": 4000, "description": "free" },
+    { "num": 9800, "description": "Start times" },
+    { "num": 9900, "description": "End times" },
+    { "num": 9999, "description": "null" }
+  ],
+  "movements": [
+    {
+      "movement": 1,
+      "first_blockId": 1,
+      "reservation": {
+        "from": "0",
+        "to": "1000"
+      },
+      "measure_num": 452,
+      "title": "1st mov. Adagio - Allegro molto",
+      "title_jp": "第一楽章 Adagio - Allegro molto"
+    },
+    {
+      "movement": 2,
+      "first_blockId": 1001,
+      "reservation": {
+        "from": "1000",
+        "to": "2000"
+      },
+      "measure_num": 127,
+      "title": "2nd mov. Largo",
+      "title_jp": "第二楽章 Largo"
+    },
+    {
+      "movement": 3,
+      "first_blockId": 2001,
+      "reservation": {
+        "from": "2000",
+        "to": "3000"
+      },
+      "measure_num": 300,
+      "title": "3rd mov. Scherzo: Molto vivace",
+      "title_jp": "第三楽章 Scherzo: Molto vivace"
+    },
+    {
+      "movement": 4,
+      "first_blockId": 3001,
+      "reservation": {
+        "from": "3000",
+        "to": "4000"
+      },
+      "measure_num": 348,
+      "title": "4th mov. Allegro con fuoco",
+      "title_jp": "第四楽章 Allegro con fuoco"
+    }
+  ]
+}

@@ -430,7 +430,7 @@ export const Block: VFC<Props> = ({
           : left === 199
           ? "ml-199/500"
           : null
-      }${
+      } ${
         left === 200
           ? "ml-200/500"
           : left === 201
@@ -1434,7 +1434,7 @@ export const Block: VFC<Props> = ({
           : width === 199
           ? "w-199/500"
           : null
-      }${
+      } ${
         width === 200
           ? "w-200/500"
           : width === 201
