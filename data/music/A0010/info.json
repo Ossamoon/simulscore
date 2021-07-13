@@ -1,22 +1,22 @@
 {
-  "musicId": "A0008",
+  "musicId": "A0010",
   "type": "symphony",
-  "title": "Symphony No. 9 in E minor, \"From the New World\"",
-  "title_jp": "交響曲第9番 ホ短調 『新世界より』",
-  "composerId": "ADV",
-  "composer": "Dvořák",
-  "composer_jp": "ドヴォルザーク",
-  "opus": "Op.95",
+  "title": "Symphony No. 1 in C minor",
+  "title_jp": "交響曲第1番 ハ短調",
+  "composerId": "JBR",
+  "composer": "Brahms",
+  "composer_jp": "ブラームス",
+  "opus": "Op.68",
   "videos": [
     {
-      "videoId": "jOofzffyDSA",
+      "videoId": "9Ij6I_zhBdU",
       "source": "youtube",
       "players": [
         {
           "part": "conductor",
           "part_jp": "指揮",
-          "name": "Andrés Orozco-Estrada",
-          "name_jp": "アンドレス・オロスコ＝エストラーダ"
+          "name": "Stanisław Skrowaczewski",
+          "name_jp": "スタニスワフ・スクロヴァチェフスキ"
         },
         {
           "part": "orchestra",
@@ -29,11 +29,11 @@
   ],
   "scores": [
     {
-      "scoreId": "405834",
+      "scoreId": "317803",
       "source": "imslp",
-      "publisher": "Berlin: N. Simrock, 1894. Plate 10139.",
+      "publisher": "Sämtliche Werke, Band 1\nLeipzig: Breitkopf & Härtel, 1926-27. Plate J.B. 1.",
       "copyright": "Public Domain",
-      "summary": "N. Simrock, 1894"
+      "summary": "Breitkopf & Härtel, 1927"
     }
   ],
   "blockId_reservations": [
@@ -54,9 +54,9 @@
         "from": "0",
         "to": "1000"
       },
-      "measure_num": 452,
-      "title": "1st mov. Adagio - Allegro molto",
-      "title_jp": "第一楽章 Adagio - Allegro molto"
+      "measure_num": 513,
+      "title": "1st mov. Un poco sostenuto - Allegro",
+      "title_jp": "第一楽章 Un poco sostenuto - Allegro"
     },
     {
       "movement": 2,
@@ -65,9 +65,9 @@
         "from": "1000",
         "to": "2000"
       },
-      "measure_num": 127,
-      "title": "2nd mov. Largo",
-      "title_jp": "第二楽章 Largo"
+      "measure_num": 128,
+      "title": "2nd mov. Andante sostenuto",
+      "title_jp": "第二楽章 Andante sostenuto"
     },
     {
       "movement": 3,
@@ -76,9 +76,9 @@
         "from": "2000",
         "to": "3000"
       },
-      "measure_num": 300,
-      "title": "3rd mov. Scherzo: Molto vivace",
-      "title_jp": "第三楽章 Scherzo: Molto vivace"
+      "measure_num": 165,
+      "title": "3rd mov. Un poco allegretto e grazioso",
+      "title_jp": "第三楽章 Un poco allegretto e grazioso"
     },
     {
       "movement": 4,
@@ -87,9 +87,10 @@
         "from": "3000",
         "to": "4000"
       },
-      "measure_num": 348,
-      "title": "4th mov. Allegro con fuoco",
-      "title_jp": "第四楽章 Allegro con fuoco"
+      "measure_num": 458,
+      "title": "4th mov. Adagio - Più andante - Allegro non troppo, ma con brio - Più allegro",
+      "title_jp": "第四楽章 Adagio - Più andante - Allegro non troppo, ma con brio - Più allegro",
+      "doubled_measures": [61]
     }
   ]
 }

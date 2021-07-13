@@ -276,16 +276,16 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
         <div ref={screen} className="flex w-screen h-screen">
           <div
             ref={videoView}
-            className="bg-green-100 w-238/500 h-full flex-col overflow-y-auto overflow-x-hidden"
+            className="bg-warmGray-100 w-1/2 h-full flex-col overflow-y-auto overflow-x-hidden"
           >
-            <div className="w-full bg-green-400">
+            <div className="w-full bg-green-800">
               <div className="mx-4 pt-4 pb-3">
-                <p className="text-2xl font-semibold italic truncate text-green-800 p-1 tracking-wide">
+                <p className="text-xl font-semibold italic truncate text-warmGray-300 p-1 tracking-wide">
                   {musicData.composer_jp ?? musicData.composer}
                 </p>
-                <h1 className="text-4xl font-extrabold p-1 tracking-wide">
+                <h1 className="text-3xl text-warmGray-100 font-bold p-1 tracking-wide">
                   {musicData.title_jp ?? musicData.title}{" "}
-                  <span className="text-base font-normal text-gray-700 tracking-wide">
+                  <span className="text-base font-normal tracking-wide">
                     {musicData.opus}
                   </span>
                 </h1>
@@ -295,7 +295,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
               <div className="w-full h-8 pb-1 flex flex-row-reverse items-center">
                 <p
                   className={`text-xs text-right font-bold w-5 mx-1 ${
-                    isAutoScroll ? "text-blue-600" : "text-gray-500"
+                    isAutoScroll ? "text-blue-600" : "text-warmGray-500"
                   }`}
                 >
                   {isAutoScroll ? "ON" : "OFF"}
@@ -304,7 +304,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                   selected={isAutoScroll}
                   onClick={onToggleClick}
                 ></Toggle>
-                <p className="text-gray-500 text-xs font-semibold mx-1 truncate tracking-wide">
+                <p className="text-warmGray-500 text-xs font-semibold mx-1 truncate tracking-wide">
                   自動スクロール
                 </p>
               </div>
@@ -327,18 +327,18 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 {thisVideoInfo?.players.map((p) => {
                   return (
                     <div key={p.part + "_" + p.name} className="px-4 py-2">
-                      <p className="text-lg font-medium truncate">
+                      <p className="text-lg font-medium text-warmGray-800  truncate">
                         {p.name_jp ?? p.name}
                       </p>
-                      <p className="text-sm font-light italic text-gray-500 truncate">
+                      <p className="text-sm font-light italic text-warmGray-500 truncate">
                         {p.part_jp ?? p.part}
                       </p>
                     </div>
                   );
                 })}
               </div>
-              <div className="h-px bg-green-800 mt-10 mb-3 mx-4"></div>
-              <h2 className="text-xl font-bold mx-4 mb-1 text-green-800 truncate">
+              <div className="h-px mt-10 mb-3 mx-4 bg-warmGray-400"></div>
+              <h2 className="text-xl text-warmGray-700 font-bold mx-4 mb-1 truncate">
                 他の動画
               </h2>
               <VideoCards
@@ -346,8 +346,8 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 scoreId={scoreId}
                 otherVideoInfos={otherVideoInfos}
               />
-              <div className="h-px bg-green-800 mt-10 mb-3 mx-4"></div>
-              <h2 className="text-xl font-bold mx-4 mb-1 text-green-800 truncate">
+              <div className="h-px mt-10 mb-3 mx-4 bg-warmGray-400"></div>
+              <h2 className="text-xl text-warmGray-700 font-bold mx-4 mb-1 truncate">
                 楽譜の情報
               </h2>
               <div className="w-full flex flex-wrap ml-5">
@@ -381,24 +381,24 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                       </div>
                     </a>
                   </div>
-                  <h4 className="font-bold text-base text-gray-600 mt-4">
+                  <h4 className="font-bold text-base text-warmGray-600 mt-4">
                     出版社情報
                   </h4>
-                  <p className="whitespace-pre-wrap ml-3 mr-1 text-sm">
+                  <p className="whitespace-pre-wrap text-warmGray-800 ml-3 mr-1 text-sm">
                     {thisScoreInfo?.publisher}
                   </p>
-                  <h4 className="font-bold text-base text-gray-600 mt-4">
+                  <h4 className="font-bold text-base text-warmGray-600 mt-4">
                     著作権
                   </h4>
-                  <p className="whitespace-pre-wrap ml-3 mr-1 text-sm">
+                  <p className="whitespace-pre-wrap text-warmGray-800 ml-3 mr-1 text-sm">
                     {thisScoreInfo?.copyright}
                   </p>
                 </div>
               </div>
             </div>
-            <footer className="w-full h-20 bg-green-900 flex justify-center mt-14">
+            <footer className="w-full h-20 bg-green-800 flex justify-center mt-14">
               <Link href="/">
-                <a className="text-white font-extrabold text-lg mt-6">
+                <a className="text-warmGray-100 font-extrabold text-lg mt-6">
                   SimulScore
                 </a>
               </Link>

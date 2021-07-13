@@ -27,7 +27,7 @@ export const VideoCards: VFC<Props> = ({
               },
             }}
           >
-            <a className="w-min min-w-max my-2 ml-3 p-3 rounded-md bg-green-50 cursor-pointer shadow-sm hover:shadow-2xl">
+            <a className="w-min min-w-max my-2 ml-3 p-3 rounded-md bg-white cursor-pointer hover:shadow-xl">
               <img
                 src={`http://img.youtube.com/vi/${v.videoId}/mqdefault.jpg`}
                 alt="thumbnail"
