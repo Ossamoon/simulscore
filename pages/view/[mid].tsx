@@ -1,7 +1,6 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
 import React, {
   useState,
   useEffect,
@@ -225,12 +224,20 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
       if (
         blocks.current[checkId] &&
         scoreContent.current &&
-        scoreView.current
+        scoreView.current &&
+        screen.current
       ) {
         const rect = blocks.current[checkId].getBoundingClientRect();
-        const scrollTop = scoreContent.current.scrollTop;
+        // Phone or Tablet
+        const screenTop = screen.current.scrollTop;
+        screen.current.scrollTo({
+          top: screenTop + rect.top - scoreView.current.clientWidth / 17,
+          behavior: "smooth",
+        });
+        // PC
+        const scoreContentTop = scoreContent.current.scrollTop;
         scoreContent.current.scrollTo({
-          top: scrollTop + rect.top - scoreView.current.clientWidth / 17,
+          top: scoreContentTop + rect.top - scoreView.current.clientWidth / 17,
           behavior: "smooth",
         });
       }
@@ -261,53 +268,162 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
   );
 
   //
+  // Side Menu --------------------------------------------------------------
+  //
+
+  const [isOpenSideMenu, setIsOpenSideMenu] = useState<boolean>(false);
+
+  //
   // JSX ---------------------------------------------------------------------
   //
 
   return (
-    <div>
+    <>
       <Head>
-        <title>{musicData.title_jp ?? musicData.title}</title>
-        <meta name="description" content="Main Viewer" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>{musicData.title_jp ?? musicData.title} - SimulScore</title>
       </Head>
 
       <main>
-        <div ref={screen} className="flex w-screen h-screen">
+        <div
+          className={`fixed lg:hidden z-50 rounded-full cursor-pointer w-10 sm:w-14 h-10 sm:h-14 bottom-5 sm:bottom-10 right-4 sm:right-8 ${
+            isOpenSideMenu ? "bg-green-700" : "bg-green-800"
+          }`}
+          onClick={() => setIsOpenSideMenu((b) => !b)}
+        ></div>
+
+        <div
+          className={`h-screen w-screen inset-0 z-30 bg-warmGray-800 bg-opacity-30 ${
+            isOpenSideMenu ? "fixed" : "hidden"
+          }`}
+        ></div>
+
+        <div
+          className={`fixed lg:hidden inset-0 z-40 h-full transition transform ease-out duration-300 ${
+            isOpenSideMenu ? "" : "-translate-x-full"
+          }`}
+        >
           <div
-            ref={videoView}
-            className="bg-green-100 w-238/500 h-full flex-col overflow-y-auto overflow-x-hidden"
+            className={`w-5/6 h-full bg-warmGray-100 overflow-y-auto overflow-x-hidden shadow-2xl`}
           >
-            <div className="w-full bg-green-400">
-              <div className="mx-4 pt-4 pb-3">
-                <p className="text-2xl font-semibold italic truncate text-green-800 p-1 tracking-wide">
-                  {musicData.composer_jp ?? musicData.composer}
-                </p>
-                <h1 className="text-4xl font-extrabold p-1 tracking-wide">
-                  {musicData.title_jp ?? musicData.title}{" "}
-                  <span className="text-base font-normal text-gray-700 tracking-wide">
-                    {musicData.opus}
-                  </span>
-                </h1>
+            <div className="w-full h-8 py-1 flex flex-row-reverse items-center">
+              <p
+                className={`text-xs text-right font-bold w-5 mx-1 ${
+                  isAutoScroll ? "text-blue-600" : "text-warmGray-500"
+                }`}
+              >
+                {isAutoScroll ? "ON" : "OFF"}
+              </p>
+              <Toggle selected={isAutoScroll} onClick={onToggleClick}></Toggle>
+              <p className="text-warmGray-500 text-xs font-semibold mx-1 truncate tracking-wide">
+                自動スクロール
+              </p>
+            </div>
+            <div className="w-full bg-warmGray-400 p-2">動画の情報</div>
+
+            <div className="px-4 pb-4">
+              {thisVideoInfo?.players.map((p) => {
+                return (
+                  <div key={p.part + "_" + p.name} className="pt-4">
+                    <p className="text-base font-medium text-warmGray-700 truncate">
+                      {p.name_jp ?? p.name}
+                    </p>
+                    <p className="text-xs font-light italic text-warmGray-500 truncate">
+                      {p.part_jp ?? p.part}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="w-full bg-warmGray-400 p-2">他の動画</div>
+            <div className="overflow-y-auto">
+              <div className="pb-4">
+                <VideoCards
+                  musicId={musicData.musicId}
+                  scoreId={scoreId}
+                  isFlexWrap={false}
+                  otherVideoInfos={otherVideoInfos}
+                />
               </div>
             </div>
-            <div className="mx-4 pt-3">
-              <div className="w-full h-8 pb-1 flex flex-row-reverse items-center">
-                <p
-                  className={`text-xs text-right font-bold w-5 mx-1 ${
-                    isAutoScroll ? "text-blue-600" : "text-gray-500"
-                  }`}
-                >
-                  {isAutoScroll ? "ON" : "OFF"}
-                </p>
-                <Toggle
-                  selected={isAutoScroll}
-                  onClick={onToggleClick}
-                ></Toggle>
-                <p className="text-gray-500 text-xs font-semibold mx-1 truncate tracking-wide">
-                  自動スクロール
-                </p>
-              </div>
+            <div className="w-full bg-warmGray-400 mt-px p-2">楽譜の情報</div>
+            <div className="px-4 py-4">
+              <a
+                href={`https://imslp.org/wiki/Special:ReverseLookup/${scoreId}`}
+                rel="noreferrer"
+                target="_blank"
+                className="w-max min-w-max"
+              >
+                <div className="p-3 bg-blue-600 hover:bg-blue-500 text-white rounded-md inline-flex justify-center hover:shadow-lg">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 0 24 24"
+                    width="24px"
+                    fill="#FFFFFF"
+                  >
+                    <path d="M0 0h24v24H0V0z" fill="none" />
+                    <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                  </svg>
+                  <span className="font-bold text-sm ml-2 mt-0.5">
+                    {thisScoreInfo?.source === "imslp"
+                      ? "ダウンロード (IMSLP)"
+                      : "ダウンロード"}
+                  </span>
+                </div>
+              </a>
+              <h4 className="font-bold text-sm text-green-800 mt-4">
+                出版社情報
+              </h4>
+              <p className="whitespace-pre-wrap text-warmGray-700 ml-4 text-xs">
+                {thisScoreInfo?.publisher}
+              </p>
+              <h4 className="font-bold text-sm text-green-800 mt-4">著作権</h4>
+              <p className="whitespace-pre-wrap text-warmGray-700 ml-4 text-xs">
+                {thisScoreInfo?.copyright}
+              </p>
+            </div>
+            <div className="flex lg:hidden w-full bg-green-800 justify-center">
+              <Link href="/">
+                <a className="text-warmGray-100 font-extrabold text-lg my-4">
+                  SimulScore
+                </a>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div ref={screen} className="lg:flex w-screen h-screen overflow-y-auto">
+          <div
+            ref={videoView}
+            className="flex flex-col bg-warmGray-100 w-full lg:w-1/2 lg:min-w-80 lg:overflow-y-auto lg;overflow-x-hidden"
+          >
+            <div className="w-full bg-green-800 px-4 py-3">
+              <p className="text-md lg:text-lg font-normal truncate text-warmGray-100 tracking-wide">
+                {musicData.composer_jp ?? musicData.composer}
+              </p>
+              <h1 className="text-2xl lg:text-3xl text-warmGray-100 font-bold pt-0.5 lg:pt-1 tracking-wide">
+                {musicData.title_jp ?? musicData.title}{" "}
+                <span className="text-lg font-normal tracking-wide">
+                  {musicData.opus}
+                </span>
+              </h1>
+            </div>
+
+            <div className="w-full h-8 px-4 py-1 flex flex-row-reverse items-center">
+              <p
+                className={`text-xs text-right font-bold w-5 mx-1 ${
+                  isAutoScroll ? "text-blue-600" : "text-warmGray-500"
+                }`}
+              >
+                {isAutoScroll ? "ON" : "OFF"}
+              </p>
+              <Toggle selected={isAutoScroll} onClick={onToggleClick}></Toggle>
+              <p className="text-warmGray-500 text-xs font-semibold mx-1 truncate tracking-wide">
+                自動スクロール
+              </p>
+            </div>
+
+            <div className="px-4 pb-4 lg:pb-0">
               <div className="relative w-full h-0 overflow-hidden pb-9/16">
                 <Youtube
                   videoId={videoId}
@@ -323,99 +439,111 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                   onClick={onDivClick}
                 />
               ) : null}
-              <div className="w-full pt-4">
-                {thisVideoInfo?.players.map((p) => {
-                  return (
-                    <div key={p.part + "_" + p.name} className="px-4 py-2">
-                      <p className="text-lg font-medium truncate">
-                        {p.name_jp ?? p.name}
-                      </p>
-                      <p className="text-sm font-light italic text-gray-500 truncate">
-                        {p.part_jp ?? p.part}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-              <div className="h-px bg-green-800 mt-10 mb-3 mx-4"></div>
-              <h2 className="text-xl font-bold mx-4 mb-1 text-green-800 truncate">
+            </div>
+
+            <div className="hidden lg:block mx-4">
+              {thisVideoInfo?.players.map((p) => {
+                return (
+                  <div key={p.part + "_" + p.name} className="px-4 pt-4">
+                    <p className="text-lg font-medium text-warmGray-700 truncate">
+                      {p.name_jp ?? p.name}
+                    </p>
+                    <p className="text-sm font-light italic text-warmGray-500 truncate">
+                      {p.part_jp ?? p.part}
+                    </p>
+                  </div>
+                );
+              })}
+
+              <div className="h-px mt-12 mb-2 mx-4 bg-warmGray-300"></div>
+              <h2 className="text-xl text-green-800 font-bold mx-4 truncate">
                 他の動画
               </h2>
-              <VideoCards
-                musicId={musicData.musicId}
-                scoreId={scoreId}
-                otherVideoInfos={otherVideoInfos}
-              />
-              <div className="h-px bg-green-800 mt-10 mb-3 mx-4"></div>
-              <h2 className="text-xl font-bold mx-4 mb-1 text-green-800 truncate">
+              <div className="pl-3">
+                <VideoCards
+                  musicId={musicData.musicId}
+                  scoreId={scoreId}
+                  isFlexWrap={true}
+                  otherVideoInfos={otherVideoInfos}
+                />
+              </div>
+
+              <div className="h-px mt-12 mb-2 mx-4 bg-warmGray-300"></div>
+              <h2 className="text-xl text-green-800 font-bold mx-4 truncate">
                 楽譜の情報
               </h2>
-              <div className="w-full flex flex-wrap ml-5">
-                <div className="w-max flex-shrink-0 mx-3 mt-4">
+              <div className="w-full ml-6">
+                <div className="flex space-x-4 mt-4">
                   <img
                     src={`https://storage.googleapis.com/treatedscorebucket/images/${scoreId}/1.png`}
                     alt="sheet"
-                    className="w-44"
+                    className="w-40"
                   />
+                  <a
+                    href={`https://imslp.org/wiki/Special:ReverseLookup/${scoreId}`}
+                    rel="noreferrer"
+                    target="_blank"
+                    className="w-max min-w-max pt-1"
+                  >
+                    <div className="p-3 bg-blue-600 hover:bg-blue-500 text-white rounded-md flex justify-center hover:shadow-lg">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24px"
+                        viewBox="0 0 24 24"
+                        width="24px"
+                        fill="#FFFFFF"
+                      >
+                        <path d="M0 0h24v24H0V0z" fill="none" />
+                        <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                      </svg>
+                      <span className="font-bold text-sm ml-2 mt-0.5">
+                        {thisScoreInfo?.source === "imslp"
+                          ? "ダウンロード (IMSLP)"
+                          : "ダウンロード"}
+                      </span>
+                    </div>
+                  </a>
                 </div>
-                <div className="ml-3">
-                  <div className="mt-4 w-52 mr-auto">
-                    <a
-                      href={`https://imslp.org/wiki/Special:ReverseLookup/${scoreId}`}
-                      rel="noreferrer"
-                      target="_blank"
-                      className="mt-4 w-52 mr-auto"
-                    >
-                      <div className="p-3 bg-purple-600 hover:bg-purple-500 rounded-md flex justify-center hover:shadow-xl">
-                        <Image
-                          src="/open_in_new.svg"
-                          alt="Open Logo"
-                          width={20}
-                          height={20}
-                        />
-                        <span className="font-bold text-sm text-white ml-2">
-                          {thisScoreInfo?.source === "imslp"
-                            ? "ダウンロード (IMSLP)"
-                            : "ダウンロード"}
-                        </span>
-                      </div>
-                    </a>
-                  </div>
-                  <h4 className="font-bold text-base text-gray-600 mt-4">
-                    出版社情報
-                  </h4>
-                  <p className="whitespace-pre-wrap ml-3 mr-1 text-sm">
-                    {thisScoreInfo?.publisher}
-                  </p>
-                  <h4 className="font-bold text-base text-gray-600 mt-4">
-                    著作権
-                  </h4>
-                  <p className="whitespace-pre-wrap ml-3 mr-1 text-sm">
-                    {thisScoreInfo?.copyright}
-                  </p>
-                </div>
+                <h4 className="font-bold text-base text-green-800 mt-4">
+                  出版社情報
+                </h4>
+                <p className="whitespace-pre-wrap text-warmGray-700 ml-3 mr-1 text-sm">
+                  {thisScoreInfo?.publisher}
+                </p>
+                <h4 className="font-bold text-base text-green-800 mt-4">
+                  著作権
+                </h4>
+                <p className="whitespace-pre-wrap text-warmGray-700 ml-3 mr-1 text-sm">
+                  {thisScoreInfo?.copyright}
+                </p>
               </div>
             </div>
-            <footer className="w-full h-20 bg-green-900 flex justify-center mt-14">
+
+            <div className="hidden lg:flex w-full bg-green-800 justify-center mt-14">
               <Link href="/">
-                <a className="text-white font-extrabold text-lg mt-6">
+                <a className="text-warmGray-100 font-extrabold text-lg my-4">
                   SimulScore
                 </a>
               </Link>
-            </footer>
+            </div>
           </div>
+
           <div
             ref={resizer}
-            className="bg-green-600 w-4 min-w-4 h-full cursor-col-resize shadow-md flex items-center justify-center"
+            className="hidden lg:flex bg-warmGray-400 w-4 min-w-4 h-full cursor-col-resize shadow-md items-center justify-center"
           >
-            <div className="w-0.5 h-8 bg-green-800 rounded-full mr-px"></div>
-            <div className="w-0.5 h-8 bg-green-800 rounded-full ml-px"></div>
+            <div className="w-0.5 h-8 bg-warmGray-600 rounded-full mr-px"></div>
+            <div className="w-0.5 h-8 bg-warmGray-600 rounded-full ml-px"></div>
           </div>
+
           <div
             ref={scoreView}
-            className="bg-gray-300 flex-1 flex justify-center select-none min-w-60"
+            className="bg-warmGray-100 z-0 lg:flex-1 flex justify-center select-none lg:min-w-80"
           >
-            <div ref={scoreContent} className="w-full h-full overflow-y-auto">
+            <div
+              ref={scoreContent}
+              className="w-full h-full lg:overflow-y-auto"
+            >
               {[...Array(scoreData.positions.length)].map((_, i) => {
                 return (
                   <Sheet
@@ -431,9 +559,16 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
               })}
             </div>
           </div>
+          <div className="flex lg:hidden w-full bg-green-800 justify-center">
+            <Link href="/">
+              <a className="text-warmGray-100 font-extrabold text-lg my-4">
+                SimulScore
+              </a>
+            </Link>
+          </div>
         </div>
       </main>
-    </div>
+    </>
   );
 };
 

@@ -1,8 +1,8 @@
 {
   "musicId": "A0007",
-  "type": "ochestra",
+  "type": "orchestra",
   "title": "Romeo and Juliet, Fantasy Overture",
-  "title_jp": "幻想序曲『ロメオとジュリエット』",
+  "title_jp": "幻想序曲 『ロメオとジュリエット』",
   "composerId": "PTC",
   "composer": "Tchaikovsky",
   "composer_jp": "チャイコフスキー",
@@ -84,7 +84,7 @@
         "from": "0",
         "to": "1000"
       },
-      "measure_num": 0,
+      "measure_num": 522,
       "title": "Tchaikovsky",
       "title_jp": "幻想序曲『ロメオとジュリエット』"
     }

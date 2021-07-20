@@ -1,0 +1,71 @@
+{
+  "musicId": "A0009",
+  "type": "symphony",
+  "title": "Symphony No. 7(8) in B minor, \"Unfinished\"",
+  "title_jp": "交響曲第7(8)番 ロ短調 『未完成』",
+  "composerId": "FRS",
+  "composer": "Schubert",
+  "composer_jp": "シューベルト",
+  "opus": "D.759",
+  "videos": [
+    {
+      "videoId": "VQjPZiACKZM",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Michail Jurowski",
+          "name_jp": "ミハイル・ユロフスキ"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "Orquesta Sinfónica de Galicia",
+          "name_jp": "ガリシア交響楽団"
+        }
+      ]
+    }
+  ],
+  "scores": [
+    {
+      "scoreId": "310948",
+      "source": "imslp",
+      "publisher": "Franz Schubert's Werke, Serie I: Symphonien, No.8\nLeipzig: Breitkopf & Härtel, 1885. Plate F.S. 8.",
+      "copyright": "Public Domain",
+      "summary": "Breitkopf & Härtel, 1885"
+    }
+  ],
+  "blockId_reservations": [
+    { "num": 0, "description": "1st movement" },
+    { "num": 1000, "description": "2nd movement" },
+    { "num": 2000, "description": "free" },
+    { "num": 9800, "description": "Start times" },
+    { "num": 9900, "description": "End times" },
+    { "num": 9999, "description": "null" }
+  ],
+  "movements": [
+    {
+      "movement": 1,
+      "first_blockId": 1,
+      "reservation": {
+        "from": "0",
+        "to": "1000"
+      },
+      "measure_num": 369,
+      "title": "1st mov. Allegro moderato",
+      "title_jp": "第一楽章 Allegro moderato"
+    },
+    {
+      "movement": 2,
+      "first_blockId": 1001,
+      "reservation": {
+        "from": "1000",
+        "to": "2000"
+      },
+      "measure_num": 312,
+      "title": "2nd mov. Andante con moto",
+      "title_jp": "第二楽章 Andante con moto"
+    }
+  ]
+}

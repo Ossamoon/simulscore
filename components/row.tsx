@@ -429,7 +429,9 @@ export const Row: VFC<Props> = ({
           ? "h-198/500"
           : height === 199
           ? "h-199/500"
-          : height === 200
+          : null
+      } ${
+        height === 200
           ? "h-200/500"
           : height === 201
           ? "h-201/500"
@@ -1027,7 +1029,9 @@ export const Row: VFC<Props> = ({
           ? "h-497/500"
           : height === 498
           ? "h-498/500"
-          : "h-499/500"
+          : height === 499
+          ? "h-499/500"
+          : null
       } ${
         top === 0
           ? "top-0/500"
@@ -1429,7 +1433,9 @@ export const Row: VFC<Props> = ({
           ? "top-198/500"
           : top === 199
           ? "top-199/500"
-          : top === 200
+          : null
+      } ${
+        top === 200
           ? "top-200/500"
           : top === 201
           ? "top-201/500"
@@ -2027,7 +2033,9 @@ export const Row: VFC<Props> = ({
           ? "top-497/500"
           : top === 498
           ? "top-498/500"
-          : "top-499/500"
+          : top === 499
+          ? "top-499/500"
+          : null
       }`}
     >
       {[...Array(blocks.length)].map((_, i) => {

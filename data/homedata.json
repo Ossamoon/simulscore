@@ -7,8 +7,8 @@
       "musics": [
         {
           "id": "A0001",
-          "title": "Piano Concerto No. 23",
-          "title_jp": "ピアノ協奏曲第23番",
+          "title": "Piano Concerto No. 23 in A major",
+          "title_jp": "ピアノ協奏曲第23番 イ長調",
           "opus": "K.488"
         },
         {
@@ -33,6 +33,69 @@
       ]
     },
     {
+      "id": "FRS",
+      "name": "Schubert",
+      "name_jp": "シューベルト",
+      "musics": [
+        {
+          "id": "A0009",
+          "title": "Symphony No. 7(8) in B minor, \"Unfinished\"",
+          "title_jp": "交響曲第7(8)番 ロ短調 『未完成』",
+          "opus": "D.759"
+        }
+      ]
+    },
+    {
+      "id": "JBR",
+      "name": "Johannes Brahms",
+      "name_jp": "ブラームス",
+      "musics": [
+        {
+          "id": "A0010",
+          "title": "Symphony No. 1 in C minor",
+          "title_jp": "交響曲第1番 ハ短調",
+          "opus": "Op.68"
+        },
+        {
+          "id": "A0006",
+          "title": "Academic Festival Overture",
+          "title_jp": "大学祝典序曲",
+          "opus": "Op.80"
+        }
+      ]
+    },
+    {
+      "id": "PTC",
+      "name": "Tchaikovsky",
+      "name_jp": "チャイコフスキー",
+      "musics": [
+        {
+          "id": "A0007",
+          "title": "Romeo and Juliet, Fantasy Overture",
+          "title_jp": "幻想序曲 『ロメオとジュリエット』"
+        },
+        {
+          "id": "A0011",
+          "title": "Symphony No. 5 in E minor",
+          "title_jp": "交響曲第5番 ホ短調",
+          "opus": "Op.64"
+        }
+      ]
+    },
+    {
+      "id": "ADV",
+      "name": "Dvořák",
+      "name_jp": "ドヴォルザーク",
+      "musics": [
+        {
+          "id": "A0008",
+          "title": "Symphony No. 9 in E minor, \"From the New World\"",
+          "title_jp": "交響曲第9番 ホ短調 『新世界より』",
+          "opus": "Op.95"
+        }
+      ]
+    },
+    {
       "id": "EEL",
       "name": "Elgar",
       "name_jp": "エルガー",
@@ -46,19 +109,6 @@
       ]
     },
     {
-      "id": "JBR",
-      "name": "Johannes Brahms",
-      "name_jp": "ブラームス",
-      "musics": [
-        {
-          "id": "A0006",
-          "title": "Academic Festival Overture",
-          "title_jp": "大学祝典序曲",
-          "opus": "Op.80"
-        }
-      ]
-    },
-    {
       "id": "JSI",
       "name": "Jean Sibelius",
       "name_jp": "シベリウス",
@@ -68,18 +118,6 @@
           "title": "Finlandia",
           "title_jp": "フィンランディア",
           "opus": "Op.26"
-        }
-      ]
-    },
-    {
-      "id": "PTC",
-      "name": "Tchaikovsky",
-      "name_jp": "チャイコフスキー",
-      "musics": [
-        {
-          "id": "A0007",
-          "title": "Romeo and Juliet, Fantasy Overture",
-          "title_jp": "幻想序曲『ロメオとジュリエット』"
         }
       ]
     }

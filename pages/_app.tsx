@@ -1,7 +1,8 @@
 import "tailwindcss/tailwind.css";
+import { VFC } from "react";
 import type { AppProps } from "next/app";
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp: VFC<AppProps> = ({ Component, pageProps }) => {
   return <Component {...pageProps} />;
-}
+};
 export default MyApp;
