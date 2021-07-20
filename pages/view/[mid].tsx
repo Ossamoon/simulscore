@@ -284,78 +284,111 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
       </Head>
 
       <main>
-        <button
-          className={`fixed lg:hidden z-40 w-8 h-8 rounded-full bottom-4 right-4 ${
-            isOpenSideMenu ? "bg-red-600" : "bg-blue-600"
+        <div
+          className={`fixed lg:hidden z-50 rounded-full cursor-pointer w-10 sm:w-14 h-10 sm:h-14 bottom-5 sm:bottom-10 right-4 sm:right-8 ${
+            isOpenSideMenu ? "bg-green-700" : "bg-green-800"
           }`}
           onClick={() => setIsOpenSideMenu((b) => !b)}
-        ></button>
+        ></div>
 
         <div
-          className={`fixed lg:hidden inset-0 z-30 w-5/6 h-full bg-warmGray-100 overflow-y-auto overflow-x-hidden transition transform ${
+          className={`h-screen w-screen inset-0 z-30 bg-warmGray-800 bg-opacity-30 ${
+            isOpenSideMenu ? "fixed" : "hidden"
+          }`}
+        ></div>
+
+        <div
+          className={`fixed lg:hidden inset-0 z-40 h-full transition transform ease-out duration-300 ${
             isOpenSideMenu ? "" : "-translate-x-full"
           }`}
         >
-          <div className="w-full h-8 py-1 flex flex-row-reverse items-center">
-            <p
-              className={`text-xs text-right font-bold w-5 mx-1 ${
-                isAutoScroll ? "text-blue-600" : "text-warmGray-500"
-              }`}
-            >
-              {isAutoScroll ? "ON" : "OFF"}
-            </p>
-            <Toggle selected={isAutoScroll} onClick={onToggleClick}></Toggle>
-            <p className="text-warmGray-500 text-xs font-semibold mx-1 truncate tracking-wide">
-              自動スクロール
-            </p>
-          </div>
-          <div className="w-full bg-warmGray-400 p-2">他の動画</div>
-          <div className="overflow-y-auto">
-            <div className="pb-4">
-              <VideoCards
-                musicId={musicData.musicId}
-                scoreId={scoreId}
-                isFlexWrap={false}
-                otherVideoInfos={otherVideoInfos}
-              />
+          <div
+            className={`w-5/6 h-full bg-warmGray-100 overflow-y-auto overflow-x-hidden shadow-2xl`}
+          >
+            <div className="w-full h-8 py-1 flex flex-row-reverse items-center">
+              <p
+                className={`text-xs text-right font-bold w-5 mx-1 ${
+                  isAutoScroll ? "text-blue-600" : "text-warmGray-500"
+                }`}
+              >
+                {isAutoScroll ? "ON" : "OFF"}
+              </p>
+              <Toggle selected={isAutoScroll} onClick={onToggleClick}></Toggle>
+              <p className="text-warmGray-500 text-xs font-semibold mx-1 truncate tracking-wide">
+                自動スクロール
+              </p>
             </div>
-          </div>
-          <div className="w-full bg-warmGray-400 mt-px p-2">楽譜の情報</div>
-          <div className="px-4 pt-4">
-            <a
-              href={`https://imslp.org/wiki/Special:ReverseLookup/${scoreId}`}
-              rel="noreferrer"
-              target="_blank"
-              className="w-max min-w-max"
-            >
-              <div className="p-3 bg-blue-600 hover:bg-blue-500 text-white rounded-md inline-flex justify-center hover:shadow-lg">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="24px"
-                  viewBox="0 0 24 24"
-                  width="24px"
-                  fill="#FFFFFF"
-                >
-                  <path d="M0 0h24v24H0V0z" fill="none" />
-                  <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
-                </svg>
-                <span className="font-bold text-sm ml-2 mt-0.5">
-                  {thisScoreInfo?.source === "imslp"
-                    ? "ダウンロード (IMSLP)"
-                    : "ダウンロード"}
-                </span>
+            <div className="w-full bg-warmGray-400 p-2">動画の情報</div>
+
+            <div className="px-4 pb-4">
+              {thisVideoInfo?.players.map((p) => {
+                return (
+                  <div key={p.part + "_" + p.name} className="pt-4">
+                    <p className="text-base font-medium text-warmGray-700 truncate">
+                      {p.name_jp ?? p.name}
+                    </p>
+                    <p className="text-xs font-light italic text-warmGray-500 truncate">
+                      {p.part_jp ?? p.part}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="w-full bg-warmGray-400 p-2">他の動画</div>
+            <div className="overflow-y-auto">
+              <div className="pb-4">
+                <VideoCards
+                  musicId={musicData.musicId}
+                  scoreId={scoreId}
+                  isFlexWrap={false}
+                  otherVideoInfos={otherVideoInfos}
+                />
               </div>
-            </a>
-            <h4 className="font-bold text-sm text-green-800 mt-3">
-              出版社情報
-            </h4>
-            <p className="whitespace-pre-wrap text-warmGray-700 ml-2 text-xs">
-              {thisScoreInfo?.publisher}
-            </p>
-            <h4 className="font-bold text-sm text-green-800 mt-3">著作権</h4>
-            <p className="whitespace-pre-wrap text-warmGray-700 ml-2 text-xs">
-              {thisScoreInfo?.copyright}
-            </p>
+            </div>
+            <div className="w-full bg-warmGray-400 mt-px p-2">楽譜の情報</div>
+            <div className="px-4 py-4">
+              <a
+                href={`https://imslp.org/wiki/Special:ReverseLookup/${scoreId}`}
+                rel="noreferrer"
+                target="_blank"
+                className="w-max min-w-max"
+              >
+                <div className="p-3 bg-blue-600 hover:bg-blue-500 text-white rounded-md inline-flex justify-center hover:shadow-lg">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 0 24 24"
+                    width="24px"
+                    fill="#FFFFFF"
+                  >
+                    <path d="M0 0h24v24H0V0z" fill="none" />
+                    <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                  </svg>
+                  <span className="font-bold text-sm ml-2 mt-0.5">
+                    {thisScoreInfo?.source === "imslp"
+                      ? "ダウンロード (IMSLP)"
+                      : "ダウンロード"}
+                  </span>
+                </div>
+              </a>
+              <h4 className="font-bold text-sm text-green-800 mt-4">
+                出版社情報
+              </h4>
+              <p className="whitespace-pre-wrap text-warmGray-700 ml-4 text-xs">
+                {thisScoreInfo?.publisher}
+              </p>
+              <h4 className="font-bold text-sm text-green-800 mt-4">著作権</h4>
+              <p className="whitespace-pre-wrap text-warmGray-700 ml-4 text-xs">
+                {thisScoreInfo?.copyright}
+              </p>
+            </div>
+            <div className="flex lg:hidden w-full bg-green-800 justify-center">
+              <Link href="/">
+                <a className="text-warmGray-100 font-extrabold text-lg my-4">
+                  SimulScore
+                </a>
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -422,7 +455,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 );
               })}
 
-              <div className="h-px mt-10 mb-3 mx-4 bg-warmGray-300"></div>
+              <div className="h-px mt-12 mb-2 mx-4 bg-warmGray-300"></div>
               <h2 className="text-xl text-green-800 font-bold mx-4 truncate">
                 他の動画
               </h2>
@@ -435,12 +468,12 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 />
               </div>
 
-              <div className="h-px mt-10 mb-3 mx-4 bg-warmGray-300"></div>
+              <div className="h-px mt-12 mb-2 mx-4 bg-warmGray-300"></div>
               <h2 className="text-xl text-green-800 font-bold mx-4 truncate">
                 楽譜の情報
               </h2>
               <div className="w-full ml-6">
-                <div className="flex space-x-3 mt-4">
+                <div className="flex space-x-4 mt-4">
                   <img
                     src={`https://storage.googleapis.com/treatedscorebucket/images/${scoreId}/1.png`}
                     alt="sheet"
@@ -525,6 +558,13 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 );
               })}
             </div>
+          </div>
+          <div className="flex lg:hidden w-full bg-green-800 justify-center">
+            <Link href="/">
+              <a className="text-warmGray-100 font-extrabold text-lg my-4">
+                SimulScore
+              </a>
+            </Link>
           </div>
         </div>
       </main>

@@ -58,13 +58,13 @@ const Home: VFC<Props> = ({ homeData }) => {
 
       <main className="flex flex-col overflow-auto">
         <div className="w-screen pt-3 pb-5 bg-green-800">
-          <h1 className="text-pink-200 text-xl text-center w-min mx-auto tracking-wide">
+          <h1 className="text-warmGray-100 text-lg sm:text-xl text-center w-min mx-auto tracking-wide">
             Welcome to{" "}
-            <span className="font-extrabold text-5xl md:text-8xl mt-4">
+            <span className="font-extrabold text-5xl sm:text-7xl mt-4">
               SimulScore
             </span>
           </h1>
-          <p className="text-gray-50 text-sm text-center w-max mx-auto pt-8 pb-3 leading-10">
+          <p className="text-warmGray-100 text-xs sm:text-sm text-center w-max mx-auto pt-8 pb-3">
             サイマルスコアは
             <br />
             クラシック音楽のスコアリーディングを支援する
@@ -73,16 +73,16 @@ const Home: VFC<Props> = ({ homeData }) => {
           </p>
         </div>
 
-        <div className="px-8 py-10 bg-green-100">
-          <p className="text-2xl font-black text-center mb-8 text-gray-700">
+        <div className="px-4 py-10 bg-warmGray-100">
+          <p className="text-2xl font-black text-center mb-8 text-green-800">
             対応楽曲一覧
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-4 gap-y-8">
             {homeData.composer.map((composer) => {
               return (
-                <div key={composer.id} className="bg-yellow-100 rounded">
-                  <div className="bg-green-700 p-1 rounded-t">
-                    <p className="mx-auto text-center text-white font-bold text-xl">
+                <div key={composer.id} className="bg-white rounded">
+                  <div className="bg-green-800 p-1 rounded-t">
+                    <p className="mx-auto text-center text-white font-bold text-lg sm:text-xl">
                       {composer.name_jp ?? composer.name}
                     </p>
                   </div>
@@ -91,9 +91,11 @@ const Home: VFC<Props> = ({ homeData }) => {
                       return (
                         <li key={music.id}>
                           <Link href={`/view/${music.id}`}>
-                            <a className="text-left text-blue-700 hover:text-blue-500 hover:underline">
+                            <a className="text-sm sm:text-base text-left text-blue-700 hover:text-blue-500 hover:underline">
                               {music.title_jp ?? music.title}{" "}
-                              <span className="text-sm">{music.opus}</span>
+                              <span className="text-xs sm:text-sm">
+                                {music.opus}
+                              </span>
                             </a>
                           </Link>
                         </li>
@@ -104,7 +106,7 @@ const Home: VFC<Props> = ({ homeData }) => {
               );
             })}
           </div>
-          <p className="text-2xl font-black text-center mt-20 mb-8 text-gray-700">
+          <p className="text-2xl font-black text-center mt-20 mb-8 text-green-800">
             更新情報
           </p>
           <div className="max-w-max mx-auto">
@@ -122,8 +124,12 @@ const Home: VFC<Props> = ({ homeData }) => {
         </div>
       </main>
 
-      <footer className="text-center text-white bg-green-800 h-16 p-4">
-        <small>Osamu Saito 2021</small>
+      <footer className="text-center bg-green-800 p-4">
+        <small>
+          <span className="text-warmGray-100 font-light text-xs">
+            &copy; SimulScore 2021
+          </span>
+        </small>
       </footer>
     </div>
   );
