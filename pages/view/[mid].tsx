@@ -8,6 +8,7 @@ import React, {
   useMemo,
   useCallback,
   VFC,
+  MouseEventHandler,
 } from "react";
 import Youtube from "react-youtube";
 import { YouTubePlayer } from "youtube-player/dist/types";
@@ -53,53 +54,51 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
   const resizer = useRef<HTMLDivElement>(null);
   const scoreView = useRef<HTMLDivElement>(null);
 
-  const x = useRef<number>(0);
-  const videoViewWidth = useRef<number>(0);
+  const isResizing = useRef<boolean>(false);
 
-  useEffect(() => {
-    const mouseDownHandler = (e: MouseEvent) => {
+  const mouseDownHandler: MouseEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
       if (screen.current && videoView.current) {
+        isResizing.current = true;
+
+        const x = e.clientX;
+        const w = videoView.current.getBoundingClientRect().width;
+
+        const mouseMoveHandler = (e: MouseEvent) => {
+          if (screen.current && videoView.current) {
+            const dx = e.clientX - x;
+            const percent_leftWidth =
+              ((w + dx) * 100) / screen.current.getBoundingClientRect().width;
+
+            videoView.current.style.width = `${percent_leftWidth}%`;
+          }
+        };
+
+        const mouseUpHandler = () => {
+          if (screen.current && videoView.current) {
+            isResizing.current = false;
+
+            document.removeEventListener("mousemove", mouseMoveHandler);
+            document.removeEventListener("mouseup", mouseUpHandler);
+
+            screen.current.style.removeProperty("user-select");
+            videoView.current.style.removeProperty("pointer-events");
+
+            document.body.style.removeProperty("cursor");
+          }
+        };
+
         document.addEventListener("mousemove", mouseMoveHandler);
         document.addEventListener("mouseup", mouseUpHandler);
-
-        x.current = e.clientX;
-        videoViewWidth.current =
-          videoView.current.getBoundingClientRect().width;
 
         screen.current.style.userSelect = "none";
         videoView.current.style.pointerEvents = "none";
 
         document.body.style.cursor = "col-resize";
       }
-    };
-
-    const mouseMoveHandler = (e: MouseEvent) => {
-      if (screen.current && videoView.current) {
-        const dx = e.clientX - x.current;
-        const percent_leftWidth =
-          ((videoViewWidth.current + dx) * 100) /
-          screen.current.getBoundingClientRect().width;
-
-        videoView.current.style.width = `${percent_leftWidth}%`;
-      }
-    };
-
-    const mouseUpHandler = () => {
-      if (screen.current && videoView.current) {
-        document.removeEventListener("mousemove", mouseMoveHandler);
-        document.removeEventListener("mouseup", mouseUpHandler);
-
-        screen.current.style.removeProperty("user-select");
-        videoView.current.style.removeProperty("pointer-events");
-
-        document.body.style.removeProperty("cursor");
-      }
-    };
-
-    if (resizer.current) {
-      resizer.current.addEventListener("mousedown", mouseDownHandler);
-    }
-  }, []);
+    },
+    []
+  );
 
   //
   // Main Logic -----------------------------------------------------------
@@ -225,7 +224,8 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
         blocks.current[checkId] &&
         scoreContent.current &&
         scoreView.current &&
-        screen.current
+        screen.current &&
+        !isResizing.current
       ) {
         const rect = blocks.current[checkId].getBoundingClientRect();
         // Phone or Tablet
@@ -530,6 +530,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
 
           <div
             ref={resizer}
+            onMouseDown={mouseDownHandler}
             className="hidden lg:flex bg-warmGray-400 w-4 min-w-4 h-full cursor-col-resize shadow-md items-center justify-center"
           >
             <div className="w-0.5 h-8 bg-warmGray-600 rounded-full mr-px"></div>
