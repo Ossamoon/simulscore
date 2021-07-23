@@ -293,7 +293,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
 
         <div
           className={`h-screen w-screen inset-0 z-30 bg-warmGray-800 bg-opacity-30 ${
-            isOpenSideMenu ? "fixed" : "hidden"
+            isOpenSideMenu ? "fixed lg:hidden" : "hidden"
           }`}
         ></div>
 
@@ -381,6 +381,41 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
               <p className="whitespace-pre-wrap text-warmGray-700 ml-4 text-xs">
                 {thisScoreInfo?.copyright}
               </p>
+            </div>
+            <div className="w-full bg-warmGray-400 mt-px p-2">
+              関連書籍 - amazon.co.jp へのリンク
+            </div>
+            <h4 className="font-bold text-sm text-green-800 mt-4 ml-4">
+              この曲のスコア
+            </h4>
+            <div className="flex flex-nowrap overflow-y-auto pl-2 pr-4 pb-4">
+              {musicData.books
+                ?.filter((b) => b.language === "jp" && b.type === "score")
+                .map((b) => {
+                  return (
+                    <a
+                      key={b.isbn10}
+                      href={b.link}
+                      rel="noreferrer"
+                      target="_blank"
+                      className="w-min min-w-max p-2 ml-2 mt-4 rounded-lg bg-white cursor-pointer hover:shadow-xl"
+                    >
+                      <img
+                        src={`https://images-na.ssl-images-amazon.com/images/P/${b.isbn10}.09.LZZZZZZZ.jpg`}
+                        alt=""
+                        className="w-32 h-44"
+                      />
+                      <p className="w-32 font-bold text-sm pt-0.5 text-warmGray-800">
+                        {b.publisher}
+                      </p>
+                      <div className="w-32 text-xs pt-px text-warmGray-600">
+                        {b.release ? <p>発売日: {b.release}</p> : null}
+                        {b.size ? <p>大きさ: {b.size}</p> : null}
+                        {b.page ? <p>ページ数: {b.page}</p> : null}
+                      </div>
+                    </a>
+                  );
+                })}
             </div>
             <div className="flex lg:hidden w-full bg-green-800 justify-center">
               <Link href="/">
@@ -516,6 +551,43 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 <p className="whitespace-pre-wrap text-warmGray-700 ml-3 mr-1 text-sm">
                   {thisScoreInfo?.copyright}
                 </p>
+              </div>
+
+              <div className="h-px mt-12 mb-2 mx-4 bg-warmGray-300"></div>
+              <h2 className="text-xl text-green-800 font-bold mx-4 truncate">
+                関連書籍 - amazon.co.jp へのリンク
+              </h2>
+              <h4 className="font-bold text-base text-green-800 mt-4 ml-6">
+                この曲のスコア
+              </h4>
+              <div className="flex flex-wrap ml-4">
+                {musicData.books
+                  ?.filter((b) => b.language === "jp" && b.type === "score")
+                  .map((b) => {
+                    return (
+                      <a
+                        key={b.isbn10}
+                        href={b.link}
+                        rel="noreferrer"
+                        target="_blank"
+                        className="w-min min-w-max p-2 ml-2 mt-4 rounded-lg bg-white cursor-pointer hover:shadow-xl"
+                      >
+                        <img
+                          src={`https://images-na.ssl-images-amazon.com/images/P/${b.isbn10}.09.LZZZZZZZ.jpg`}
+                          alt=""
+                          className="w-40 h-56"
+                        />
+                        <p className="w-40 font-bold text-gray-800 pt-1">
+                          {b.publisher}
+                        </p>
+                        <div className="w-40 text-xs text-gray-600 pt-0.5">
+                          {b.release ? <p>発売日: {b.release}</p> : null}
+                          {b.size ? <p>大きさ: {b.size}</p> : null}
+                          {b.page ? <p>ページ数: {b.page}</p> : null}
+                        </div>
+                      </a>
+                    );
+                  })}
               </div>
             </div>
 

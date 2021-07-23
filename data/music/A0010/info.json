@@ -92,5 +92,35 @@
       "title_jp": "第四楽章 Adagio - Più andante - Allegro non troppo, ma con brio - Più allegro",
       "doubled_measures": [61]
     }
+  ],
+  "books": [
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4118970414",
+      "link": "https://amzn.to/2V79y2q",
+      "page": 198,
+      "size": "A5版",
+      "publisher": "全音楽譜出版社",
+      "release": "2016/6/15"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4276919355",
+      "link": "https://amzn.to/3rsUpoe",
+      "page": 176,
+      "size": "A5版",
+      "publisher": "音楽之友社",
+      "release": "2009/5/31"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "463602270X",
+      "link": "https://amzn.to/3y5YG3u",
+      "publisher": "ブライトコップ&ヘルテル社",
+      "release": "2009/11/1"
+    }
   ]
 }

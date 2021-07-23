@@ -77,5 +77,24 @@
       "title": "Finlandia",
       "title_jp": "フィンランディア"
     }
+  ],
+  "books": [
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4118925214",
+      "link": "https://amzn.to/3kQgjR4",
+      "page": 40,
+      "publisher": "全音楽譜出版社",
+      "release": "2009/12/15"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4636021673",
+      "link": "https://amzn.to/3kPjXea",
+      "publisher": "ブライトコップ&ヘルテル社",
+      "release": "2009/11/1"
+    }
   ]
 }

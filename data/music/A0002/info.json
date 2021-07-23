@@ -102,5 +102,15 @@
       "title": "3rd mov. Allegretto",
       "title_jp": "第三楽章 Allegretto"
     }
+  ],
+  "books": [
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4636021371",
+      "link": "https://amzn.to/3ryUt66",
+      "publisher": "ブライトコップ&ヘルテル社",
+      "release": "2009/11/1"
+    }
   ]
 }

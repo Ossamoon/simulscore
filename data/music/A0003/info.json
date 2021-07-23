@@ -92,5 +92,37 @@
       "title": "4th mov. Allegro con brio",
       "title_jp": "第四楽章 Allegro con brio"
     }
+  ],
+  "books": [
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4118970074",
+      "link": "https://amzn.to/3iF8US3",
+      "page": 208,
+      "size": "A5版",
+      "publisher": "全音楽譜出版社",
+      "release": "2015/8/15"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4860601394",
+      "link": "https://amzn.to/3eORu41",
+      "page": 192,
+      "size": "A5版",
+      "publisher": "日本楽譜出版社",
+      "release": "2016/12/19"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4276921139",
+      "link": "https://amzn.to/2UxQTwZ",
+      "page": 178,
+      "size": "A5版",
+      "publisher": "音楽之友社",
+      "release": "2010/10/31"
+    }
   ]
 }

@@ -46,6 +46,18 @@ export type MovementInfo = {
   }[];
 };
 
+export type BookInfo = {
+  language: "jp" | "en";
+  type: "score" | "reference";
+  isbn10: string;
+  link: string;
+  page?: number;
+  size?: string;
+  publisher: string;
+  release?: string;
+  detail?: string;
+};
+
 export type MusicData = {
   musicId: string;
   type: string;
@@ -62,6 +74,7 @@ export type MusicData = {
     description: string;
   }[];
   movements?: MovementInfo[];
+  books?: BookInfo[];
 };
 
 export const getMusicData = async (
