@@ -53,5 +53,35 @@
       "title": "Academic Festival Overture",
       "title_jp": "大学祝典序曲"
     }
+  ],
+  "books": [
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4118911213",
+      "link": "https://amzn.to/3rvxpVx",
+      "page": 72,
+      "size": "A5版",
+      "publisher": "全音楽譜出版社",
+      "release": "2018/3/15"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4636032926",
+      "link": "https://amzn.to/3BuNOhT",
+      "publisher": "ブライトコップ&ヘルテル社",
+      "release": "2013/9/11"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4118940140",
+      "link": "https://amzn.to/2UKxfh4",
+      "page": 64,
+      "size": "四六版",
+      "publisher": "全音楽譜出版社",
+      "release": "2008/5/26"
+    }
   ]
 }

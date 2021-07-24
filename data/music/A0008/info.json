@@ -91,5 +91,45 @@
       "title": "4th mov. Allegro con fuoco",
       "title_jp": "第四楽章 Allegro con fuoco"
     }
+  ],
+  "books": [
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "411897083X",
+      "link": "https://amzn.to/3rHHwXL",
+      "page": 184,
+      "size": "A5版",
+      "publisher": "全音楽譜出版社",
+      "release": "2016/10/14"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4276482143",
+      "link": "https://amzn.to/3iKix1T",
+      "page": 168,
+      "size": "A5版",
+      "publisher": "音楽之友社",
+      "release": "2004/4/5"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4860600363",
+      "link": "https://amzn.to/3kKTAG9",
+      "page": 159,
+      "size": "B6版",
+      "publisher": "日本楽譜出版社",
+      "release": "1998/12/10"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4636550188",
+      "link": "https://amzn.to/3x0h7VY",
+      "publisher": "ヤマハミュージックエンタテイメントホールディングス",
+      "release": "1999/4/1"
+    }
   ]
 }

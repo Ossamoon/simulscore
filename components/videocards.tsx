@@ -36,7 +36,7 @@ export const VideoCards: VFC<Props> = ({
             <a className="w-min min-w-max p-2 ml-2 mt-4 rounded-lg bg-white cursor-pointer hover:shadow-xl">
               <img
                 src={`http://img.youtube.com/vi/${v.videoId}/mqdefault.jpg`}
-                alt="thumbnail"
+                alt=""
                 className={isFlexWrap ? "w-60" : "w-52"}
               ></img>
               {v.players.map((p) => {

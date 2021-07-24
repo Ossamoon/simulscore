@@ -88,5 +88,37 @@
       "title": "Tchaikovsky",
       "title_jp": "幻想序曲『ロメオとジュリエット』"
     }
+  ],
+  "books": [
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4118916150",
+      "link": "https://amzn.to/3zt3gZP",
+      "page": 104,
+      "size": "A5版",
+      "publisher": "全音楽譜出版社",
+      "release": "2018/8/15"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4860601122",
+      "link": "https://amzn.to/2UyktT7",
+      "page": 78,
+      "size": "A5版",
+      "publisher": "日本楽譜出版社",
+      "release": "2017/3/29"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4118941732",
+      "link": "https://amzn.to/3eRxb62",
+      "page": 78,
+      "size": "四六版",
+      "publisher": "全音楽譜出版社",
+      "release": "2008/12/8"
+    }
   ]
 }

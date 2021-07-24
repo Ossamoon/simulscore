@@ -67,5 +67,25 @@
       "title": "2nd mov. Andante con moto",
       "title_jp": "第二楽章 Andante con moto"
     }
+  ],
+  "books": [
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4118971410",
+      "link": "https://amzn.to/3rsXQv2",
+      "page": 96,
+      "size": "A5版",
+      "publisher": "全音楽譜出版社",
+      "release": "2017/2/15"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4636021770",
+      "link": "https://amzn.to/3eKMWf6",
+      "publisher": "ベーレンライター社",
+      "release": "2009/11/1"
+    }
   ]
 }

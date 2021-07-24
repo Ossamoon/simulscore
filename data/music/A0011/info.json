@@ -91,5 +91,45 @@
       "title": "4th mov. Finale: Andante maestoso – Allegro vivace",
       "title_jp": "第四楽章 Finale: Andante maestoso – Allegro vivace"
     }
+  ],
+  "books": [
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4118971224",
+      "link": "https://amzn.to/3iDwNcr",
+      "page": 248,
+      "size": "A5版",
+      "publisher": "全音楽譜出版社",
+      "release": "2017/1/13"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4860601297",
+      "link": "https://amzn.to/3kJSjix",
+      "page": 232,
+      "size": "A5版",
+      "publisher": "日本楽譜出版社",
+      "release": "2010/9/15"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4276921120",
+      "link": "https://amzn.to/3iEMzDZ",
+      "page": 256,
+      "size": "A5版",
+      "publisher": "音楽之友社",
+      "release": "2010/7/6"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4636021975",
+      "link": "https://amzn.to/2TtO8Mr",
+      "publisher": "ブライトコップ&ヘルテル社",
+      "release": "2009/11/1"
+    }
   ]
 }

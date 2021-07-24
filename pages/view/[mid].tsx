@@ -8,6 +8,7 @@ import React, {
   useMemo,
   useCallback,
   VFC,
+  MouseEventHandler,
 } from "react";
 import Youtube from "react-youtube";
 import { YouTubePlayer } from "youtube-player/dist/types";
@@ -16,6 +17,7 @@ import { Sheet } from "components/sheet";
 import { Toggle } from "components/toggle";
 import { MovList } from "components/movlist";
 import { VideoCards } from "components/videocards";
+import { BookCards } from "components/bookcards";
 
 import { getMusicData, MusicData } from "library/getMusicData";
 import { getVideoData, VideoData } from "library/getVideoData";
@@ -53,53 +55,51 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
   const resizer = useRef<HTMLDivElement>(null);
   const scoreView = useRef<HTMLDivElement>(null);
 
-  const x = useRef<number>(0);
-  const videoViewWidth = useRef<number>(0);
+  const isResizing = useRef<boolean>(false);
 
-  useEffect(() => {
-    const mouseDownHandler = (e: MouseEvent) => {
+  const mouseDownHandler: MouseEventHandler<HTMLDivElement> = useCallback(
+    (e) => {
       if (screen.current && videoView.current) {
+        isResizing.current = true;
+
+        const x = e.clientX;
+        const w = videoView.current.getBoundingClientRect().width;
+
+        const mouseMoveHandler = (e: MouseEvent) => {
+          if (screen.current && videoView.current) {
+            const dx = e.clientX - x;
+            const percent_leftWidth =
+              ((w + dx) * 100) / screen.current.getBoundingClientRect().width;
+
+            videoView.current.style.width = `${percent_leftWidth}%`;
+          }
+        };
+
+        const mouseUpHandler = () => {
+          if (screen.current && videoView.current) {
+            isResizing.current = false;
+
+            document.removeEventListener("mousemove", mouseMoveHandler);
+            document.removeEventListener("mouseup", mouseUpHandler);
+
+            screen.current.style.removeProperty("user-select");
+            videoView.current.style.removeProperty("pointer-events");
+
+            document.body.style.removeProperty("cursor");
+          }
+        };
+
         document.addEventListener("mousemove", mouseMoveHandler);
         document.addEventListener("mouseup", mouseUpHandler);
-
-        x.current = e.clientX;
-        videoViewWidth.current =
-          videoView.current.getBoundingClientRect().width;
 
         screen.current.style.userSelect = "none";
         videoView.current.style.pointerEvents = "none";
 
         document.body.style.cursor = "col-resize";
       }
-    };
-
-    const mouseMoveHandler = (e: MouseEvent) => {
-      if (screen.current && videoView.current) {
-        const dx = e.clientX - x.current;
-        const percent_leftWidth =
-          ((videoViewWidth.current + dx) * 100) /
-          screen.current.getBoundingClientRect().width;
-
-        videoView.current.style.width = `${percent_leftWidth}%`;
-      }
-    };
-
-    const mouseUpHandler = () => {
-      if (screen.current && videoView.current) {
-        document.removeEventListener("mousemove", mouseMoveHandler);
-        document.removeEventListener("mouseup", mouseUpHandler);
-
-        screen.current.style.removeProperty("user-select");
-        videoView.current.style.removeProperty("pointer-events");
-
-        document.body.style.removeProperty("cursor");
-      }
-    };
-
-    if (resizer.current) {
-      resizer.current.addEventListener("mousedown", mouseDownHandler);
-    }
-  }, []);
+    },
+    []
+  );
 
   //
   // Main Logic -----------------------------------------------------------
@@ -225,7 +225,8 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
         blocks.current[checkId] &&
         scoreContent.current &&
         scoreView.current &&
-        screen.current
+        screen.current &&
+        !isResizing.current
       ) {
         const rect = blocks.current[checkId].getBoundingClientRect();
         // Phone or Tablet
@@ -293,7 +294,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
 
         <div
           className={`h-screen w-screen inset-0 z-30 bg-warmGray-800 bg-opacity-30 ${
-            isOpenSideMenu ? "fixed" : "hidden"
+            isOpenSideMenu ? "fixed lg:hidden" : "hidden"
           }`}
         ></div>
 
@@ -318,8 +319,8 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 自動スクロール
               </p>
             </div>
-            <div className="w-full bg-warmGray-400 p-2">動画の情報</div>
 
+            <div className="w-full bg-warmGray-400 p-2">動画の情報</div>
             <div className="px-4 pb-4">
               {thisVideoInfo?.players.map((p) => {
                 return (
@@ -334,6 +335,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 );
               })}
             </div>
+
             <div className="w-full bg-warmGray-400 p-2">他の動画</div>
             <div className="overflow-y-auto">
               <div className="pb-4">
@@ -345,6 +347,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 />
               </div>
             </div>
+
             <div className="w-full bg-warmGray-400 mt-px p-2">楽譜の情報</div>
             <div className="px-4 py-4">
               <a
@@ -382,6 +385,22 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 {thisScoreInfo?.copyright}
               </p>
             </div>
+
+            <div className="w-full bg-warmGray-400 mt-px p-2">
+              関連書籍 - amazon.co.jp へのリンク
+            </div>
+            <h4 className="font-bold text-sm text-green-800 mt-4 ml-4">
+              この曲のスコア
+            </h4>
+            <div className="pb-4">
+              <BookCards
+                bookInfos={musicData.books?.filter(
+                  (b) => b.language === "jp" && b.type === "score"
+                )}
+                isFlexWrap={false}
+              />
+            </div>
+
             <div className="flex lg:hidden w-full bg-green-800 justify-center">
               <Link href="/">
                 <a className="text-warmGray-100 font-extrabold text-lg my-4">
@@ -517,6 +536,22 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                   {thisScoreInfo?.copyright}
                 </p>
               </div>
+
+              <div className="h-px mt-12 mb-2 mx-4 bg-warmGray-300"></div>
+              <h2 className="text-xl text-green-800 font-bold mx-4 truncate">
+                関連書籍 - amazon.co.jp へのリンク
+              </h2>
+              <h4 className="font-bold text-base text-green-800 mt-4 ml-6">
+                この曲のスコア
+              </h4>
+              <div className="ml-4">
+                <BookCards
+                  bookInfos={musicData.books?.filter(
+                    (b) => b.language === "jp" && b.type === "score"
+                  )}
+                  isFlexWrap={true}
+                />
+              </div>
             </div>
 
             <div className="hidden lg:flex w-full bg-green-800 justify-center mt-14">
@@ -530,6 +565,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
 
           <div
             ref={resizer}
+            onMouseDown={mouseDownHandler}
             className="hidden lg:flex bg-warmGray-400 w-4 min-w-4 h-full cursor-col-resize shadow-md items-center justify-center"
           >
             <div className="w-0.5 h-8 bg-warmGray-600 rounded-full mr-px"></div>

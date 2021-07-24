@@ -147,5 +147,17 @@
       "title": "3rd mov. Allegro assai in A major",
       "title_jp": "第三楽章 Allegro assai イ長調"
     }
+  ],
+  "books": [
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4118904438",
+      "link": "https://amzn.to/3x0pZLh",
+      "page": 118,
+      "size": "B6版",
+      "publisher": "全音楽譜出版社",
+      "release": "2008/9/8"
+    }
   ]
 }

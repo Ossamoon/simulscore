@@ -91,5 +91,15 @@
       "title": "3rd mov. Presto in F major",
       "title_jp": "第三楽章 Presto ヘ長調"
     }
+  ],
+  "books": [
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4636023498",
+      "link": "https://amzn.to/3i5JL3X",
+      "publisher": "ベーレンライター社",
+      "release": "2009/11/1"
+    }
   ]
 }
