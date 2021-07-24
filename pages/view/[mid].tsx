@@ -17,6 +17,7 @@ import { Sheet } from "components/sheet";
 import { Toggle } from "components/toggle";
 import { MovList } from "components/movlist";
 import { VideoCards } from "components/videocards";
+import { BookCards } from "components/bookcards";
 
 import { getMusicData, MusicData } from "library/getMusicData";
 import { getVideoData, VideoData } from "library/getVideoData";
@@ -318,8 +319,8 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 自動スクロール
               </p>
             </div>
-            <div className="w-full bg-warmGray-400 p-2">動画の情報</div>
 
+            <div className="w-full bg-warmGray-400 p-2">動画の情報</div>
             <div className="px-4 pb-4">
               {thisVideoInfo?.players.map((p) => {
                 return (
@@ -334,6 +335,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 );
               })}
             </div>
+
             <div className="w-full bg-warmGray-400 p-2">他の動画</div>
             <div className="overflow-y-auto">
               <div className="pb-4">
@@ -345,6 +347,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 />
               </div>
             </div>
+
             <div className="w-full bg-warmGray-400 mt-px p-2">楽譜の情報</div>
             <div className="px-4 py-4">
               <a
@@ -382,41 +385,22 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 {thisScoreInfo?.copyright}
               </p>
             </div>
+
             <div className="w-full bg-warmGray-400 mt-px p-2">
               関連書籍 - amazon.co.jp へのリンク
             </div>
             <h4 className="font-bold text-sm text-green-800 mt-4 ml-4">
               この曲のスコア
             </h4>
-            <div className="flex flex-nowrap overflow-y-auto pl-2 pr-4 pb-4">
-              {musicData.books
-                ?.filter((b) => b.language === "jp" && b.type === "score")
-                .map((b) => {
-                  return (
-                    <a
-                      key={b.isbn10}
-                      href={b.link}
-                      rel="noreferrer"
-                      target="_blank"
-                      className="w-min min-w-max p-2 ml-2 mt-4 rounded-lg bg-white cursor-pointer hover:shadow-xl"
-                    >
-                      <img
-                        src={`https://images-na.ssl-images-amazon.com/images/P/${b.isbn10}.09.LZZZZZZZ.jpg`}
-                        alt=""
-                        className="w-32 h-44"
-                      />
-                      <p className="w-32 font-bold text-sm pt-0.5 text-warmGray-800">
-                        {b.publisher}
-                      </p>
-                      <div className="w-32 text-xs pt-px text-warmGray-600">
-                        {b.release ? <p>発売日: {b.release}</p> : null}
-                        {b.size ? <p>大きさ: {b.size}</p> : null}
-                        {b.page ? <p>ページ数: {b.page}</p> : null}
-                      </div>
-                    </a>
-                  );
-                })}
+            <div className="pb-4">
+              <BookCards
+                bookInfos={musicData.books?.filter(
+                  (b) => b.language === "jp" && b.type === "score"
+                )}
+                isFlexWrap={false}
+              />
             </div>
+
             <div className="flex lg:hidden w-full bg-green-800 justify-center">
               <Link href="/">
                 <a className="text-warmGray-100 font-extrabold text-lg my-4">
@@ -560,34 +544,13 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
               <h4 className="font-bold text-base text-green-800 mt-4 ml-6">
                 この曲のスコア
               </h4>
-              <div className="flex flex-wrap ml-4">
-                {musicData.books
-                  ?.filter((b) => b.language === "jp" && b.type === "score")
-                  .map((b) => {
-                    return (
-                      <a
-                        key={b.isbn10}
-                        href={b.link}
-                        rel="noreferrer"
-                        target="_blank"
-                        className="w-min min-w-max p-2 ml-2 mt-4 rounded-lg bg-white cursor-pointer hover:shadow-xl"
-                      >
-                        <img
-                          src={`https://images-na.ssl-images-amazon.com/images/P/${b.isbn10}.09.LZZZZZZZ.jpg`}
-                          alt=""
-                          className="w-40 h-56"
-                        />
-                        <p className="w-40 font-bold text-gray-800 pt-1">
-                          {b.publisher}
-                        </p>
-                        <div className="w-40 text-xs text-gray-600 pt-0.5">
-                          {b.release ? <p>発売日: {b.release}</p> : null}
-                          {b.size ? <p>大きさ: {b.size}</p> : null}
-                          {b.page ? <p>ページ数: {b.page}</p> : null}
-                        </div>
-                      </a>
-                    );
-                  })}
+              <div className="ml-4">
+                <BookCards
+                  bookInfos={musicData.books?.filter(
+                    (b) => b.language === "jp" && b.type === "score"
+                  )}
+                  isFlexWrap={true}
+                />
               </div>
             </div>
 
