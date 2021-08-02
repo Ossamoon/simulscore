@@ -25,6 +25,24 @@
           "name_jp": "ロイヤル・コンセルトヘボウ管弦楽団"
         }
       ]
+    },
+    {
+      "videoId": "JUk0WZVCnk4",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Vasily Petrenko",
+          "name_jp": "ヴァシリー・ペトレンコ"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "Oslo-Filharmonien",
+          "name_jp": "オスロ・フィルハーモニー管弦楽団"
+        }
+      ]
     }
   ],
   "scores": [
