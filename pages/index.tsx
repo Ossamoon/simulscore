@@ -57,14 +57,12 @@ const Home: VFC<Props> = ({ homeData }) => {
       </Head>
 
       <main className="flex flex-col overflow-auto">
-        <div className="w-screen pt-3 pb-5 bg-green-800">
-          <h1 className="text-warmGray-100 text-lg sm:text-xl text-center w-min mx-auto tracking-wide">
-            Welcome to{" "}
-            <span className="font-extrabold text-5xl sm:text-7xl mt-4">
-              SimulScore
-            </span>
+        <div className="w-screen pt-3 pb-8 bg-green-800 text-warmGray-100 text-center tracking-wide">
+          <div className="text-lg sm:text-xl mx-auto">Welcome to</div>
+          <h1 className="font-extrabold text-5xl sm:text-7xl mx-auto">
+            SimulScore
           </h1>
-          <p className="text-warmGray-100 text-xs sm:text-sm text-center w-max mx-auto pt-8 pb-3">
+          <p className="text-xs sm:text-sm w-max mx-auto pt-8">
             サイマルスコアは
             <br />
             クラシック音楽のスコアリーディングを支援する
