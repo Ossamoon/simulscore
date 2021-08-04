@@ -1,0 +1,25 @@
+firebase configuration
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyCf9BYHCJ5BXxkHec_plaYj_zGTyO9c-J8",
+    authDomain: "simulscore.firebaseapp.com",
+    projectId: "simulscore",
+    storageBucket: "simulscore.appspot.com",
+    messagingSenderId: "551401529342",
+    appId: "1:551401529342:web:51e0338df3a2a904c7eaaf",
+    measurementId: "G-R65C39VF4T"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
