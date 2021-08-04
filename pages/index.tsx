@@ -1,16 +1,20 @@
 import { GetStaticProps } from "next";
-import { VFC, useEffect } from "react";
+import { VFC, useEffect, useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
 
 import { getHomeData, HomeData } from "library/getHomeData";
+import { AuthContext } from "components/auth";
 
 type Props = {
   homeData: HomeData;
 };
 
 const Home: VFC<Props> = ({ homeData }) => {
-  // Create <script> element and append child
+  // Auth
+  const { currentUser } = useContext(AuthContext);
+
+  // Twitter Script Element
   useEffect(() => {
     const s = document.createElement("script");
     s.setAttribute("src", "https://platform.twitter.com/widgets.js");
@@ -18,8 +22,9 @@ const Home: VFC<Props> = ({ homeData }) => {
     s.setAttribute("charset", "utf-8");
     document.head.appendChild(s);
   }, []);
+
   return (
-    <div>
+    <>
       <Head>
         <title>SimulScore</title>
         <meta
@@ -56,22 +61,39 @@ const Home: VFC<Props> = ({ homeData }) => {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
 
-      <main className="flex flex-col overflow-auto">
-        <div className="w-screen pt-3 pb-8 bg-green-800 text-warmGray-100 text-center tracking-wide">
-          <div className="text-lg sm:text-xl mx-auto">Welcome to</div>
-          <h1 className="font-extrabold text-5xl sm:text-7xl mx-auto">
-            SimulScore
-          </h1>
-          <p className="text-xs sm:text-sm w-max mx-auto pt-8">
-            サイマルスコアは
-            <br />
-            クラシック音楽のスコアリーディングを支援する
-            <br />
-            動画・楽譜閲覧サイトです
-          </p>
-        </div>
+      <div className="w-screen flex flex-col overflow-auto">
+        <header className="w-full text-warmGray-100 bg-green-800">
+          <div className="flex">
+            <div className="flex-grow h-16"></div>
+            <div className="flex-none w-16 h-16 p-2">
+              {currentUser?.photoURL ? (
+                <img
+                  className="h-12 w-12 rounded-full"
+                  src={currentUser?.photoURL}
+                  alt=""
+                />
+              ) : (
+                <div className="h-12 w-12 rounded-full bg-blue-500"></div>
+              )}
+            </div>
+          </div>
 
-        <div className="px-4 py-10 bg-warmGray-100">
+          <div className="pt-3 pb-8 text-center tracking-wide">
+            <div className="text-lg sm:text-xl mx-auto">Welcome to</div>
+            <h1 className="font-extrabold text-5xl sm:text-7xl mx-auto">
+              SimulScore
+            </h1>
+            <p className="text-xs sm:text-sm w-max mx-auto pt-8">
+              SimulScoreは
+              <br />
+              クラシック音楽のスコアリーディングを支援する
+              <br />
+              動画・楽譜閲覧サイトです
+            </p>
+          </div>
+        </header>
+
+        <main className="px-4 py-10 bg-warmGray-100">
           <p className="text-2xl font-black text-center mb-8 text-green-800">
             対応楽曲一覧
           </p>
@@ -119,17 +141,17 @@ const Home: VFC<Props> = ({ homeData }) => {
               Tweets by simulscore
             </a>
           </div>
-        </div>
-      </main>
+        </main>
 
-      <footer className="text-center bg-green-800 p-4">
-        <small>
-          <span className="text-warmGray-100 font-light text-xs">
-            &copy; SimulScore 2021
-          </span>
-        </small>
-      </footer>
-    </div>
+        <footer className="text-center bg-green-800 p-4">
+          <small>
+            <span className="text-warmGray-100 font-light text-xs">
+              &copy; SimulScore 2021
+            </span>
+          </small>
+        </footer>
+      </div>
+    </>
   );
 };
 

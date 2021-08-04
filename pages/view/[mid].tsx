@@ -284,7 +284,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
         <title>{musicData.title_jp ?? musicData.title} - SimulScore</title>
       </Head>
 
-      <main>
+      <div>
         <div
           className={`fixed lg:hidden z-50 rounded-full cursor-pointer w-10 sm:w-14 h-10 sm:h-14 bottom-5 sm:bottom-10 right-4 sm:right-8 ${
             isOpenSideMenu ? "bg-green-700" : "bg-green-800"
@@ -603,7 +603,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
             </Link>
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 };
