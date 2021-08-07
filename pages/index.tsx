@@ -69,29 +69,29 @@ const Home: VFC<Props> = ({ homeData }) => {
         {isOpenUserCard ? (
           <>
             <div
-              className="absolute inset-0 w-full h-full z-30"
+              className="fixed inset-0 w-full h-full z-30"
               onClick={() => setIsOpenUserCard(false)}
             ></div>
-            <div className="absolute top-16 right-4 z-40">
+            <div className="absolute top-14 right-4 z-40 mt-px">
               <UserCard currentUser={currentUser} />
             </div>
           </>
         ) : null}
 
         <header className="w-full text-warmGray-100 bg-green-800">
-          <div className="flex bg-green-900">
+          <div className="flex">
             <div className="flex-grow"></div>
-            <div className="flex-none pt-4 pb-2 pr-8">
+            <div className="flex-none pt-4 pr-8">
               {currentUser?.photoURL ? (
                 <img
-                  className="h-10 w-10 rounded-full cursor-pointer"
+                  className="h-8 w8 rounded-full cursor-pointer"
                   src={currentUser?.photoURL}
                   alt=""
                   onClick={() => setIsOpenUserCard((b) => !b)}
                 />
               ) : (
                 <Link href="/signIn">
-                  <a className="w-max rounded-lg font-bold text-warmGray-100 hover:text-warmGray-300 text-center border-2 border-warmGray-100 hover:border-warmGray-300 px-2 py-1 cursor-pointer">
+                  <a className="w-max rounded-md font-bold text-warmGray-100 hover:text-warmGray-300 text-center border border-warmGray-100 hover:border-warmGray-300 px-4 py-2 cursor-pointer">
                     ログイン
                   </a>
                 </Link>
@@ -99,18 +99,15 @@ const Home: VFC<Props> = ({ homeData }) => {
             </div>
           </div>
 
-          <div className="pt-3 pb-8 text-center tracking-wide">
-            <div className="text-lg sm:text-xl mx-auto">Welcome to</div>
-            <h1 className="font-extrabold text-5xl sm:text-7xl mx-auto">
-              SimulScore
-            </h1>
-            <p className="text-xs sm:text-sm w-max mx-auto pt-8">
-              SimulScoreは
-              <br />
+          <div className="pb-8 text-center tracking-wide">
+            <p className="text-xs sm:text-sm w-max mx-auto">
               クラシック音楽のスコアリーディングを支援する
               <br />
-              動画・楽譜閲覧サイトです
+              動画・楽譜閲覧サイト
             </p>
+            <h1 className="font-extrabold text-5xl sm:text-7xl pt-4 mx-auto">
+              SimulScore
+            </h1>
           </div>
         </header>
 

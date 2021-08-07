@@ -7,7 +7,8 @@ type Props = {
 
 export const UserCard: VFC<Props> = ({ currentUser }) => {
   return (
-    <div className="w-72 bg-white shadow-2xl rounded-lg pt-4 pb-2">
+    <div className="relative w-72 bg-white shadow-xl rounded-lg pt-4 pb-2">
+      <div className="absolute w-2 h-2 -top-1 right-7 transform rotate-45 bg-white" />
       <div>
         {currentUser?.photoURL ? (
           <img
@@ -18,7 +19,7 @@ export const UserCard: VFC<Props> = ({ currentUser }) => {
         ) : (
           <div className="h-20 w-20 rounded-full bg-blue-400 mx-auto"></div>
         )}
-        <div className="font-bold text-warmGray-900 text-center truncate">
+        <div className="font-bold text-warmGray-900 text-center truncate mt-2">
           {currentUser?.displayName}
         </div>
         <div className="text-warmGray-600 text-center text-sm truncate">
@@ -26,7 +27,7 @@ export const UserCard: VFC<Props> = ({ currentUser }) => {
         </div>
       </div>
 
-      <div className="w-ful h-px bg-warmGray-100 mt-4"></div>
+      <div className="w-full h-px bg-warmGray-200 mt-4 mx-auto"></div>
 
       <div
         className="hover:bg-warmGray-100 cursor-pointer text-warmGray-600 text-sm px-4 py-2"
