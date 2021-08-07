@@ -1,10 +1,11 @@
 import { GetStaticProps } from "next";
-import { VFC, useEffect, useContext } from "react";
+import { VFC, useState, useEffect, useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
 
 import { getHomeData, HomeData } from "library/getHomeData";
 import { AuthContext } from "components/auth";
+import { UserCard } from "components/usercard";
 
 type Props = {
   homeData: HomeData;
@@ -22,6 +23,9 @@ const Home: VFC<Props> = ({ homeData }) => {
     s.setAttribute("charset", "utf-8");
     document.head.appendChild(s);
   }, []);
+
+  // View State
+  const [isOpenUserCard, setIsOpenUserCard] = useState<boolean>(false);
 
   return (
     <>
@@ -62,18 +66,35 @@ const Home: VFC<Props> = ({ homeData }) => {
       </Head>
 
       <div className="w-screen flex flex-col overflow-auto">
+        {isOpenUserCard ? (
+          <>
+            <div
+              className="absolute inset-0 w-full h-full z-30"
+              onClick={() => setIsOpenUserCard(false)}
+            ></div>
+            <div className="absolute top-16 right-4 z-40">
+              <UserCard currentUser={currentUser} />
+            </div>
+          </>
+        ) : null}
+
         <header className="w-full text-warmGray-100 bg-green-800">
-          <div className="flex">
-            <div className="flex-grow h-16"></div>
-            <div className="flex-none w-16 h-16 p-2">
+          <div className="flex bg-green-900">
+            <div className="flex-grow"></div>
+            <div className="flex-none pt-4 pb-2 pr-8">
               {currentUser?.photoURL ? (
                 <img
-                  className="h-12 w-12 rounded-full"
+                  className="h-10 w-10 rounded-full cursor-pointer"
                   src={currentUser?.photoURL}
                   alt=""
+                  onClick={() => setIsOpenUserCard((b) => !b)}
                 />
               ) : (
-                <div className="h-12 w-12 rounded-full bg-blue-500"></div>
+                <Link href="/signIn">
+                  <a className="w-max rounded-lg font-bold text-warmGray-100 hover:text-warmGray-300 text-center border-2 border-warmGray-100 hover:border-warmGray-300 px-2 py-1 cursor-pointer">
+                    ログイン
+                  </a>
+                </Link>
               )}
             </div>
           </div>
