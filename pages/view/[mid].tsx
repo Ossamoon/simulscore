@@ -444,7 +444,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                   </Link>
                 </div>
                 <div className="flex-grow"></div>
-                <div className="flex-none pt-px">
+                <div className="flex-none pr-1">
                   <Avatar currentUser={currentUser} />
                 </div>
               </div>
