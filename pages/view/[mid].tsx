@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, {
   useState,
   useEffect,
+  useContext,
   useRef,
   useMemo,
   useCallback,
@@ -18,6 +19,8 @@ import { Toggle } from "components/toggle";
 import { MovList } from "components/movlist";
 import { VideoCards } from "components/videocards";
 import { BookCards } from "components/bookcards";
+import { Avatar } from "components/avatar";
+import { AuthContext } from "components/auth";
 
 import { getMusicData, MusicData } from "library/getMusicData";
 import { getVideoData, VideoData } from "library/getVideoData";
@@ -30,6 +33,9 @@ type Props = {
 };
 
 const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
+  // Auth
+  const { currentUser } = useContext(AuthContext);
+
   //
   // Data Source ---------------------------------------------------------
   //
@@ -416,11 +422,39 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
             ref={videoView}
             className="flex flex-col bg-warmGray-100 w-full lg:w-1/2 lg:min-w-80 lg:overflow-y-auto lg;overflow-x-hidden"
           >
-            <div className="w-full bg-green-800 px-4 py-3">
-              <p className="text-md lg:text-lg font-normal truncate text-warmGray-100 tracking-wide">
+            <header className="w-full bg-green-800">
+              <div className="flex px-4 py-2 items-center">
+                <div className="flex-none">
+                  <Link href="/">
+                    <a className="flex">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24px"
+                        viewBox="0 0 24 24"
+                        width="24px"
+                        fill="#FFFFFF"
+                      >
+                        <path d="M0 0h24v24H0V0z" fill="none" />
+                        <path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z" />
+                      </svg>
+                      <span className="font-bold text-white pl-1 pt-px">
+                        Home
+                      </span>
+                    </a>
+                  </Link>
+                </div>
+                <div className="flex-grow"></div>
+                <div className="flex-none pt-px">
+                  <Avatar currentUser={currentUser} />
+                </div>
+              </div>
+            </header>
+
+            <div className="w-full bg-warmGray-100 px-4 pt-3">
+              <p className="text-md lg:text-lg font-bold truncate text-warmGray-500 tracking-wide">
                 {musicData.composer_jp ?? musicData.composer}
               </p>
-              <h1 className="text-2xl lg:text-3xl text-warmGray-100 font-bold pt-0.5 lg:pt-1 tracking-wide">
+              <h1 className="text-2xl lg:text-3xl text-green-800 font-bold pt-0.5 lg:pt-1 tracking-wide">
                 {musicData.title_jp ?? musicData.title}{" "}
                 <span className="text-lg font-normal tracking-wide">
                   {musicData.opus}
@@ -428,7 +462,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
               </h1>
             </div>
 
-            <div className="w-full h-8 px-4 py-1 flex flex-row-reverse items-center">
+            <div className="w-full h-8 px-4 pb-1 flex flex-row-reverse items-center">
               <p
                 className={`text-xs text-right font-bold w-5 mx-1 ${
                   isAutoScroll ? "text-blue-600" : "text-warmGray-500"

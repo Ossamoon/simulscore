@@ -1,11 +1,11 @@
 import { GetStaticProps } from "next";
-import { VFC, useState, useEffect, useContext } from "react";
+import { VFC, useEffect, useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
 
 import { getHomeData, HomeData } from "library/getHomeData";
 import { AuthContext } from "components/auth";
-import { UserCard } from "components/usercard";
+import { Avatar } from "components/avatar";
 
 type Props = {
   homeData: HomeData;
@@ -23,9 +23,6 @@ const Home: VFC<Props> = ({ homeData }) => {
     s.setAttribute("charset", "utf-8");
     document.head.appendChild(s);
   }, []);
-
-  // View State
-  const [isOpenUserCard, setIsOpenUserCard] = useState<boolean>(false);
 
   return (
     <>
@@ -66,36 +63,11 @@ const Home: VFC<Props> = ({ homeData }) => {
       </Head>
 
       <div className="w-screen flex flex-col overflow-auto">
-        {isOpenUserCard ? (
-          <>
-            <div
-              className="fixed inset-0 w-full h-full z-30"
-              onClick={() => setIsOpenUserCard(false)}
-            ></div>
-            <div className="absolute top-14 right-4 z-40 mt-px">
-              <UserCard currentUser={currentUser} />
-            </div>
-          </>
-        ) : null}
-
         <header className="w-full text-warmGray-100 bg-green-800">
-          <div className="flex">
+          <div className="flex pt-4">
             <div className="flex-grow"></div>
-            <div className="flex-none pt-4 pr-8">
-              {currentUser?.photoURL ? (
-                <img
-                  className="h-8 w8 rounded-full cursor-pointer"
-                  src={currentUser?.photoURL}
-                  alt=""
-                  onClick={() => setIsOpenUserCard((b) => !b)}
-                />
-              ) : (
-                <Link href="/signIn">
-                  <a className="w-max rounded-md font-bold text-warmGray-100 hover:text-warmGray-300 text-center border border-warmGray-100 hover:border-warmGray-300 px-4 py-2 cursor-pointer">
-                    ログイン
-                  </a>
-                </Link>
-              )}
+            <div className="flex-none pr-8">
+              <Avatar currentUser={currentUser} />
             </div>
           </div>
 
