@@ -25,6 +25,42 @@
           "name_jp": "ロイヤル・コンセルトヘボウ管弦楽団"
         }
       ]
+    },
+    {
+      "videoId": "JUk0WZVCnk4",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Vasily Petrenko",
+          "name_jp": "ヴァシリー・ペトレンコ"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "Oslo-Filharmonien",
+          "name_jp": "オスロ・フィルハーモニー管弦楽団"
+        }
+      ]
+    },
+    {
+      "videoId": "a_B02BZp-5Y",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Manfred Honeck",
+          "name_jp": "マンフレート・ホーネック"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "hr-Sinfonieorchester - Frankfurt Radio Symphony",
+          "name_jp": "hr交響楽団（フランクフルト放送交響楽団）"
+        }
+      ]
     }
   ],
   "scores": [
