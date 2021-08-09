@@ -2036,7 +2036,7 @@ export const Block: VFC<Props> = ({
           : width === 499
           ? "w-499/500"
           : null
-      } h-full z-30 cursor-pointer ${
+      } h-full cursor-pointer ${
         selected
           ? "bg-red-600 bg-opacity-25 hover:bg-red-500 hover:bg-opacity-25"
           : "hover:bg-red-400 hover:bg-opacity-20"
