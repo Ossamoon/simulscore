@@ -422,7 +422,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
             ref={videoView}
             className="flex flex-col bg-warmGray-100 w-full lg:w-1/2 lg:min-w-80 lg:overflow-y-auto lg;overflow-x-hidden"
           >
-            <header className="w-full bg-green-800">
+            <header className="w-full bg-green-800 z-20">
               <div className="flex px-4 py-2 items-center">
                 <div className="flex-none">
                   <Link href="/">
@@ -437,9 +437,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                         <path d="M0 0h24v24H0V0z" fill="none" />
                         <path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z" />
                       </svg>
-                      <span className="font-bold text-white pl-1 pt-px">
-                        Home
-                      </span>
+                      <span className="font-bold text-white pl-1">Home</span>
                     </a>
                   </Link>
                 </div>
@@ -450,19 +448,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
               </div>
             </header>
 
-            <div className="w-full bg-warmGray-100 px-4 pt-3">
-              <p className="text-md lg:text-lg font-bold truncate text-warmGray-500 tracking-wide">
-                {musicData.composer_jp ?? musicData.composer}
-              </p>
-              <h1 className="text-2xl lg:text-3xl text-green-800 font-bold pt-0.5 lg:pt-1 tracking-wide">
-                {musicData.title_jp ?? musicData.title}{" "}
-                <span className="text-lg font-normal tracking-wide">
-                  {musicData.opus}
-                </span>
-              </h1>
-            </div>
-
-            <div className="w-full h-8 px-4 pb-1 flex flex-row-reverse items-center">
+            <div className="w-full px-2 pt-2 flex flex-row-reverse items-center">
               <p
                 className={`text-xs text-right font-bold w-5 mx-1 ${
                   isAutoScroll ? "text-blue-600" : "text-warmGray-500"
@@ -471,9 +457,19 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 {isAutoScroll ? "ON" : "OFF"}
               </p>
               <Toggle selected={isAutoScroll} onClick={onToggleClick}></Toggle>
-              <p className="text-warmGray-500 text-xs font-semibold mx-1 truncate tracking-wide">
+              <p className="text-warmGray-500 text-xs font-bold mx-1 truncate tracking-wide">
                 自動スクロール
               </p>
+            </div>
+
+            <div className="w-full bg-warmGray-100 px-4 pb-4">
+              <p className="text-md lg:text-lg font-bold truncate text-warmGray-500 tracking-wide">
+                {musicData.composer_jp ?? musicData.composer}
+              </p>
+              <h1 className="text-2xl lg:text-3xl text-green-800 font-bold pt-0.5 lg:pt-1 tracking-wide">
+                {musicData.title_jp ?? musicData.title}{" "}
+                <span className="text-xl tracking-wide">{musicData.opus}</span>
+              </h1>
             </div>
 
             <div className="px-4 pb-4 lg:pb-0">
