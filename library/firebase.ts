@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 require("firebase/auth");
+require("firebase/firestore");
 
 const config = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
