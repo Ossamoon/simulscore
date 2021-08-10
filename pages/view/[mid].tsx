@@ -353,7 +353,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
             </div>
 
             {/* 曲のタイトル・作曲家 */}
-            <div className="w-full bg-warmGray-100 px-4 pb-4">
+            <div className="w-full bg-warmGray-100 mx-4 mb-4">
               <p className="text-lg font-bold truncate text-warmGray-500 tracking-wide">
                 {musicData.composer_jp ?? musicData.composer}
               </p>
@@ -386,7 +386,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
             <div className="px-4 pb-12">
               {thisVideoInfo?.players.map((p) => {
                 return (
-                  <div key={p.part + "_" + p.name} className="px-4 pt-4">
+                  <div key={p.part + "_" + p.name} className="pl-2 pt-4">
                     <p className="text-lg font-medium text-warmGray-700 truncate">
                       {p.name_jp ?? p.name}
                     </p>
@@ -424,8 +424,8 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 </div>
 
                 {/* 他の動画リスト */}
-                <div className="h-px mb-2 mx-4 bg-warmGray-300"></div>
-                <h2 className="text-xl text-green-800 font-bold mx-4 truncate">
+                <div className="h-px mb-2 mx-2 bg-warmGray-300"></div>
+                <h2 className="text-xl text-green-800 font-bold mx-2 truncate">
                   他の動画
                 </h2>
                 <div className="px-2 pt-4">
@@ -437,11 +437,11 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 </div>
 
                 {/* 楽譜の情報 */}
-                <div className="h-px mt-12 mb-2 mx-4 bg-warmGray-300"></div>
-                <h2 className="text-xl text-green-800 font-bold mx-4 truncate">
+                <div className="h-px mt-12 mb-2 mx-2 bg-warmGray-300"></div>
+                <h2 className="text-xl text-green-800 font-bold mx-2 truncate">
                   楽譜の情報
                 </h2>
-                <div className="w-full px-4 pt-4">
+                <div className="w-full pl-4 pt-4">
                   <img
                     src={`https://storage.googleapis.com/treatedscorebucket/images/${scoreId}/1.png`}
                     alt="sheet"
@@ -485,14 +485,14 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 </div>
 
                 {/* 関連書籍 */}
-                <div className="h-px mt-12 mb-2 mx-4 bg-warmGray-300"></div>
-                <h2 className="text-xl text-green-800 font-bold mx-4 truncate">
+                <div className="h-px mt-12 mb-2 mx-2 bg-warmGray-300"></div>
+                <h2 className="text-xl text-green-800 font-bold mx-2 truncate">
                   関連書籍 - amazon.co.jp へのリンク
                 </h2>
-                <h4 className="font-bold text-base text-green-800 mt-4 mx-4">
+                <h4 className="font-bold text-base text-green-800 mt-4 ml-4">
                   この曲のスコア
                 </h4>
-                <div className="mx-2">
+                <div className="mx-4 mt-2">
                   <BookCards
                     bookInfos={musicData.books?.filter(
                       (b) => b.language === "jp" && b.type === "score"
