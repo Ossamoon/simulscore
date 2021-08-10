@@ -1,0 +1,120 @@
+{/* サイドメニュー */}
+        <div
+          className={`fixed lg:hidden inset-0 z-40 h-full transition transform ease-out duration-300 ${
+            isOpenSideMenu ? "" : "-translate-x-full"
+          }`}
+        >
+          <div
+            className={`w-5/6 h-full bg-warmGray-100 overflow-y-auto overflow-x-hidden shadow-2xl`}
+          >
+            {/* スクロールボタン(サイド) */}
+            <div className="w-full h-8 py-1 flex flex-row-reverse items-center">
+              <p
+                className={`text-xs text-right font-bold w-5 mx-1 ${
+                  isAutoScroll ? "text-blue-600" : "text-warmGray-500"
+                }`}
+              >
+                {isAutoScroll ? "ON" : "OFF"}
+              </p>
+              <Toggle selected={isAutoScroll} onClick={onToggleClick}></Toggle>
+              <p className="text-warmGray-500 text-xs font-semibold mx-1 truncate tracking-wide">
+                自動スクロール
+              </p>
+            </div>
+
+            {/* 動画の情報(サイド) */}
+            <div className="w-full bg-warmGray-400 p-2">動画の情報</div>
+            <div className="px-4 pb-4">
+              {thisVideoInfo?.players.map((p) => {
+                return (
+                  <div key={p.part + "_" + p.name} className="pt-4">
+                    <p className="text-base font-medium text-warmGray-700 truncate">
+                      {p.name_jp ?? p.name}
+                    </p>
+                    <p className="text-xs font-light italic text-warmGray-500 truncate">
+                      {p.part_jp ?? p.part}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* 他の動画リスト(サイド) */}
+            <div className="w-full bg-warmGray-400 p-2">他の動画</div>
+            <div className="overflow-y-auto">
+              <div className="pb-4">
+                <VideoCards
+                  musicId={musicData.musicId}
+                  scoreId={scoreId}
+                  isFlexWrap={false}
+                  otherVideoInfos={otherVideoInfos}
+                />
+              </div>
+            </div>
+
+            {/* 楽譜の情報(サイド) */}
+            <div className="w-full bg-warmGray-400 mt-px p-2">楽譜の情報</div>
+            <div className="px-4 py-4">
+              {/* 楽譜ダウンロードリンク(サイド) */}
+              <a
+                href={`https://imslp.org/wiki/Special:ReverseLookup/${scoreId}`}
+                rel="noreferrer"
+                target="_blank"
+                className="w-max min-w-max"
+              >
+                <div className="p-3 bg-blue-600 hover:bg-blue-500 text-white rounded-md inline-flex justify-center hover:shadow-lg">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 0 24 24"
+                    width="24px"
+                    fill="#FFFFFF"
+                  >
+                    <path d="M0 0h24v24H0V0z" fill="none" />
+                    <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" />
+                  </svg>
+                  <span className="font-bold text-sm ml-2 mt-0.5">
+                    {thisScoreInfo?.source === "imslp"
+                      ? "ダウンロード (IMSLP)"
+                      : "ダウンロード"}
+                  </span>
+                </div>
+              </a>
+              <h4 className="font-bold text-sm text-green-800 mt-4">
+                出版社情報
+              </h4>
+              <p className="whitespace-pre-wrap text-warmGray-700 ml-4 text-xs">
+                {thisScoreInfo?.publisher}
+              </p>
+              <h4 className="font-bold text-sm text-green-800 mt-4">著作権</h4>
+              <p className="whitespace-pre-wrap text-warmGray-700 ml-4 text-xs">
+                {thisScoreInfo?.copyright}
+              </p>
+            </div>
+
+            {/* 関連書籍(サイド) */}
+            <div className="w-full bg-warmGray-400 mt-px p-2">
+              関連書籍 - amazon.co.jp へのリンク
+            </div>
+            <h4 className="font-bold text-sm text-green-800 mt-4 ml-4">
+              この曲のスコア
+            </h4>
+            <div className="pb-4">
+              <BookCards
+                bookInfos={musicData.books?.filter(
+                  (b) => b.language === "jp" && b.type === "score"
+                )}
+                isFlexWrap={false}
+              />
+            </div>
+
+            {/* フッター(サイド) */}
+            <div className="flex lg:hidden w-full bg-green-800 justify-center">
+              <Link href="/">
+                <a className="text-warmGray-100 font-extrabold text-lg my-4">
+                  SimulScore
+                </a>
+              </Link>
+            </div>
+          </div>
+        </div>

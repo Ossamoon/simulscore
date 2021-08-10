@@ -5,22 +5,16 @@ import { VideoInfo } from "library/getMusicData";
 type Props = {
   musicId: string;
   scoreId: string;
-  isFlexWrap: boolean;
   otherVideoInfos: VideoInfo[];
 };
 
 export const VideoCards: VFC<Props> = ({
   musicId,
   scoreId,
-  isFlexWrap,
   otherVideoInfos,
 }) => {
   return (
-    <div
-      className={`w-full flex items-start ${
-        isFlexWrap ? "flex-wrap" : "flex-nowrap overflow-y-auto pl-2 pr-4"
-      }`}
-    >
+    <div className="w-full flex space-x-2 bg-white rounded-md border-2 border-white items-start flex-nowrap overflow-y-auto px-2 pt-2 pb-4">
       {otherVideoInfos.map((v) => {
         return (
           <Link
@@ -33,18 +27,15 @@ export const VideoCards: VFC<Props> = ({
               },
             }}
           >
-            <a className="w-min min-w-max p-2 ml-2 mt-4 rounded-lg bg-white cursor-pointer hover:shadow-xl">
+            <a className="w-min min-w-max rounded-lg p-2 bg-warmGray-100 cursor-pointer hover:shadow-md">
               <img
                 src={`http://img.youtube.com/vi/${v.videoId}/mqdefault.jpg`}
                 alt=""
-                className={isFlexWrap ? "w-60" : "w-52"}
+                className="w-52"
               ></img>
               {v.players.map((p) => {
                 return (
-                  <div
-                    key={p.part + "_" + p.name}
-                    className={isFlexWrap ? "w-60 pt-3" : "w-52 pt-3"}
-                  >
+                  <div key={p.part + "_" + p.name} className="w-52 pt-3">
                     <p className="px-1 text-sm text-warmGray-700 font-light">
                       {p.name_jp ?? p.name}
                     </p>
