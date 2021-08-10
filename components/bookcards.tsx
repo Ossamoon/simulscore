@@ -7,7 +7,7 @@ type Props = {
 
 export const BookCards: VFC<Props> = ({ bookInfos }) => {
   return (
-    <div className="w-full flex space-x-2 bg-white rounded-md border-2 border-white items-start flex-nowrap overflow-y-auto px-2 pt-2 pb-4">
+    <div className="w-full flex space-x-2 bg-warmGray-200 rounded-md shadow-inner flex-nowrap overflow-y-auto px-2 pt-2 pb-4">
       {bookInfos?.map((b) => {
         return (
           <a
@@ -15,7 +15,7 @@ export const BookCards: VFC<Props> = ({ bookInfos }) => {
             href={b.link}
             rel="noreferrer"
             target="_blank"
-            className="w-min min-w-max p-2 rounded-lg bg-warmGray-100 cursor-pointer hover:shadow-md"
+            className="w-min min-w-max p-2 rounded-lg bg-white cursor-pointer hover:shadow-md"
           >
             <img
               src={`https://images-na.ssl-images-amazon.com/images/P/${b.isbn10}.09.LZZZZZZZ.jpg`}

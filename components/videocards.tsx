@@ -14,7 +14,7 @@ export const VideoCards: VFC<Props> = ({
   otherVideoInfos,
 }) => {
   return (
-    <div className="w-full flex space-x-2 bg-white rounded-md border-2 border-white items-start flex-nowrap overflow-y-auto px-2 pt-2 pb-4">
+    <div className="w-full flex space-x-2 bg-warmGray-200 rounded-md shadow-inner flex-nowrap overflow-y-auto px-2 pt-2 pb-4">
       {otherVideoInfos.map((v) => {
         return (
           <Link
@@ -27,7 +27,7 @@ export const VideoCards: VFC<Props> = ({
               },
             }}
           >
-            <a className="w-min min-w-max rounded-lg p-2 bg-warmGray-100 cursor-pointer hover:shadow-md">
+            <a className="w-min min-w-max rounded-lg p-2 bg-white cursor-pointer hover:shadow-md">
               <img
                 src={`http://img.youtube.com/vi/${v.videoId}/mqdefault.jpg`}
                 alt=""

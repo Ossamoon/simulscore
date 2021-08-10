@@ -291,7 +291,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
       </Head>
 
       <div>
-        {/* プライマリボタン(スマホのみ描画) */}
+        {/* プライマリボタン(スマホ版のみ) */}
         <div
           className={`fixed lg:hidden z-50 rounded-full cursor-pointer w-16 h-16 bottom-12 right-4 border-4 bg-green-800 ${
             isOpenSideMenu ? "border-red-500" : "border-blue-500"
@@ -308,13 +308,11 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
             ref={videoView}
             className="flex flex-col bg-warmGray-100 w-full lg:w-1/2 lg:min-w-80 lg:overflow-y-auto lg:overflow-x-hidden"
           >
-            {/* -----------------------------------------------------------------
-            共通要素
-            -------------------------------------------------------------------*/}
+            {/* ヘッダー */}
             <header className="w-full bg-green-800 z-20">
               <div className="flex px-4 py-2 items-center">
                 <div className="flex-none">
-                  {/* ホーム画面へのリンク */}
+                  {/* ホームへのリンク */}
                   <Link href="/">
                     <a className="flex">
                       <svg
@@ -356,17 +354,17 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
 
             {/* 曲のタイトル・作曲家 */}
             <div className="w-full bg-warmGray-100 px-4 pb-4">
-              <p className="text-md lg:text-lg font-bold truncate text-warmGray-500 tracking-wide">
+              <p className="text-lg font-bold truncate text-warmGray-500 tracking-wide">
                 {musicData.composer_jp ?? musicData.composer}
               </p>
-              <h1 className="text-2xl lg:text-3xl text-green-800 font-bold pt-0.5 lg:pt-1 tracking-wide">
+              <h1 className="text-3xl text-green-800 font-bold pt-1 tracking-wide">
                 {musicData.title_jp ?? musicData.title}{" "}
                 <span className="text-xl tracking-wide">{musicData.opus}</span>
               </h1>
             </div>
 
             {/* YouTube埋め込み */}
-            <div className="px-4 pb-4 lg:pb-0">
+            <div className="px-4">
               <div className="relative w-full h-0 overflow-hidden pb-9/16">
                 <Youtube
                   videoId={videoId}
@@ -400,16 +398,14 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
               })}
             </div>
 
-            {/* ------------------------------------------------------------------
-            サイドバー要素
-            ------------------------------------------------------------------- */}
+            {/* サイドバー(スマホ版) */}
             <div
               className={`fixed lg:static top-full lg:inset-0 z-40 lg:z-0 h-screen lg:h-auto w-screen lg:w-full bg-warmGray-100 transition lg:transition-none transform ease-out duration-300 overflow-y-auto lg:overflow-visible ${
                 isOpenSideMenu ? "-translate-y-full lg:translate-y-0" : ""
               }`}
             >
               <div className="mx-4">
-                {/* スクロールボタン(メイン) */}
+                {/* スクロールボタン(サイド) */}
                 <div className="lg:hidden w-full py-2 flex flex-row-reverse items-center">
                   <p
                     className={`text-xs text-right font-bold w-5 mx-1 ${
@@ -516,7 +512,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
             </div>
           </div>
 
-          {/* 分割比率調整バー */}
+          {/* リサイズバー(PC版のみ) */}
           <div
             ref={resizer}
             onMouseDown={mouseDownHandler}
@@ -526,14 +522,11 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
             <div className="w-0.5 h-8 bg-warmGray-600 rounded-full ml-px"></div>
           </div>
 
-          {/* -----------------------------------------------------------------
-            スマホ版・PC版共通要素
-            -------------------------------------------------------------------*/}
+          {/* スコア */}
           <div
             ref={scoreView}
             className="bg-warmGray-100 z-0 lg:flex-1 flex justify-center select-none lg:min-w-80"
           >
-            {/* スコア */}
             <div
               ref={scoreContent}
               className="w-full h-full lg:overflow-y-auto"
@@ -552,15 +545,6 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 );
               })}
             </div>
-          </div>
-
-          {/* フッター(スマホ版) */}
-          <div className="flex lg:hidden w-full bg-green-800 justify-center">
-            <Link href="/">
-              <a className="text-warmGray-100 font-extrabold text-lg my-4">
-                SimulScore
-              </a>
-            </Link>
           </div>
         </div>
       </div>
