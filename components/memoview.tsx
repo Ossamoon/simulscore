@@ -1,0 +1,65 @@
+import firebase from "library/firebase";
+import { VFC, useState } from "react";
+
+import { getNoteData, NoteData } from "library/getNoteData";
+
+type Props = {
+  currentUser: firebase.User | null | undefined;
+};
+
+export const MemoView: VFC<Props> = ({ currentUser }) => {
+  const notes: NoteData[] = getNoteData("A0011");
+  const [currentNoteId, setCurrentNoteId] = useState<string | null>(null);
+
+  return (
+    <div className="">
+      {/* メモ帳一覧 */}
+      <div className="w-full h-16 space-y-2 bg-warmGray-200 rounded-md shadow-inner flex-nowrap overflow-y-auto pl-2 pr-4 py-2">
+        {notes
+          ?.map((n) => {
+            return { id: n.id, title: n.title };
+          })
+          .map((n) => {
+            return (
+              <div
+                key={n.id}
+                className={`w-full p-2 rounded-lg text-sm text-warmGray-600 text-left truncate cursor-pointer ${
+                  n.id === currentNoteId
+                    ? "bg-blue-200 font-bold border-2 border-blue-500"
+                    : "bg-white hover:shadow-md"
+                }`}
+                onClick={() => {
+                  setCurrentNoteId(n.id);
+                }}
+              >
+                {n.title}
+              </div>
+            );
+          })}
+      </div>
+
+      {/* メモ内容 */}
+      <div className="w-full font-bold text-warmGray-600 rounded-t-md border-t border-l border-r border-warmGray-300 p-2 mt-4">
+        {notes?.find((n) => n.id === currentNoteId)?.title ?? "title"}
+      </div>
+      <div
+        className={`w-full space-y-2 bg-warmGray-200 rounded-b-md shadow-inner flex-nowrap overflow-y-auto pl-2 pr-4 py-2 ${
+          currentNoteId ? "h-96" : "h-0"
+        }`}
+      >
+        {notes
+          ?.find((n) => n.id === currentNoteId)
+          ?.memos.map((m) => {
+            return (
+              <div
+                key={m.id}
+                className="w-full p-2 rounded-lg bg-white text-sm text-warmGray-600 truncate cursor-pointer hover:shadow-md"
+              >
+                {m.text}
+              </div>
+            );
+          })}
+      </div>
+    </div>
+  );
+};

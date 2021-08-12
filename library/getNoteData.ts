@@ -1,12 +1,14 @@
 export type MemoData = { id: number; text: string };
 
 export type NoteData = {
+  id: string;
   title: string;
   musicId: string;
   memos: MemoData[];
 };
 
 const sampleData: NoteData = {
+  id: "id1",
   title: "初めてのメモ",
   musicId: "A0011",
   memos: [
@@ -16,7 +18,8 @@ const sampleData: NoteData = {
   ],
 };
 const sampleData2: NoteData = {
-  title: "2番目ののメモ",
+  id: "id2",
+  title: "2番目のメモ",
   musicId: "A0011",
   memos: [
     { id: 21, text: "第1楽章の練習記号A" },

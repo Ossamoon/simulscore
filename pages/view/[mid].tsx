@@ -21,6 +21,7 @@ import { VideoCards } from "components/videocards";
 import { BookCards } from "components/bookcards";
 import { Avatar } from "components/avatar";
 import { AuthContext } from "components/auth";
+import { MemoView } from "components/memoview";
 
 import { getMusicData, MusicData } from "library/getMusicData";
 import { getVideoData, VideoData } from "library/getVideoData";
@@ -398,14 +399,14 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
               })}
             </div>
 
-            {/* サイドバー(スマホ版) */}
+            {/* 折り畳み画面(スマホ版) */}
             <div
               className={`fixed lg:static top-full lg:inset-0 z-40 lg:z-0 h-screen lg:h-auto w-screen lg:w-full bg-warmGray-100 transition lg:transition-none transform ease-out duration-300 overflow-y-auto lg:overflow-visible ${
                 isOpenSideMenu ? "-translate-y-full lg:translate-y-0" : ""
               }`}
             >
               <div className="mx-4">
-                {/* スクロールボタン(サイド) */}
+                {/* スクロールボタン(スマホ版のみ) */}
                 <div className="lg:hidden w-full py-2 flex flex-row-reverse items-center">
                   <p
                     className={`text-xs text-right font-bold w-5 mx-1 ${
@@ -423,8 +424,17 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                   </p>
                 </div>
 
-                {/* 他の動画リスト */}
+                {/* メモ */}
                 <div className="h-px mb-2 mx-2 bg-warmGray-300"></div>
+                <h2 className="text-xl text-green-800 font-bold mx-2 truncate">
+                  メモ
+                </h2>
+                <div className="px-2 pt-4">
+                  <MemoView currentUser={currentUser} />
+                </div>
+
+                {/* 他の動画リスト */}
+                <div className="h-px mt-12 mb-2 mx-2 bg-warmGray-300"></div>
                 <h2 className="text-xl text-green-800 font-bold mx-2 truncate">
                   他の動画
                 </h2>
