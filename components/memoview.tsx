@@ -12,7 +12,7 @@ export const MemoView: VFC<Props> = ({ currentUser }) => {
   const [currentNoteId, setCurrentNoteId] = useState<string | null>(null);
 
   return (
-    <div className="">
+    <>
       {/* メモ帳一覧 */}
       <div className="w-full h-16 space-y-2 bg-warmGray-200 rounded-md shadow-inner flex-nowrap overflow-y-auto pl-2 pr-4 py-2">
         {notes
@@ -23,13 +23,13 @@ export const MemoView: VFC<Props> = ({ currentUser }) => {
             return (
               <div
                 key={n.id}
-                className={`w-full p-2 rounded-lg text-sm text-warmGray-600 text-left truncate cursor-pointer ${
+                className={`w-full p-2 rounded-lg text-sm text-warmGray-600 text-left truncate cursor-pointer hover:shadow-md ${
                   n.id === currentNoteId
-                    ? "bg-blue-200 font-bold border-2 border-blue-500"
-                    : "bg-white hover:shadow-md"
+                    ? "bg-blue-200 font-bold border border-blue-400"
+                    : "bg-white"
                 }`}
                 onClick={() => {
-                  setCurrentNoteId(n.id);
+                  setCurrentNoteId(n.id === currentNoteId ? null : n.id);
                 }}
               >
                 {n.title}
@@ -39,8 +39,8 @@ export const MemoView: VFC<Props> = ({ currentUser }) => {
       </div>
 
       {/* メモ内容 */}
-      <div className="w-full font-bold text-warmGray-600 rounded-t-md border-t border-l border-r border-warmGray-300 p-2 mt-4">
-        {notes?.find((n) => n.id === currentNoteId)?.title ?? "title"}
+      <div className="w-full font-bold text-warmGray-600 rounded-t-md shadow pl-4 py-2 mt-4">
+        {notes?.find((n) => n.id === currentNoteId)?.title}
       </div>
       <div
         className={`w-full space-y-2 bg-warmGray-200 rounded-b-md shadow-inner flex-nowrap overflow-y-auto pl-2 pr-4 py-2 ${
@@ -60,6 +60,6 @@ export const MemoView: VFC<Props> = ({ currentUser }) => {
             );
           })}
       </div>
-    </div>
+    </>
   );
 };

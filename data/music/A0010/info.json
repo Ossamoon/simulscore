@@ -25,6 +25,24 @@
           "name_jp": "hr交響楽団（フランクフルト放送交響楽団）"
         }
       ]
+    },
+    {
+      "videoId": "BRdEgS_OHAk",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Paavo Järvi",
+          "name_jp": "パーヴォ・ヤルヴィ"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "Orchestre de Paris",
+          "name_jp": "パリ管弦楽団"
+        }
+      ]
     }
   ],
   "scores": [
