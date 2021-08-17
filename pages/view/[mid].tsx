@@ -114,7 +114,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
 
   const blocks = useRef<HTMLDivElement[]>(Array(9800));
 
-  const allBlocksMeasures: number[] = useMemo(() => {
+  const allBlocksMovment: number[] = useMemo(() => {
     const getCurrentMovementFromBlockId = (id: number): number => {
       if (id >= 9800 && id < 9900) {
         return id - 9800;
@@ -123,14 +123,6 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
         for (const mov of musicData.movements) {
           if (id >= mov.reservation.from && id < mov.reservation.to) {
             return mov.movement;
-          }
-
-          if (mov.cadenza) {
-            for (const cad of mov.cadenza) {
-              if (id >= cad.reservation.from && id < cad.reservation.to) {
-                return mov.movement;
-              }
-            }
           }
         }
       }
@@ -141,10 +133,10 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
   }, [musicData.movements]);
 
   const [currentBlockId, setCurrentBlockId] = useState<number>(9999);
-  const [currentMeasure, setCurrentMeasure] = useState<number>(-1);
+  const [currentMovment, setCurrentMovment] = useState<number | null>(null);
   useEffect(() => {
-    setCurrentMeasure(allBlocksMeasures[currentBlockId]);
-  }, [currentBlockId, allBlocksMeasures]);
+    setCurrentMovment(allBlocksMovment[currentBlockId]);
+  }, [currentBlockId, allBlocksMovment]);
 
   //
   // Timer -----------------------------------------------------------------
@@ -376,7 +368,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
               </div>
               {musicData.movements ? (
                 <MovList
-                  currentMeasure={currentMeasure}
+                  currentMovment={currentMovment}
                   movementsData={musicData.movements}
                   onClick={onDivClick}
                 />
