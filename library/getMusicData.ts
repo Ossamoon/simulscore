@@ -75,7 +75,7 @@ export type MusicData = {
     num: number;
     description: string;
   }[];
-  movements?: MovementInfo[];
+  movements: MovementInfo[];
   books?: BookInfo[];
 };
 

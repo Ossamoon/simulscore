@@ -114,16 +114,71 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
 
   const blocks = useRef<HTMLDivElement[]>(Array(9800));
 
+  const [isFirstEndingOmitted, setIsFirstEndingOmitted] = useState<boolean>(
+    scoreData.isFirstEndingOmitted
+  );
+
+  const allBlocksMeasureNotOmittingFirstEnding: string[] = useMemo(() => {
+    const res = [...Array(10000)].fill("");
+    for (const mov of musicData.movements) {
+      let id = mov.firstBlockId;
+      let measureCount = id % 10;
+      while (id <= mov.lastBlockId) {
+        if (mov.devidedFirstBlockId.includes(id)) {
+          res[id] = measureCount.toString() + "a";
+          id += 1;
+        } else if (mov.devidedFirstBlockId.includes(id - 1)) {
+          res[id] = measureCount.toString() + "b";
+          measureCount += 1;
+          id += 1;
+        } else {
+          res[id] = measureCount.toString();
+          measureCount += 1;
+          id += 1;
+        }
+      }
+    }
+    return res;
+  }, [musicData.movements]);
+
+  const allBlocksMeasureOmittingFirstEnding: string[] = useMemo(() => {
+    const res = [...Array(10000)].fill("");
+    for (const mov of musicData.movements) {
+      let id = mov.firstBlockId;
+      let measureCount = id % 10;
+      let tempCount = measureCount;
+      while (id <= mov.lastBlockId) {
+        if (mov.firstEndingBlockId.includes(id)) {
+          res[id] = tempCount.toString() + "'";
+          tempCount += 1;
+          id += 1;
+        } else if (mov.devidedFirstBlockId.includes(id)) {
+          res[id] = measureCount.toString() + "a";
+          id += 1;
+        } else if (mov.devidedFirstBlockId.includes(id - 1)) {
+          res[id] = measureCount.toString() + "b";
+          measureCount += 1;
+          tempCount = measureCount;
+          id += 1;
+        } else {
+          res[id] = measureCount.toString();
+          measureCount += 1;
+          tempCount = measureCount;
+          id += 1;
+        }
+      }
+    }
+    return res;
+  }, [musicData.movements]);
+
   const allBlocksMovment: number[] = useMemo(() => {
     const getCurrentMovementFromBlockId = (id: number): number => {
       if (id >= 9800 && id < 9900) {
         return id - 9800;
       }
-      if (musicData.movements) {
-        for (const mov of musicData.movements) {
-          if (id >= mov.reservation.from && id < mov.reservation.to) {
-            return mov.movement;
-          }
+      for (const mov of musicData.movements) {
+        if (id >= mov.reservation.from && id < mov.reservation.to) {
+          return mov.movement;
         }
       }
       return -1;
@@ -133,9 +188,20 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
   }, [musicData.movements]);
 
   const [currentBlockId, setCurrentBlockId] = useState<number>(9999);
-  const [currentMovment, setCurrentMovment] = useState<number | null>(null);
-  useEffect(() => {
-    setCurrentMovment(allBlocksMovment[currentBlockId]);
+
+  const currentMeasure = useMemo(() => {
+    return isFirstEndingOmitted
+      ? allBlocksMeasureOmittingFirstEnding[currentBlockId]
+      : allBlocksMeasureNotOmittingFirstEnding[currentBlockId];
+  }, [
+    currentBlockId,
+    allBlocksMeasureOmittingFirstEnding,
+    allBlocksMeasureNotOmittingFirstEnding,
+    isFirstEndingOmitted,
+  ]);
+
+  const currentMovement = useMemo(() => {
+    return allBlocksMovment[currentBlockId];
   }, [currentBlockId, allBlocksMovment]);
 
   //
@@ -203,10 +269,6 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
   const scoreContent = useRef<HTMLDivElement>(null);
   const [isAutoScroll, setIsAutoScroll] = useState<boolean>(true);
 
-  const onToggleClick = useCallback(() => {
-    setIsAutoScroll((b) => !b);
-  }, []);
-
   const scrollScoreView = useCallback(
     (blockId: number): void => {
       if (blockId === 9999) return;
@@ -216,7 +278,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
       if (blockId >= 9800 && blockId < 9900 && musicData.movements) {
         const tempId = musicData.movements.find(
           (mov) => mov.movement === blockId - 9800
-        )?.first_blockId;
+        )?.firstBlockId;
         if (tempId) checkId = tempId;
       }
 
@@ -339,7 +401,10 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
               >
                 {isAutoScroll ? "ON" : "OFF"}
               </p>
-              <Toggle selected={isAutoScroll} onClick={onToggleClick}></Toggle>
+              <Toggle
+                selected={isAutoScroll}
+                onClick={() => setIsAutoScroll((b) => !b)}
+              ></Toggle>
               <p className="text-warmGray-500 text-xs font-bold mx-1 truncate tracking-wide">
                 自動スクロール
               </p>
@@ -368,11 +433,28 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
               </div>
               {musicData.movements ? (
                 <MovList
-                  currentMovment={currentMovment}
+                  currentMovement={currentMovement}
                   movementsData={musicData.movements}
                   onClick={onDivClick}
                 />
               ) : null}
+              <div>{currentMeasure}</div>
+              <div className="w-full px-2 pt-2 flex flex-row-reverse items-center">
+                <p
+                  className={`text-xs text-right font-bold w-5 mx-1 ${
+                    isFirstEndingOmitted ? "text-blue-600" : "text-warmGray-500"
+                  }`}
+                >
+                  {isFirstEndingOmitted ? "ON" : "OFF"}
+                </p>
+                <Toggle
+                  selected={isFirstEndingOmitted}
+                  onClick={() => setIsFirstEndingOmitted((b) => !b)}
+                ></Toggle>
+                <p className="text-warmGray-500 text-xs font-bold mx-1 truncate tracking-wide">
+                  1括弧を省略
+                </p>
+              </div>
             </div>
 
             {/* 動画の情報 */}
@@ -409,7 +491,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                   </p>
                   <Toggle
                     selected={isAutoScroll}
-                    onClick={onToggleClick}
+                    onClick={() => setIsAutoScroll((b) => !b)}
                   ></Toggle>
                   <p className="text-warmGray-500 text-xs font-bold mx-1 truncate tracking-wide">
                     自動スクロール
