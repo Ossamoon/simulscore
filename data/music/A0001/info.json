@@ -96,8 +96,6 @@
     { "num": 1000, "description": "2nd movement" },
     { "num": 2000, "description": "3rd movement" },
     { "num": 3000, "description": "free" },
-    { "num": 8000, "description": "Most major cadenza of the 1st movement" },
-    { "num": 8100, "description": "free" },
     { "num": 9800, "description": "Start times" },
     { "num": 9900, "description": "End times" },
     { "num": 9999, "description": "null" }
@@ -116,10 +114,10 @@
       "cadenza": [
         {
           "reservation": {
-            "from": "8000",
-            "to": "8100"
+            "from": "400",
+            "to": "500"
           },
-          "first_blockId": 8001,
+          "first_blockId": 401,
           "measure_num": 30,
           "title": "most major cadenza"
         }
