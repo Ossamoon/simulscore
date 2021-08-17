@@ -68,14 +68,16 @@
   "movements": [
     {
       "movement": 1,
-      "first_blockId": 1,
+      "firstBlockId": 1,
+      "lastBlockId": 214,
       "reservation": {
         "from": "0",
         "to": "1000"
       },
-      "measure_num": 214,
       "title": "Finlandia",
-      "title_jp": "フィンランディア"
+      "title_jp": "フィンランディア",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": []
     }
   ],
   "books": [

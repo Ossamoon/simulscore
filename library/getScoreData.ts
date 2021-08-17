@@ -6,6 +6,7 @@ const dir = path.join(process.cwd(), "data", "music");
 export type ScoreData = {
   scoreId: string;
   musicId: string;
+  isFirstEndingOmitted: boolean;
   positions: {
     page: number;
     rows: {

@@ -24,25 +24,27 @@ export type ScoreInfo = {
 
 export type MovementInfo = {
   movement: number;
-  first_blockId: number;
+  firstBlockId: number;
+  lastBlockId: number;
   reservation: {
     from: number;
     to: number;
   };
-  measure_num: number;
   title: string;
   title_jp?: string;
-  doubled_measures?: number[];
+  devidedFirstBlockId: number[];
+  firstEndingBlockId: number[];
   cadenza?: {
-    first_blockId: number;
+    firstBlockId: number;
+    lastBlockId: number;
     reservation: {
       from: number;
       to: number;
     };
-    measure_num: number;
     title: string;
     title_jp?: string;
-    doubled_measures?: number[];
+    devidedFirstBlockId: number[];
+    firstEndingBlockId: number[];
   }[];
 };
 

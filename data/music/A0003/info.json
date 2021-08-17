@@ -49,48 +49,57 @@
   "movements": [
     {
       "movement": 1,
-      "first_blockId": 1,
+      "firstBlockId": 1,
+      "lastBlockId": 450,
       "reservation": {
         "from": "0",
         "to": "1000"
       },
-      "measure_num": 450,
       "title": "1st mov. Poco sostenuto - Vivace",
-      "title_jp": "第一楽章 Poco sostenuto - Vivace"
+      "title_jp": "第一楽章 Poco sostenuto - Vivace",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": []
     },
     {
       "movement": 2,
-      "first_blockId": 1001,
+      "firstBlockId": 1001,
+      "lastBlockId": 1278,
       "reservation": {
         "from": "1000",
         "to": "2000"
       },
-      "measure_num": 278,
       "title": "2nd mov. Allegretto",
-      "title_jp": "第二楽章 Allegretto"
+      "title_jp": "第二楽章 Allegretto",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": []
     },
     {
       "movement": 3,
-      "first_blockId": 2000,
+      "firstBlockId": 2000,
+      "lastBlockId": 2660,
       "reservation": {
         "from": "2000",
         "to": "3000"
       },
-      "measure_num": 657,
       "title": "3rd mov. Presto – Assai meno presto",
       "title_jp": "第三楽章 Presto – Assai meno presto",
-      "doubled_measures": [24, 240, 500]
+      "devidedFirstBlockId": [2025, 2241, 2502],
+      "firstEndingBlockId": [2146, 2147, 2148, 2149]
     },
     {
       "movement": 4,
-      "first_blockId": 3001,
+      "firstBlockId": 3001,
+      "lastBlockId": 3476,
       "reservation": {
         "from": "3000",
         "to": "4000"
       },
-      "measure_num": 476,
       "title": "4th mov. Allegro con brio",
-      "title_jp": "第四楽章 Allegro con brio"
+      "title_jp": "第四楽章 Allegro con brio",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": [
+        3012, 3021, 3123, 3124, 3125, 3126, 3127, 3160, 3161, 3170, 3241
+      ]
     }
   ],
   "books": [
