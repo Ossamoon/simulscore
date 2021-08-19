@@ -1,14 +1,16 @@
-import firebase from "library/firebase";
-import { VFC, useState } from "react";
+import { VFC, useState, useContext } from "react";
 
+import { AuthContext } from "components/auth";
 import { getNoteData, NoteData } from "library/getNoteData";
 
-type Props = {
-  currentUser: firebase.User | null | undefined;
-};
+export const MemoView: VFC = () => {
+  // Auth
+  const { currentUser } = useContext(AuthContext);
 
-export const MemoView: VFC<Props> = ({ currentUser }) => {
+  // Data
   const notes: NoteData[] = getNoteData("A0011");
+
+  // State
   const [currentNoteId, setCurrentNoteId] = useState<string | null>(null);
 
   return (

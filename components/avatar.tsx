@@ -1,15 +1,16 @@
-import firebase from "library/firebase";
-import { VFC, useState } from "react";
+import { VFC, useState, useContext } from "react";
 import Link from "next/link";
 
+import { AuthContext } from "components/auth";
 import { UserCard } from "components/usercard";
 
-type Props = {
-  currentUser: firebase.User | null | undefined;
-};
+export const Avatar: VFC = () => {
+  // Auth
+  const { currentUser } = useContext(AuthContext);
 
-export const Avatar: VFC<Props> = ({ currentUser }) => {
+  // State
   const [isOpenUserCard, setIsOpenUserCard] = useState<boolean>(false);
+
   return (
     <>
       {currentUser?.photoURL ? (

@@ -4,7 +4,6 @@ import Link from "next/link";
 import React, {
   useState,
   useEffect,
-  useContext,
   useRef,
   useMemo,
   useCallback,
@@ -20,7 +19,6 @@ import { MovList } from "components/movlist";
 import { VideoCards } from "components/videocards";
 import { BookCards } from "components/bookcards";
 import { Avatar } from "components/avatar";
-import { AuthContext } from "components/auth";
 import { MemoView } from "components/memoview";
 
 import { getMusicData, MusicData } from "library/getMusicData";
@@ -34,9 +32,6 @@ type Props = {
 };
 
 const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
-  // Auth
-  const { currentUser } = useContext(AuthContext);
-
   //
   // Data Source ---------------------------------------------------------
   //
@@ -118,6 +113,29 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
     scoreData.isFirstEndingOmitted
   );
 
+  const allBlocksMovement: number[] = useMemo(() => {
+    const getCurrentMovementFromBlockId = (id: number): number => {
+      if (id >= 9800 && id < 9900) {
+        return id - 9800;
+      }
+      for (const mov of musicData.movements) {
+        if (id >= mov.reservation.from && id < mov.reservation.to) {
+          return mov.movement;
+        }
+      }
+      return -1;
+    };
+
+    return [...Array(10000)].map((_, i) => getCurrentMovementFromBlockId(i));
+  }, [musicData.movements]);
+
+  const getMovementFromBlockId = useCallback(
+    (blockId: number): number => {
+      return allBlocksMovement[blockId];
+    },
+    [allBlocksMovement]
+  );
+
   const allBlocksMeasureNotOmittingFirstEnding: string[] = useMemo(() => {
     const res = [...Array(10000)].fill("");
     for (const mov of musicData.movements) {
@@ -171,38 +189,28 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
     return res;
   }, [musicData.movements]);
 
-  const allBlocksMovment: number[] = useMemo(() => {
-    const getCurrentMovementFromBlockId = (id: number): number => {
-      if (id >= 9800 && id < 9900) {
-        return id - 9800;
-      }
-      for (const mov of musicData.movements) {
-        if (id >= mov.reservation.from && id < mov.reservation.to) {
-          return mov.movement;
-        }
-      }
-      return -1;
-    };
-
-    return [...Array(10000)].map((_, i) => getCurrentMovementFromBlockId(i));
-  }, [musicData.movements]);
+  const getMeasureFromBlockId = useCallback(
+    (blockId: number): string => {
+      return isFirstEndingOmitted
+        ? allBlocksMeasureOmittingFirstEnding[blockId]
+        : allBlocksMeasureNotOmittingFirstEnding[blockId];
+    },
+    [
+      isFirstEndingOmitted,
+      allBlocksMeasureOmittingFirstEnding,
+      allBlocksMeasureNotOmittingFirstEnding,
+    ]
+  );
 
   const [currentBlockId, setCurrentBlockId] = useState<number>(9999);
 
   const currentMeasure = useMemo(() => {
-    return isFirstEndingOmitted
-      ? allBlocksMeasureOmittingFirstEnding[currentBlockId]
-      : allBlocksMeasureNotOmittingFirstEnding[currentBlockId];
-  }, [
-    currentBlockId,
-    allBlocksMeasureOmittingFirstEnding,
-    allBlocksMeasureNotOmittingFirstEnding,
-    isFirstEndingOmitted,
-  ]);
+    return getMeasureFromBlockId(currentBlockId);
+  }, [currentBlockId, getMeasureFromBlockId]);
 
   const currentMovement = useMemo(() => {
-    return allBlocksMovment[currentBlockId];
-  }, [currentBlockId, allBlocksMovment]);
+    return getMovementFromBlockId(currentBlockId);
+  }, [currentBlockId, getMovementFromBlockId]);
 
   //
   // Timer -----------------------------------------------------------------
@@ -387,7 +395,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 <div className="flex-grow"></div>
                 {/* ユーザーアバター */}
                 <div className="flex-none pr-1">
-                  <Avatar currentUser={currentUser} />
+                  <Avatar />
                 </div>
               </div>
             </header>
@@ -504,7 +512,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                   メモ
                 </h2>
                 <div className="px-2 pt-4">
-                  <MemoView currentUser={currentUser} />
+                  <MemoView />
                 </div>
 
                 {/* 他の動画リスト */}
