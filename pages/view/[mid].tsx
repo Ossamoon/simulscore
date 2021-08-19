@@ -428,6 +428,22 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 自動スクロール
               </p>
             </div>
+            <div className="w-full px-2 pt-0.5 flex flex-row-reverse items-center">
+              <p
+                className={`text-xs text-right font-bold w-5 mx-1 ${
+                  isFirstEndingOmitted ? "text-blue-600" : "text-warmGray-500"
+                }`}
+              >
+                {isFirstEndingOmitted ? "ON" : "OFF"}
+              </p>
+              <Toggle
+                selected={isFirstEndingOmitted}
+                onClick={() => setIsFirstEndingOmitted((b) => !b)}
+              ></Toggle>
+              <p className="text-warmGray-500 text-xs font-bold mx-1 truncate tracking-wide">
+                第1,第2括弧で小節番号の重複
+              </p>
+            </div>
 
             {/* 曲のタイトル・作曲家 */}
             <div className="w-full bg-warmGray-100 mx-4 mb-4">
@@ -450,6 +466,8 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                   onStateChange={onPlayerStateChange}
                 />
               </div>
+
+              {/* 楽章一覧 */}
               {musicData.movements ? (
                 <MovList
                   currentMovement={currentMovement}
@@ -457,34 +475,27 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                   onClick={onDivClick}
                 />
               ) : null}
-              <div>{currentMeasure}</div>
-              <div className="w-full px-2 pt-2 flex flex-row-reverse items-center">
-                <p
-                  className={`text-xs text-right font-bold w-5 mx-1 ${
-                    isFirstEndingOmitted ? "text-blue-600" : "text-warmGray-500"
-                  }`}
-                >
-                  {isFirstEndingOmitted ? "ON" : "OFF"}
-                </p>
-                <Toggle
-                  selected={isFirstEndingOmitted}
-                  onClick={() => setIsFirstEndingOmitted((b) => !b)}
-                ></Toggle>
-                <p className="text-warmGray-500 text-xs font-bold mx-1 truncate tracking-wide">
-                  1括弧を省略
-                </p>
+
+              {/* 小節番号を表示 */}
+              <div className="flex items-end">
+                <div className="flex-none w-16 h-8 bg-warmGray-200 rounded-lg text-right text-warmGray-700 text-xl pr-2 py-0.5 ml-2">
+                  {currentMeasure}
+                </div>
+                <div className="flex-none text-xs text-warmGray-600 px-0.5">
+                  小節
+                </div>
               </div>
             </div>
 
             {/* 動画の情報 */}
-            <div className="px-4 pb-12">
+            <div className="pl-6 pr-4 pt-4 pb-12">
               {thisVideoInfo?.players.map((p) => {
                 return (
                   <div key={p.part + "_" + p.name} className="pl-2 pt-4">
-                    <p className="text-lg font-medium text-warmGray-700 truncate">
+                    <p className="text-lg font-medium text-warmGray-700">
                       {p.name_jp ?? p.name}
                     </p>
-                    <p className="text-sm font-light italic text-warmGray-500 truncate">
+                    <p className="text-sm font-light italic text-warmGray-500">
                       {p.part_jp ?? p.part}
                     </p>
                   </div>
@@ -580,13 +591,13 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                   <h4 className="font-bold text-base text-green-800 mt-4">
                     出版社情報
                   </h4>
-                  <p className="whitespace-pre-wrap text-warmGray-700 ml-3 mr-1 text-sm">
+                  <p className="whitespace-pre-wrap text-warmGray-700 ml-4 text-sm">
                     {thisScoreInfo?.publisher}
                   </p>
                   <h4 className="font-bold text-base text-green-800 mt-4">
                     著作権
                   </h4>
-                  <p className="whitespace-pre-wrap text-warmGray-700 ml-3 mr-1 text-sm">
+                  <p className="whitespace-pre-wrap text-warmGray-700 ml-4 text-sm">
                     {thisScoreInfo?.copyright}
                   </p>
                 </div>

@@ -68,13 +68,13 @@ export const MemoView: VFC<Props> = ({
                 className="w-full rounded-lg bg-white text-warmGray-600 cursor-pointer hover:shadow-md"
                 onClick={() => onMemoClick(m.id)}
               >
-                <div className="flex py-1 px-3">
-                  <div className="flex-grow text-xs text-warmGray-500 truncate mt-auto mb-0.5 mr-1">
+                <div className="flex items-baseline border-warmGray-200 border-b mx-1 px-2 py-1">
+                  <div className="flex-grow text-xs text-warmGray-500 truncate mr-1">
                     {getMovementFromBlockId(m.id)}
                   </div>
 
-                  <div className="flex-none bg-warmGray-200 w-px my-0.5"></div>
-                  <div className="flex-none w-20 text-right truncate">
+                  <div className="flex-none w-px h-full py-0.5"></div>
+                  <div className="flex-none w-20 text-right border-l truncate">
                     <span className="text-base font-bold">
                       {getMeasureFromBlockId(m.id)}{" "}
                     </span>
@@ -82,7 +82,6 @@ export const MemoView: VFC<Props> = ({
                   </div>
                 </div>
 
-                <div className="bg-warmGray-200 w-auto mx-1 h-px"></div>
                 <div className="px-3 py-2 text-sm text-warmGray-600">
                   {m.text}
                 </div>
