@@ -3,7 +3,15 @@ import { VFC, useState, useContext } from "react";
 import { AuthContext } from "components/auth";
 import { getNoteData, NoteData } from "library/getNoteData";
 
-export const MemoView: VFC = () => {
+type Props = {
+  getMovementFromBlockId: (blockId: number) => string;
+  getMeasureFromBlockId: (blockId: number) => string;
+};
+
+export const MemoView: VFC<Props> = ({
+  getMovementFromBlockId,
+  getMeasureFromBlockId,
+}) => {
   // Auth
   const { currentUser } = useContext(AuthContext);
 
@@ -45,7 +53,7 @@ export const MemoView: VFC = () => {
         {notes?.find((n) => n.id === currentNoteId)?.title}
       </div>
       <div
-        className={`w-full space-y-2 bg-warmGray-200 rounded-b-md shadow-inner flex-nowrap overflow-y-auto pl-2 pr-4 py-2 ${
+        className={`w-full space-y-3 bg-warmGray-200 rounded-b-md shadow-inner flex-nowrap overflow-y-auto pl-2 pr-4 py-2 ${
           currentNoteId ? "h-96" : "h-0"
         }`}
       >
@@ -55,9 +63,26 @@ export const MemoView: VFC = () => {
             return (
               <div
                 key={m.id}
-                className="w-full p-2 rounded-lg bg-white text-sm text-warmGray-600 truncate cursor-pointer hover:shadow-md"
+                className="w-full rounded-lg bg-white text-warmGray-600 cursor-pointer hover:shadow-md "
               >
-                {m.text}
+                <div className="flex py-1 px-2">
+                  <div className="flex-grow text-xs text-warmGray-500 truncate mt-auto mb-0.5">
+                    {getMovementFromBlockId(m.id)}
+                  </div>
+
+                  <div className="bg-warmGray-200 w-px my-0.5"></div>
+                  <div className="w-20 text-right truncate">
+                    <span className="text-base font-bold">
+                      {getMeasureFromBlockId(m.id)}{" "}
+                    </span>
+                    <span className="text-xs text-warmGray-500">小節</span>
+                  </div>
+                </div>
+
+                <div className="bg-warmGray-200 w-full h-px"></div>
+                <div className="px-3 py-2 text-sm text-warmGray-600">
+                  {m.text}
+                </div>
               </div>
             );
           })}

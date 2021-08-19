@@ -136,6 +136,17 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
     [allBlocksMovement]
   );
 
+  const getMovementTextFromBlockId = useCallback(
+    (blockId: number): string => {
+      const mov = musicData.movements.find(
+        (mov) => mov.movement === allBlocksMovement[blockId]
+      );
+      if (mov) return mov.title_jp ?? mov.title;
+      else return "";
+    },
+    [allBlocksMovement, musicData]
+  );
+
   const allBlocksMeasureNotOmittingFirstEnding: string[] = useMemo(() => {
     const res = [...Array(10000)].fill("");
     for (const mov of musicData.movements) {
@@ -512,7 +523,10 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                   メモ
                 </h2>
                 <div className="px-2 pt-4">
-                  <MemoView />
+                  <MemoView
+                    getMovementFromBlockId={getMovementTextFromBlockId}
+                    getMeasureFromBlockId={getMeasureFromBlockId}
+                  />
                 </div>
 
                 {/* 他の動画リスト */}
