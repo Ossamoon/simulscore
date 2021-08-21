@@ -25,6 +25,24 @@
           "name_jp": "ガリシア交響楽団"
         }
       ]
+    },
+    {
+      "videoId": "xcf951o3HmU",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Günter Wand",
+          "name_jp": "ギュンター・ヴァント"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "NDR Elbphilharmonie Orchester",
+          "name_jp": "NDRエルプフィルハーモニー管弦楽団"
+        }
+      ]
     }
   ],
   "scores": [
