@@ -1,9 +1,49 @@
-import { VFC, useState, useContext } from "react";
+import { VFC, useState, useEffect, useContext } from "react";
 
+import firebase from "../library/firebase";
 import { AuthContext } from "components/auth";
-import { getNoteData, NoteData } from "library/getNoteData";
+
+type MemoData = { id: number; text: string; color: "white" | "black" };
+
+type NoteData = {
+  id: string;
+  title: string;
+  musicId: string;
+  createdAt: firebase.firestore.Timestamp;
+  updatedAt: firebase.firestore.Timestamp;
+  memos: MemoData[];
+};
+
+const converter = {
+  toFirestore(note: NoteData): firebase.firestore.DocumentData {
+    return {
+      id: note.id,
+      title: note.title,
+      musicId: note.musicId,
+      createdAt: note.createdAt,
+      updatedAt: note.updatedAt,
+      memos: note.memos,
+    };
+  },
+  fromFirestore(
+    snapshot: firebase.firestore.QueryDocumentSnapshot,
+    options: firebase.firestore.SnapshotOptions
+  ): NoteData {
+    const data = snapshot.data(options)!;
+    const newNote: NoteData = {
+      id: data.id,
+      title: data.title,
+      musicId: data.musicId,
+      createdAt: data.createdAt,
+      updatedAt: data.updatedAt,
+      memos: data.memos,
+    };
+    return newNote;
+  },
+};
 
 type Props = {
+  musicId: string;
   getMovementFromBlockId: (blockId: number) => string;
   getMeasureFromBlockId: (blockId: number) => string;
   onMemoClick: (blockId: number) => void;
@@ -17,54 +57,74 @@ export const MemoView: VFC<Props> = ({
   // Auth
   const { currentUser } = useContext(AuthContext);
 
-  // Data
-  const notes: NoteData[] = getNoteData("A0011");
+  // Data & State
+  const [data, setData] = useState<NoteData[] | null>(null);
+  const [displayingNoteId, setDisplayingNoteId] = useState<string | null>(null);
 
-  // State
-  const [currentNoteId, setCurrentNoteId] = useState<string | null>(null);
+  useEffect(() => {
+    if (currentUser) {
+      firebase
+        .firestore()
+        .collection("private_memos")
+        .doc(currentUser?.uid)
+        .collection("memos")
+        .orderBy("updatedAt")
+        .withConverter(converter)
+        .get()
+        .then((querySnapshot) => {
+          const tempArray: NoteData[] = [];
+          querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            tempArray.push(doc.data());
+          });
+          setData(tempArray);
+        })
+        .catch((error) => {
+          console.log("Error getting documents: ", error);
+        });
+    }
+  }, [currentUser]);
 
   return (
     <>
       {/* メモ帳一覧 */}
       <div className="w-full h-16 space-y-2 bg-warmGray-200 rounded-md shadow-inner flex-nowrap overflow-y-auto pl-2 pr-4 py-2">
-        {notes
-          ?.map((n) => {
-            return { id: n.id, title: n.title };
-          })
-          .map((n) => {
-            return (
-              <div
-                key={n.id}
-                className={`w-full p-2 rounded-lg text-sm text-warmGray-600 text-left truncate cursor-pointer hover:shadow-md ${
-                  n.id === currentNoteId
-                    ? "bg-blue-200 font-bold border border-blue-400"
-                    : "bg-white"
-                }`}
-                onClick={() => {
-                  setCurrentNoteId(n.id === currentNoteId ? null : n.id);
-                }}
-              >
-                {n.title}
-              </div>
-            );
-          })}
+        {data?.map((note) => {
+          return (
+            <div
+              key={note.id}
+              className={`w-full p-2 rounded-lg text-sm text-warmGray-600 text-left truncate cursor-pointer hover:shadow-md ${
+                note.id === displayingNoteId
+                  ? "bg-blue-200 font-bold border border-blue-400"
+                  : "bg-white"
+              }`}
+              onClick={() => {
+                setDisplayingNoteId(
+                  note.id === displayingNoteId ? null : note.id
+                );
+              }}
+            >
+              {note.title}
+            </div>
+          );
+        })}
       </div>
 
       {/* メモ内容 */}
       <div className="w-full font-bold text-green-800 rounded-t-md shadow pl-4 py-2 mt-4">
-        {notes?.find((n) => n.id === currentNoteId)?.title}
+        {data?.find((n) => n.id === displayingNoteId)?.title}
       </div>
       <div
         className={`w-full space-y-3 bg-warmGray-200 rounded-b-md shadow-inner flex-nowrap overflow-y-auto pl-2 pr-4 py-2 ${
-          currentNoteId ? "h-96" : "h-0"
+          displayingNoteId === null ? "h-0" : "h-96"
         }`}
       >
-        {notes
-          ?.find((n) => n.id === currentNoteId)
+        {data
+          ?.find((n) => n.id === displayingNoteId)
           ?.memos.map((m) => {
             return (
               <div
-                key={m.id}
+                key={m.id.toString()}
                 className="w-full rounded-lg bg-white text-warmGray-600 cursor-pointer hover:shadow-md"
                 onClick={() => onMemoClick(m.id)}
               >
