@@ -43,6 +43,24 @@
           "name_jp": "NDRエルプフィルハーモニー管弦楽団"
         }
       ]
+    },
+    {
+      "videoId": "n2VsutqOCa4",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "François Leleux",
+          "name_jp": "フランソワ・ルルー"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "WDR Sinfonieorchester",
+          "name_jp": "ケルンWDR交響楽団"
+        }
+      ]
     }
   ],
   "scores": [

@@ -478,7 +478,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
 
               {/* 小節番号を表示 */}
               <div className="flex items-end">
-                <div className="flex-none w-16 h-8 bg-warmGray-200 rounded-lg text-right text-warmGray-700 text-xl pr-2 py-0.5 ml-2">
+                <div className="flex-none w-16 h-8 bg-warmGray-300 rounded-lg text-right text-warmGray-700 text-xl pr-2 py-0.5 ml-2">
                   {currentMeasure}
                 </div>
                 <div className="flex-none text-xs text-warmGray-600 px-0.5">
