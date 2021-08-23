@@ -166,6 +166,27 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
           id += 1;
         }
       }
+
+      if (mov.cadenza) {
+        for (const c of mov.cadenza) {
+          let id_cadenza = c.firstBlockId;
+          let measureCount_cadenza = id_cadenza % 10;
+          while (id_cadenza <= c.lastBlockId) {
+            if (c.devidedFirstBlockId.includes(id_cadenza)) {
+              res[id_cadenza] = "c" + measureCount.toString() + "a";
+              id_cadenza += 1;
+            } else if (c.devidedFirstBlockId.includes(id_cadenza - 1)) {
+              res[id_cadenza] = "c" + measureCount_cadenza.toString() + "b";
+              measureCount_cadenza += 1;
+              id_cadenza += 1;
+            } else {
+              res[id_cadenza] = "c" + measureCount_cadenza.toString();
+              measureCount_cadenza += 1;
+              id_cadenza += 1;
+            }
+          }
+        }
+      }
     }
     return res;
   }, [musicData.movements]);
@@ -194,6 +215,34 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
           measureCount += 1;
           tempCount = measureCount;
           id += 1;
+        }
+      }
+
+      if (mov.cadenza) {
+        for (const c of mov.cadenza) {
+          let id_cadenza = c.firstBlockId;
+          let measureCount_cadenza = id_cadenza % 10;
+          let tempCount_cadenza = measureCount_cadenza;
+          while (id_cadenza <= c.lastBlockId) {
+            if (c.firstEndingBlockId.includes(id_cadenza)) {
+              res[id_cadenza] = "c" + tempCount_cadenza.toString() + "'";
+              tempCount_cadenza += 1;
+              id_cadenza += 1;
+            } else if (c.devidedFirstBlockId.includes(id_cadenza)) {
+              res[id_cadenza] = "c" + measureCount_cadenza.toString() + "a";
+              id_cadenza += 1;
+            } else if (c.devidedFirstBlockId.includes(id_cadenza - 1)) {
+              res[id_cadenza] = "c" + measureCount_cadenza.toString() + "b";
+              measureCount_cadenza += 1;
+              tempCount_cadenza = measureCount_cadenza;
+              id += 1;
+            } else {
+              res[id_cadenza] = "c" + measureCount_cadenza.toString();
+              measureCount_cadenza += 1;
+              tempCount_cadenza = measureCount_cadenza;
+              id_cadenza += 1;
+            }
+          }
         }
       }
     }
