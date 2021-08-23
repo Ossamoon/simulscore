@@ -17,7 +17,6 @@ type NoteData = {
 const converter = {
   toFirestore(note: NoteData): firebase.firestore.DocumentData {
     return {
-      id: note.id,
       title: note.title,
       musicId: note.musicId,
       createdAt: note.createdAt,
@@ -29,9 +28,9 @@ const converter = {
     snapshot: firebase.firestore.QueryDocumentSnapshot,
     options: firebase.firestore.SnapshotOptions
   ): NoteData {
-    const data = snapshot.data(options)!;
+    const data = snapshot.data(options);
     const newNote: NoteData = {
-      id: data.id,
+      id: snapshot.id,
       title: data.title,
       musicId: data.musicId,
       createdAt: data.createdAt,
