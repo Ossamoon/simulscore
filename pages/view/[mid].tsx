@@ -580,7 +580,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 {/* メモ */}
                 <div className="h-px mb-2 mx-2 bg-warmGray-300"></div>
                 <h2 className="text-xl text-green-800 font-bold mx-2 truncate">
-                  メモ
+                  メモ帳
                 </h2>
                 <div className="px-2 pt-4">
                   <MemoView
