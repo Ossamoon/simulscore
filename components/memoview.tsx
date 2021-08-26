@@ -1,16 +1,9 @@
 import { VFC, useState, useEffect, useContext } from "react";
 
-import firebase from "../library/firebase";
+import firebase from "library/firebase";
 import { AuthContext } from "components/auth";
-
-type MemoData = {
-  id: string;
-  blockId: number;
-  text: string;
-  color: "white" | "black";
-};
-
-type NoteTitle = { id: string; title: string };
+import { MemoData, NewMemoCard } from "components/newMemoCard";
+import { NoteTitle, NewNoteCard } from "components/newNoteCard";
 
 type NoteData = {
   id: string;
@@ -120,74 +113,61 @@ export const MemoView: VFC<Props> = ({
 
       <div className="relative w-full h-24">
         {newNoteTitle === null ? null : (
-          <div className="absolute inset-0 w-full h-full rounded-md bg-black bg-opacity-20 p-3">
-            <div className="bg-white w-full rounded p-2">
-              <input
-                type="text"
-                value={newNoteTitle.title}
-                onChange={(e) => {
+          <>
+            <div className="absolute inset-0 w-full h-full rounded-md bg-black bg-opacity-20"></div>
+            <div className="absolute inset-0 p-3">
+              <NewNoteCard
+                newNoteTitle={newNoteTitle}
+                onClickCancel={() => {
+                  setNewNoteTitle(null);
+                }}
+                onClickSave={() => {
+                  if (newNoteTitle.title === "") {
+                    alert("タイトルを記入してください");
+                  } else {
+                    firebase
+                      .firestore()
+                      .collection("private_memos")
+                      .doc(currentUser?.uid)
+                      .collection("memos")
+                      .add({
+                        title: newNoteTitle.title,
+                        musicId: musicId,
+                        timestamp:
+                          firebase.firestore.FieldValue.serverTimestamp(),
+                        memos: [],
+                      })
+                      .then((docRef) => {
+                        setNewNoteTitle(null);
+                        setData([
+                          {
+                            id: docRef.id,
+                            title: newNoteTitle.title,
+                            musicId: musicId,
+                            timestamp: "now",
+                            memos: [],
+                          },
+                          ...data,
+                        ]);
+                        setDisplayingNoteId(docRef.id);
+                      })
+                      .catch((error) => {
+                        console.error("Error adding document: ", error);
+                        alert(
+                          "作成に失敗しました。時間をおいて再度お試しください。"
+                        );
+                      });
+                  }
+                }}
+                onChangeText={(e) => {
                   setNewNoteTitle({
                     id: "",
                     title: e.target.value,
                   });
                 }}
-                className="w-full border rounded px-1"
               />
-              <div className="flex flex-row-reverse items-center pt-1">
-                <div
-                  onClick={() => {
-                    if (newNoteTitle.title === "") {
-                      alert("タイトルを記入してください");
-                    } else {
-                      firebase
-                        .firestore()
-                        .collection("private_memos")
-                        .doc(currentUser?.uid)
-                        .collection("memos")
-                        .add({
-                          title: newNoteTitle.title,
-                          musicId: musicId,
-                          timestamp:
-                            firebase.firestore.FieldValue.serverTimestamp(),
-                          memos: [],
-                        })
-                        .then((docRef) => {
-                          setNewNoteTitle(null);
-                          setData([
-                            {
-                              id: docRef.id,
-                              title: newNoteTitle.title,
-                              musicId: musicId,
-                              timestamp: "now",
-                              memos: [],
-                            },
-                            ...data,
-                          ]);
-                          setDisplayingNoteId(docRef.id);
-                        })
-                        .catch((error) => {
-                          console.error("Error adding document: ", error);
-                          alert(
-                            "作成に失敗しました。時間をおいて再度お試しください。"
-                          );
-                        });
-                    }
-                  }}
-                  className="text-xs bg-blue-500 rounded text-white cursor-pointer px-2 py-1 mx-2"
-                >
-                  作成
-                </div>
-                <div
-                  onClick={() => {
-                    setNewNoteTitle(null);
-                  }}
-                  className="text-xs text-blue-600 cursor-pointer"
-                >
-                  キャンセル
-                </div>
-              </div>
             </div>
-          </div>
+          </>
         )}
         <div className="w-full h-full space-y-2 bg-warmGray-200 rounded-md shadow-inner flex-nowrap overflow-y-auto pl-2 pr-4 py-2">
           {data?.map((note) => {
@@ -266,62 +246,50 @@ export const MemoView: VFC<Props> = ({
           </div>
           <div className="relative w-full h-96">
             {newMemo === null ? null : (
-              <div className="absolute inset-0 w-full h-full rounded-md bg-black bg-opacity-20 p-3">
-                <div className="bg-white w-full rounded p-2">
-                  <div className="flex items-baseline border-warmGray-200 border-b mx-1 px-2 py-1">
-                    <div className="flex-grow text-xs text-warmGray-500 truncate mr-1">
-                      {getMovementFromBlockId(newMemo.blockId)}
-                    </div>
-
-                    <div className="flex-none w-px h-full py-0.5"></div>
-                    <div className="flex-none w-20 text-right border-l truncate">
-                      <span className="text-base font-bold">
-                        {getMeasureFromBlockId(newMemo.blockId)}{" "}
-                      </span>
-                      <span className="text-xs text-warmGray-500">小節</span>
-                    </div>
-                  </div>
-                  <div className="text-xs text-warmGray-600">カラー</div>
-                  <textarea
-                    value={newMemo.text}
-                    onChange={(e) => {
+              <>
+                <div className="absolute inset-0 w-full h-full rounded-md bg-black bg-opacity-20"></div>
+                <div className="absolute inset-0 w-full h-full p-3">
+                  <NewMemoCard
+                    newMemo={newMemo}
+                    onClickCancel={() => {
+                      setNewMemo(null);
+                    }}
+                    onClickSave={() => {
+                      console.log("頑張って実装すべーよ");
+                    }}
+                    onChangeTextarea={(e) => {
                       setNewMemo((m) => {
-                        if (m !== null) {
+                        if (m) {
                           return {
                             id: m.id,
                             blockId: m.blockId,
                             text: e.target.value,
                             color: m.color,
                           };
-                        } else return null;
+                        } else {
+                          return null;
+                        }
                       });
                     }}
-                    className="w-full border rounded px-1"
-                  />
-                  <div className="flex flex-row-reverse items-center pt-1">
-                    <div
-                      onClick={() => {
-                        if (newMemo.text === "") {
-                          alert("テキストを記入してください");
+                    onChangeColor={(color) => {
+                      setNewMemo((m) => {
+                        if (m) {
+                          return {
+                            id: m.id,
+                            blockId: m.blockId,
+                            text: m.text,
+                            color: color,
+                          };
                         } else {
-                          console.log("メモを保存したい");
+                          return null;
                         }
-                      }}
-                      className="text-xs bg-blue-500 rounded text-white cursor-pointer px-2 py-1 mx-2"
-                    >
-                      保存
-                    </div>
-                    <div
-                      onClick={() => {
-                        setNewMemo(null);
-                      }}
-                      className="text-xs text-blue-600 cursor-pointer"
-                    >
-                      キャンセル
-                    </div>
-                  </div>
+                      });
+                    }}
+                    getMovementFromBlockId={getMovementFromBlockId}
+                    getMeasureFromBlockId={getMeasureFromBlockId}
+                  />
                 </div>
-              </div>
+              </>
             )}
             <div className="w-full h-full space-y-3 bg-warmGray-200 rounded-md shadow-inner flex-nowrap overflow-y-auto pl-2 pr-4 py-2">
               {data
