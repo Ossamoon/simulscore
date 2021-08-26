@@ -3,8 +3,8 @@ import { VFC, ChangeEvent } from "react";
 export type Color = "white" | "yellow" | "red" | "green";
 
 export type MemoData = {
-  id: string;
   blockId: number;
+  createdAt: number;
   text: string;
   color: Color;
 };

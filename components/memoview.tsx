@@ -221,8 +221,8 @@ export const MemoView: VFC<Props> = ({
                 alert("楽譜から小節を選択してください");
               } else {
                 setNewMemo({
-                  id: "",
                   blockId: currentBlockId,
+                  createdAt: Date.now(),
                   text: "",
                   color: "white",
                 });
@@ -255,14 +255,65 @@ export const MemoView: VFC<Props> = ({
                       setNewMemo(null);
                     }}
                     onClickSave={() => {
-                      console.log("頑張って実装すべーよ");
+                      const oldNote = data.find(
+                        (note) => note.id === displayingNoteId
+                      );
+                      if (oldNote) {
+                        const newMemoArray: MemoData[] = [
+                          newMemo,
+                          ...oldNote.memos,
+                        ].sort((a, b) => {
+                          if (a.blockId - b.blockId > 0) {
+                            return 1;
+                          } else if (
+                            a.blockId === b.blockId &&
+                            a.createdAt - b.createdAt < 0
+                          ) {
+                            return 1;
+                          } else {
+                            return -1;
+                          }
+                        });
+                        firebase
+                          .firestore()
+                          .collection("private_memos")
+                          .doc(currentUser?.uid)
+                          .collection("memos")
+                          .doc(displayingNoteId)
+                          .update({
+                            timestamp:
+                              firebase.firestore.FieldValue.serverTimestamp(),
+                            memos: newMemoArray,
+                          })
+                          .then(() => {
+                            const newNote = { ...oldNote };
+                            newNote["memos"] = newMemoArray;
+                            newNote["timestamp"] = "now";
+
+                            setNewMemo(null);
+                            setData([
+                              newNote,
+                              ...data.filter(
+                                (note) => note.id !== displayingNoteId
+                              ),
+                            ]);
+                          })
+                          .catch((error) => {
+                            console.error("Error adding document: ", error);
+                            alert(
+                              "メモの作成に失敗しました。時間をおいて再度お試しください。"
+                            );
+                          });
+                      } else {
+                        console.log("Error: failed to create new memo Array");
+                      }
                     }}
                     onChangeTextarea={(e) => {
                       setNewMemo((m) => {
                         if (m) {
                           return {
-                            id: m.id,
                             blockId: m.blockId,
+                            createdAt: m.createdAt,
                             text: e.target.value,
                             color: m.color,
                           };
@@ -275,8 +326,8 @@ export const MemoView: VFC<Props> = ({
                       setNewMemo((m) => {
                         if (m) {
                           return {
-                            id: m.id,
                             blockId: m.blockId,
+                            createdAt: m.createdAt,
                             text: m.text,
                             color: color,
                           };
@@ -297,7 +348,7 @@ export const MemoView: VFC<Props> = ({
                 ?.memos.map((m) => {
                   return (
                     <div
-                      key={m.id}
+                      key={m.blockId.toString() + "_" + m.createdAt.toString()}
                       className="w-full rounded-lg bg-white text-warmGray-600 cursor-pointer hover:shadow-md"
                       onClick={() => onMemoClick(m.blockId)}
                     >
