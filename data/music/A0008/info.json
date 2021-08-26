@@ -9,6 +9,24 @@
   "opus": "Op.95",
   "videos": [
     {
+      "videoId": "L3qnOrOfcAw",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Mariss Jansons",
+          "name_jp": "マリス・ヤンソンス"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "Symphonieorchester des Bayerischen Rundfunks",
+          "name_jp": "バイエルン放送交響楽団"
+        }
+      ]
+    },
+    {
       "videoId": "jOofzffyDSA",
       "source": "youtube",
       "players": [

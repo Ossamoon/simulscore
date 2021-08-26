@@ -49,6 +49,7 @@ type Props = {
 };
 
 export const MemoView: VFC<Props> = ({
+  musicId,
   getMovementFromBlockId,
   getMeasureFromBlockId,
   onMemoClick,
@@ -67,7 +68,8 @@ export const MemoView: VFC<Props> = ({
         .collection("private_memos")
         .doc(currentUser?.uid)
         .collection("memos")
-        .orderBy("updatedAt")
+        .where("musicId", "==", musicId)
+        .orderBy("updatedAt", "desc")
         .withConverter(converter)
         .get()
         .then((querySnapshot) => {
@@ -82,7 +84,7 @@ export const MemoView: VFC<Props> = ({
           console.log("Error getting documents: ", error);
         });
     }
-  }, [currentUser]);
+  }, [currentUser, musicId]);
 
   return (
     <>

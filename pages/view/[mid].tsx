@@ -322,7 +322,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
     (event: { target: YouTubePlayer; data: number }): void => {
       console.log(`Player State: ${event.data}`);
       if (event.data === 1) {
-        timerId.current = setInterval(tick, 25);
+        timerId.current = setInterval(tick, 20);
       } else if (event.data !== 1) {
         if (timerId.current) clearInterval(timerId.current);
       }

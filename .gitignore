@@ -32,3 +32,9 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# firebase
+firebase.json
+.firebaserc
+firestore.indexes.json
+firestore.rules
