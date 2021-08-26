@@ -585,6 +585,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 <div className="px-2 pt-4">
                   <MemoView
                     musicId={musicData.musicId}
+                    currentBlockId={currentBlockId}
                     getMovementFromBlockId={getMovementTextFromBlockId}
                     getMeasureFromBlockId={getMeasureFromBlockId}
                     onMemoClick={onDivClick}
