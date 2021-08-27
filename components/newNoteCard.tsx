@@ -28,7 +28,7 @@ export const NewNoteCard: VFC<Props> = ({
           onClick={onClickSave}
           className="text-xs bg-blue-500 rounded text-white cursor-pointer px-2 py-1 mx-2"
         >
-          作成
+          {newNoteTitle.id === "" ? "作成" : "保存"}
         </div>
         <div
           onClick={onClickCancel}

@@ -1,4 +1,4 @@
-import { VFC, useState, useEffect, useContext } from "react";
+import { VFC, useState, useEffect, useContext, useCallback } from "react";
 
 import firebase from "library/firebase";
 import { AuthContext } from "components/auth";
@@ -62,6 +62,7 @@ export const MemoView: VFC<Props> = ({
   const [newMemo, setNewMemo] = useState<MemoData | null>(null);
   const [displayingNoteId, setDisplayingNoteId] = useState<string | null>(null);
 
+  // initial effect
   useEffect(() => {
     if (currentUser) {
       firebase
@@ -87,6 +88,132 @@ export const MemoView: VFC<Props> = ({
     }
   }, [currentUser, musicId]);
 
+  // save to create new note
+  const saveAddingNewNote = useCallback(() => {
+    if (newNoteTitle === null || newNoteTitle.title === "") {
+      alert("タイトルを記入してください");
+    } else {
+      firebase
+        .firestore()
+        .collection("private_memos")
+        .doc(currentUser?.uid)
+        .collection("memos")
+        .add({
+          title: newNoteTitle.title,
+          musicId: musicId,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          memos: [],
+        })
+        .then((docRef) => {
+          setNewNoteTitle(null);
+          setData([
+            {
+              id: docRef.id,
+              title: newNoteTitle.title,
+              musicId: musicId,
+              timestamp: "now",
+              memos: [],
+            },
+            ...data,
+          ]);
+          setDisplayingNoteId(docRef.id);
+        })
+        .catch((error) => {
+          console.error("Error adding document: ", error);
+          alert("作成に失敗しました。時間をおいて再度お試しください。");
+        });
+    }
+  }, [currentUser, data, musicId, newNoteTitle]);
+
+  // save to update new title
+  const saveUpdatingNote = useCallback(() => {
+    if (newNoteTitle === null) {
+      alert("保存に失敗しました");
+      console.log("Error: newNoteTitle === null");
+    } else if (newNoteTitle.title === "") {
+      alert("タイトルを記入してください");
+    } else {
+      const oldNote = data.find((note) => note.id === newNoteTitle.id);
+      if (oldNote === undefined) {
+        console.log(
+          "Error: ```data.find((note) => note.id === newNoteTitle.id)``` is undefined"
+        );
+      } else {
+        firebase
+          .firestore()
+          .collection("private_memos")
+          .doc(currentUser?.uid)
+          .collection("memos")
+          .doc(newNoteTitle.id)
+          .update({
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            title: newNoteTitle.title,
+          })
+          .then(() => {
+            const newNote = { ...oldNote };
+            newNote["title"] = newNoteTitle.title;
+            newNote["timestamp"] = "now";
+            setNewNoteTitle(null);
+            setData([
+              newNote,
+              ...data.filter((note) => note.id !== newNoteTitle.id),
+            ]);
+            setDisplayingNoteId(newNoteTitle.id);
+          })
+          .catch((error) => {
+            console.error("Error adding document: ", error);
+            alert("保存に失敗しました。時間をおいて再度お試しください。");
+          });
+      }
+    }
+  }, [currentUser, data, newNoteTitle]);
+
+  // save to add new memo to current displayed note
+  const saveAddingNewMemo = useCallback(() => {
+    const oldNote = data.find((note) => note.id === displayingNoteId);
+    if (displayingNoteId && newMemo && oldNote) {
+      const newMemoArray: MemoData[] = [newMemo, ...oldNote.memos].sort(
+        (a, b) => {
+          if (a.blockId - b.blockId > 0) {
+            return 1;
+          } else if (a.blockId === b.blockId && a.createdAt - b.createdAt < 0) {
+            return 1;
+          } else {
+            return -1;
+          }
+        }
+      );
+      firebase
+        .firestore()
+        .collection("private_memos")
+        .doc(currentUser?.uid)
+        .collection("memos")
+        .doc(displayingNoteId)
+        .update({
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          memos: newMemoArray,
+        })
+        .then(() => {
+          const newNote = { ...oldNote };
+          newNote["memos"] = newMemoArray;
+          newNote["timestamp"] = "now";
+
+          setNewMemo(null);
+          setData([
+            newNote,
+            ...data.filter((note) => note.id !== displayingNoteId),
+          ]);
+        })
+        .catch((error) => {
+          console.error("Error adding document: ", error);
+          alert("メモの作成に失敗しました。時間をおいて再度お試しください。");
+        });
+    } else {
+      console.log("Error: failed to create new memo Array");
+    }
+  }, [currentUser, data, displayingNoteId, newMemo]);
+
+  // JSX
   return (
     <>
       {/* メモ帳一覧 */}
@@ -114,55 +241,31 @@ export const MemoView: VFC<Props> = ({
       <div className="relative w-full h-24">
         {newNoteTitle === null ? null : (
           <>
-            <div className="absolute inset-0 w-full h-full rounded-md bg-black bg-opacity-20"></div>
-            <div className="absolute inset-0 p-3">
+            {/* メモ帳のタイトル記入モーダル */}
+            <div className="absolute inset-0 w-full h-full rounded-md bg-black bg-opacity-20 z-20"></div>
+            <div className="absolute inset-0 p-3 z-30">
               <NewNoteCard
                 newNoteTitle={newNoteTitle}
                 onClickCancel={() => {
                   setNewNoteTitle(null);
                 }}
                 onClickSave={() => {
-                  if (newNoteTitle.title === "") {
-                    alert("タイトルを記入してください");
+                  if (newNoteTitle.id === "") {
+                    saveAddingNewNote();
                   } else {
-                    firebase
-                      .firestore()
-                      .collection("private_memos")
-                      .doc(currentUser?.uid)
-                      .collection("memos")
-                      .add({
-                        title: newNoteTitle.title,
-                        musicId: musicId,
-                        timestamp:
-                          firebase.firestore.FieldValue.serverTimestamp(),
-                        memos: [],
-                      })
-                      .then((docRef) => {
-                        setNewNoteTitle(null);
-                        setData([
-                          {
-                            id: docRef.id,
-                            title: newNoteTitle.title,
-                            musicId: musicId,
-                            timestamp: "now",
-                            memos: [],
-                          },
-                          ...data,
-                        ]);
-                        setDisplayingNoteId(docRef.id);
-                      })
-                      .catch((error) => {
-                        console.error("Error adding document: ", error);
-                        alert(
-                          "作成に失敗しました。時間をおいて再度お試しください。"
-                        );
-                      });
+                    saveUpdatingNote();
                   }
                 }}
                 onChangeText={(e) => {
-                  setNewNoteTitle({
-                    id: "",
-                    title: e.target.value,
+                  setNewNoteTitle((note) => {
+                    if (note) {
+                      return {
+                        id: note.id,
+                        title: e.target.value,
+                      };
+                    } else {
+                      return null;
+                    }
                   });
                 }}
               />
@@ -172,39 +275,68 @@ export const MemoView: VFC<Props> = ({
         <div className="w-full h-full space-y-2 bg-warmGray-200 rounded-md shadow-inner flex-nowrap overflow-y-auto pl-2 pr-4 py-2">
           {data?.map((note) => {
             return (
-              <div
-                key={note.id}
-                className={`w-full px-2 rounded-lg text-left truncate cursor-pointer hover:shadow-md ${
-                  note.id === displayingNoteId
-                    ? "bg-blue-200 border border-blue-400"
-                    : "bg-white"
-                }`}
-                onClick={() => {
-                  setDisplayingNoteId(
-                    note.id === displayingNoteId ? null : note.id
-                  );
-                }}
-              >
+              <div key={note.id} className="group relative w-full">
                 <div
-                  className={`text-base text-warmGray-600 pl-1 pt-1 pb-0.5  ${
-                    note.id === displayingNoteId ? "font-bold" : ""
-                  }`}
-                >
-                  {note.title}
-                </div>
-                <div
-                  className={`text-xs italic border-t pl-1 py-px ${
+                  className={`w-full px-2 rounded-lg text-left truncate cursor-pointer hover:shadow-md z-0 ${
                     note.id === displayingNoteId
-                      ? "border-blue-300 text-warmGray-500"
-                      : "border-warmGray-300 text-warmGray-400"
+                      ? "bg-blue-200 border border-blue-400"
+                      : "bg-white"
                   }`}
+                  onClick={() => {
+                    setDisplayingNoteId(
+                      note.id === displayingNoteId ? null : note.id
+                    );
+                  }}
                 >
-                  <span>
-                    最終保存:{" "}
-                    {note.timestamp === "now"
-                      ? "たった今"
-                      : note.timestamp.toDate().toLocaleString()}
-                  </span>
+                  <div
+                    className={`text-base text-warmGray-600 pl-1 py-1  ${
+                      note.id === displayingNoteId ? "font-bold" : ""
+                    }`}
+                  >
+                    {note.title}
+                  </div>
+                  <div
+                    className={`text-xs italic border-t pl-1 py-0.5 ${
+                      note.id === displayingNoteId
+                        ? "border-blue-300 text-warmGray-500"
+                        : "border-warmGray-300 text-warmGray-400"
+                    }`}
+                  >
+                    <span>
+                      最終保存:{" "}
+                      {note.timestamp === "now"
+                        ? "たった今"
+                        : note.timestamp.toDate().toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+                <div className="hidden group-hover:flex space-x-2 absolute bottom-1 right-1 z-10">
+                  {/* タイトル編集ボタン */}
+                  <div
+                    onClick={() => {
+                      setNewNoteTitle({ id: note.id, title: note.title });
+                    }}
+                    className="flex items-center w-8 h-8 bg-warmGray-100 bg-opacity-70 rounded-lg shadow-sm hover:shadow-lg cursor-pointer"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="26px"
+                      height="26px"
+                      viewBox="0 0 24 24"
+                      fill="#78716C"
+                      className="mx-auto my-auto"
+                    >
+                      <path d="M0 0h24v24H0V0z" fill="none" />
+                      <path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z" />
+                    </svg>
+                  </div>
+                  {/* メモ帳削除ボタン */}
+                  <div
+                    onClick={() => {
+                      console.log("clickedB");
+                    }}
+                    className="flex items-center w-8 h-8 bg-red-300 bg-opacity-70 rounded-lg shadow-sm hover:shadow-lg cursor-pointer"
+                  ></div>
                 </div>
               </div>
             );
@@ -254,60 +386,7 @@ export const MemoView: VFC<Props> = ({
                     onClickCancel={() => {
                       setNewMemo(null);
                     }}
-                    onClickSave={() => {
-                      const oldNote = data.find(
-                        (note) => note.id === displayingNoteId
-                      );
-                      if (oldNote) {
-                        const newMemoArray: MemoData[] = [
-                          newMemo,
-                          ...oldNote.memos,
-                        ].sort((a, b) => {
-                          if (a.blockId - b.blockId > 0) {
-                            return 1;
-                          } else if (
-                            a.blockId === b.blockId &&
-                            a.createdAt - b.createdAt < 0
-                          ) {
-                            return 1;
-                          } else {
-                            return -1;
-                          }
-                        });
-                        firebase
-                          .firestore()
-                          .collection("private_memos")
-                          .doc(currentUser?.uid)
-                          .collection("memos")
-                          .doc(displayingNoteId)
-                          .update({
-                            timestamp:
-                              firebase.firestore.FieldValue.serverTimestamp(),
-                            memos: newMemoArray,
-                          })
-                          .then(() => {
-                            const newNote = { ...oldNote };
-                            newNote["memos"] = newMemoArray;
-                            newNote["timestamp"] = "now";
-
-                            setNewMemo(null);
-                            setData([
-                              newNote,
-                              ...data.filter(
-                                (note) => note.id !== displayingNoteId
-                              ),
-                            ]);
-                          })
-                          .catch((error) => {
-                            console.error("Error adding document: ", error);
-                            alert(
-                              "メモの作成に失敗しました。時間をおいて再度お試しください。"
-                            );
-                          });
-                      } else {
-                        console.log("Error: failed to create new memo Array");
-                      }
-                    }}
+                    onClickSave={saveAddingNewMemo}
                     onChangeTextarea={(e) => {
                       setNewMemo((m) => {
                         if (m) {
