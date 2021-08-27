@@ -124,13 +124,13 @@ export const NewMemoCard: VFC<Props> = ({
       <div className="flex flex-row-reverse items-center pt-1">
         <div
           onClick={onClickSave}
-          className="text-xs bg-blue-500 rounded text-white cursor-pointer px-2 py-1 mx-2"
+          className="text-sm bg-blue-500 rounded text-white cursor-pointer px-2 py-1 mx-2"
         >
           保存
         </div>
         <div
           onClick={onClickCancel}
-          className="text-xs text-blue-600 cursor-pointer"
+          className="text-sm text-blue-600 cursor-pointer"
         >
           キャンセル
         </div>

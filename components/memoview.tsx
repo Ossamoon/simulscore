@@ -2,8 +2,8 @@ import { VFC, useState, useEffect, useContext, useCallback } from "react";
 
 import firebase from "library/firebase";
 import { AuthContext } from "components/auth";
-import { MemoData, NewMemoCard } from "components/newMemoCard";
-import { NoteTitle, NewNoteCard } from "components/newNoteCard";
+import { MemoData, NewMemoCard } from "components/memocard";
+import { NoteTitle, NewNoteCard, DeleteNoteCard } from "components/notecard";
 
 type NoteData = {
   id: string;
@@ -59,6 +59,9 @@ export const MemoView: VFC<Props> = ({
   // Data & State
   const [data, setData] = useState<NoteData[]>([]);
   const [newNoteTitle, setNewNoteTitle] = useState<NoteTitle | null>(null);
+  const [deleteNoteTitle, setDeleteNoteTitle] = useState<NoteTitle | null>(
+    null
+  );
   const [newMemo, setNewMemo] = useState<MemoData | null>(null);
   const [displayingNoteId, setDisplayingNoteId] = useState<string | null>(null);
 
@@ -168,6 +171,38 @@ export const MemoView: VFC<Props> = ({
     }
   }, [currentUser, data, newNoteTitle]);
 
+  const deleteNote = useCallback(() => {
+    if (deleteNoteTitle === null) {
+      alert("削除に失敗しました");
+      console.log("Error: deleteNoteTitle === null");
+    } else {
+      const oldNote = data.find((note) => note.id === deleteNoteTitle.id);
+      if (oldNote === undefined) {
+        console.log(
+          "Error: ```data.find((note) => note.id === deleteNoteTitle.id)``` is undefined"
+        );
+      } else {
+        firebase
+          .firestore()
+          .collection("private_memos")
+          .doc(currentUser?.uid)
+          .collection("memos")
+          .doc(deleteNoteTitle.id)
+          .delete()
+          .then(() => {
+            setDeleteNoteTitle(null);
+            setData([...data.filter((note) => note.id !== deleteNoteTitle.id)]);
+            if (displayingNoteId === deleteNoteTitle.id) {
+              setDisplayingNoteId(null);
+            }
+          })
+          .catch((error) => {
+            console.error("Error removing document: ", error);
+          });
+      }
+    }
+  }, [currentUser, data, deleteNoteTitle, displayingNoteId]);
+
   // save to add new memo to current displayed note
   const saveAddingNewMemo = useCallback(() => {
     const oldNote = data.find((note) => note.id === displayingNoteId);
@@ -238,7 +273,7 @@ export const MemoView: VFC<Props> = ({
         </div>
       </div>
 
-      <div className="relative w-full h-24">
+      <div className="relative w-full h-28">
         {newNoteTitle === null ? null : (
           <>
             {/* メモ帳のタイトル記入モーダル */}
@@ -272,15 +307,29 @@ export const MemoView: VFC<Props> = ({
             </div>
           </>
         )}
+        {deleteNoteTitle === null ? null : (
+          <>
+            <div className="absolute inset-0 w-full h-full rounded-md bg-black bg-opacity-20 z-20"></div>
+            <div className="absolute inset-0 p-3 z-30">
+              <DeleteNoteCard
+                deleteNoteTitle={deleteNoteTitle}
+                onClickCancel={() => {
+                  setDeleteNoteTitle(null);
+                }}
+                onClickDelete={deleteNote}
+              />
+            </div>
+          </>
+        )}
         <div className="w-full h-full space-y-2 bg-warmGray-200 rounded-md shadow-inner flex-nowrap overflow-y-auto pl-2 pr-4 py-2">
           {data?.map((note) => {
             return (
               <div key={note.id} className="group relative w-full">
                 <div
-                  className={`w-full px-2 rounded-lg text-left truncate cursor-pointer hover:shadow-md z-0 ${
+                  className={`w-full px-2 rounded-lg text-left truncate cursor-pointer hover:shadow-md z-0 border ${
                     note.id === displayingNoteId
-                      ? "bg-blue-200 border border-blue-400"
-                      : "bg-white"
+                      ? "bg-blue-200 border-blue-400"
+                      : "bg-white border-white"
                   }`}
                   onClick={() => {
                     setDisplayingNoteId(
@@ -289,7 +338,7 @@ export const MemoView: VFC<Props> = ({
                   }}
                 >
                   <div
-                    className={`text-base text-warmGray-600 pl-1 py-1  ${
+                    className={`text-base text-warmGray-600 pl-1 py-1 truncate ${
                       note.id === displayingNoteId ? "font-bold" : ""
                     }`}
                   >
@@ -310,21 +359,21 @@ export const MemoView: VFC<Props> = ({
                     </span>
                   </div>
                 </div>
-                <div className="hidden group-hover:flex space-x-2 absolute bottom-1 right-1 z-10">
+                <div className="hidden group-hover:flex space-x-2 absolute bottom-1 right-2 z-10">
                   {/* タイトル編集ボタン */}
                   <div
                     onClick={() => {
                       setNewNoteTitle({ id: note.id, title: note.title });
                     }}
-                    className="flex items-center w-8 h-8 bg-warmGray-100 bg-opacity-70 rounded-lg shadow-sm hover:shadow-lg cursor-pointer"
+                    className="flex items-center w-10 h-10 bg-warmGray-200 bg-opacity-70 rounded-lg hover:shadow-md cursor-pointer"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="26px"
-                      height="26px"
+                      width="28px"
+                      height="28px"
                       viewBox="0 0 24 24"
                       fill="#78716C"
-                      className="mx-auto my-auto"
+                      className="mx-auto"
                     >
                       <path d="M0 0h24v24H0V0z" fill="none" />
                       <path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z" />
@@ -333,10 +382,22 @@ export const MemoView: VFC<Props> = ({
                   {/* メモ帳削除ボタン */}
                   <div
                     onClick={() => {
-                      console.log("clickedB");
+                      setDeleteNoteTitle({ id: note.id, title: note.title });
                     }}
-                    className="flex items-center w-8 h-8 bg-red-300 bg-opacity-70 rounded-lg shadow-sm hover:shadow-lg cursor-pointer"
-                  ></div>
+                    className="flex items-center w-10 h-10 bg-red-300 bg-opacity-70 rounded-lg hover:shadow-md cursor-pointer"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="28px"
+                      height="28px"
+                      viewBox="0 0 24 24"
+                      fill="#EF4444"
+                      className="mx-auto"
+                    >
+                      <path d="M0 0h24v24H0V0z" fill="none" />
+                      <path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z" />
+                    </svg>
+                  </div>
                 </div>
               </div>
             );
