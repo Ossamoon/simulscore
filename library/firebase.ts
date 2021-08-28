@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 require("firebase/auth");
 require("firebase/firestore");
+require("firebase/analytics");
 
 const config = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -15,6 +16,7 @@ const config = {
 
 if (!firebase.apps.length) {
   firebase.initializeApp(config);
+  firebase.analytics();
 }
 
 export default firebase;

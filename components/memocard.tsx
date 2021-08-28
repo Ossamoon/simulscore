@@ -30,7 +30,7 @@ export const NewMemoCard: VFC<Props> = ({
 }) => {
   return (
     <div
-      className={`w-full rounded p-2 shadow-xl ${
+      className={`w-full rounded p-2 shadow-xl text-warmGray-600 ${
         newMemo?.color === "yellow"
           ? "bg-yellow-100"
           : newMemo?.color === "red"
@@ -55,7 +55,6 @@ export const NewMemoCard: VFC<Props> = ({
           {getMovementFromBlockId(newMemo.blockId)}
         </div>
 
-        <div className="flex-none w-px h-full py-0.5"></div>
         <div
           className={`flex-none w-20 text-right border-l truncate ${
             newMemo?.color === "yellow"

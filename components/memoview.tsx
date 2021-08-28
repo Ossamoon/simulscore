@@ -171,6 +171,7 @@ export const MemoView: VFC<Props> = ({
     }
   }, [currentUser, data, newNoteTitle]);
 
+  // delete note
   const deleteNote = useCallback(() => {
     if (deleteNoteTitle === null) {
       alert("削除に失敗しました");
@@ -276,7 +277,7 @@ export const MemoView: VFC<Props> = ({
       <div className="relative w-full h-28">
         {newNoteTitle === null ? null : (
           <>
-            {/* メモ帳のタイトル記入モーダル */}
+            {/* メモ帳の追加・編集モーダル */}
             <div className="absolute inset-0 w-full h-full rounded-md bg-black bg-opacity-20 z-20"></div>
             <div className="absolute inset-0 p-3 z-30">
               <NewNoteCard
@@ -325,6 +326,7 @@ export const MemoView: VFC<Props> = ({
           {data?.map((note) => {
             return (
               <div key={note.id} className="group relative w-full">
+                {/* メモ帳カード */}
                 <div
                   className={`w-full px-2 rounded-lg text-left truncate cursor-pointer hover:shadow-md z-0 border ${
                     note.id === displayingNoteId
@@ -440,8 +442,9 @@ export const MemoView: VFC<Props> = ({
           <div className="relative w-full h-96">
             {newMemo === null ? null : (
               <>
-                <div className="absolute inset-0 w-full h-full rounded-md bg-black bg-opacity-20"></div>
-                <div className="absolute inset-0 w-full h-full p-3">
+                {/* メモの追加・編集モーダル */}
+                <div className="absolute inset-0 w-full h-full rounded-md bg-black bg-opacity-20 z-20"></div>
+                <div className="absolute inset-0 w-full h-full p-3 z-30">
                   <NewMemoCard
                     newMemo={newMemo}
                     onClickCancel={() => {
@@ -489,27 +492,97 @@ export const MemoView: VFC<Props> = ({
                   return (
                     <div
                       key={m.blockId.toString() + "_" + m.createdAt.toString()}
-                      className="w-full rounded-lg bg-white text-warmGray-600 cursor-pointer hover:shadow-md"
-                      onClick={() => onMemoClick(m.blockId)}
+                      className={`group relative w-full rounded-lg border-2 ${
+                        currentBlockId === m.blockId
+                          ? "border-blue-500"
+                          : "border-white"
+                      }`}
                     >
-                      <div className="flex items-baseline border-warmGray-200 border-b mx-1 px-2 py-1">
-                        <div className="flex-grow text-xs text-warmGray-500 truncate mr-1">
-                          {getMovementFromBlockId(m.blockId)}
+                      {/* メモカード */}
+                      <div
+                        className={`w-full rounded-lg text-warmGray-600 cursor-pointer hover:shadow-md p-1 z-0 ${
+                          m?.color === "yellow"
+                            ? "bg-yellow-100"
+                            : m?.color === "red"
+                            ? "bg-red-100"
+                            : m?.color === "green"
+                            ? "bg-green-100"
+                            : "bg-white"
+                        }`}
+                        onClick={() => onMemoClick(m.blockId)}
+                      >
+                        <div
+                          className={`flex items-baseline border-b mx-1 px-2 py-1 ${
+                            m?.color === "yellow"
+                              ? "border-yellow-300"
+                              : m?.color === "red"
+                              ? "border-red-300"
+                              : m?.color === "green"
+                              ? "border-green-300"
+                              : "border-warmGray-200"
+                          }`}
+                        >
+                          <div className="flex-grow text-xs text-warmGray-500 truncate mr-1">
+                            {getMovementFromBlockId(m.blockId)}
+                          </div>
+                          <div
+                            className={`flex-none w-20 text-right border-l truncate ${
+                              m?.color === "yellow"
+                                ? "border-yellow-300"
+                                : m?.color === "red"
+                                ? "border-red-300"
+                                : m?.color === "green"
+                                ? "border-green-300"
+                                : "border-warmGray-200"
+                            }`}
+                          >
+                            <span className="text-base font-bold">
+                              {getMeasureFromBlockId(m.blockId)}{" "}
+                            </span>
+                            <span className="text-xs text-warmGray-500">
+                              小節
+                            </span>
+                          </div>
                         </div>
-
-                        <div className="flex-none w-px h-full py-0.5"></div>
-                        <div className="flex-none w-20 text-right border-l truncate">
-                          <span className="text-base font-bold">
-                            {getMeasureFromBlockId(m.blockId)}{" "}
-                          </span>
-                          <span className="text-xs text-warmGray-500">
-                            小節
-                          </span>
+                        <div className="px-3 py-2 text-sm text-warmGray-600">
+                          {m.text}
                         </div>
                       </div>
-
-                      <div className="px-3 py-2 text-sm text-warmGray-600">
-                        {m.text}
+                      <div className="hidden group-hover:flex space-x-2 absolute bottom-1 right-2 z-10">
+                        {/* タイトル編集ボタン */}
+                        <div
+                          onClick={() => {}}
+                          className="flex items-center w-10 h-10 bg-warmGray-200 bg-opacity-70 rounded-lg hover:shadow-md cursor-pointer"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="28px"
+                            height="28px"
+                            viewBox="0 0 24 24"
+                            fill="#78716C"
+                            className="mx-auto"
+                          >
+                            <path d="M0 0h24v24H0V0z" fill="none" />
+                            <path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z" />
+                          </svg>
+                        </div>
+                        {/* メモ帳削除ボタン */}
+                        <div
+                          onClick={() => {}}
+                          className="flex items-center w-10 h-10 bg-red-300 bg-opacity-70 rounded-lg hover:shadow-md cursor-pointer"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="28px"
+                            height="28px"
+                            viewBox="0 0 24 24"
+                            fill="#EF4444"
+                            className="mx-auto"
+                          >
+                            <path d="M0 0h24v24H0V0z" fill="none" />
+                            <path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z" />
+                          </svg>
+                        </div>
                       </div>
                     </div>
                   );
