@@ -2,15 +2,15 @@ import { VFC, ChangeEvent } from "react";
 
 export type Color = "white" | "yellow" | "red" | "green";
 
-export type MemoData = {
+export type MemoEdit = {
   blockId: number;
-  createdAt: number;
+  createdAt: number | null;
   text: string;
   color: Color;
 };
 
 type Props = {
-  newMemo: MemoData;
+  newMemo: MemoEdit;
   onClickCancel: () => void;
   onClickSave: () => void;
   onChangeTextarea: (e: ChangeEvent<HTMLTextAreaElement>) => void;

@@ -2,7 +2,7 @@ import { VFC, useState, useEffect, useContext, useCallback } from "react";
 
 import firebase from "library/firebase";
 import { AuthContext } from "components/auth";
-import { MemoData, NewMemoCard } from "components/memocard";
+import { MemoEdit, NewMemoCard, Color } from "components/memocard";
 import { NoteTitle, NewNoteCard, DeleteNoteCard } from "components/notecard";
 
 type NoteData = {
@@ -11,6 +11,13 @@ type NoteData = {
   musicId: string;
   timestamp: firebase.firestore.Timestamp | "now";
   memos: MemoData[];
+};
+
+type MemoData = {
+  blockId: number;
+  createdAt: number;
+  text: string;
+  color: Color;
 };
 
 type Props = {
@@ -62,7 +69,7 @@ export const MemoView: VFC<Props> = ({
   const [deleteNoteTitle, setDeleteNoteTitle] = useState<NoteTitle | null>(
     null
   );
-  const [newMemo, setNewMemo] = useState<MemoData | null>(null);
+  const [newMemo, setNewMemo] = useState<MemoEdit | null>(null);
   const [displayingNoteId, setDisplayingNoteId] = useState<string | null>(null);
 
   // initial effect
@@ -93,7 +100,10 @@ export const MemoView: VFC<Props> = ({
 
   // save to create new note
   const saveAddingNewNote = useCallback(() => {
-    if (newNoteTitle === null || newNoteTitle.title === "") {
+    if (newNoteTitle === null) {
+      alert("保存に失敗しました");
+      console.log("Error: newNoteTitle === null");
+    } else if (newNoteTitle.title === "") {
       alert("タイトルを記入してください");
     } else {
       firebase
@@ -122,8 +132,8 @@ export const MemoView: VFC<Props> = ({
           setDisplayingNoteId(docRef.id);
         })
         .catch((error) => {
-          console.error("Error adding document: ", error);
           alert("作成に失敗しました。時間をおいて再度お試しください。");
+          console.error("Error adding document: ", error);
         });
     }
   }, [currentUser, data, musicId, newNoteTitle]);
@@ -164,8 +174,8 @@ export const MemoView: VFC<Props> = ({
             setDisplayingNoteId(newNoteTitle.id);
           })
           .catch((error) => {
-            console.error("Error adding document: ", error);
             alert("保存に失敗しました。時間をおいて再度お試しください。");
+            console.error("Error adding document: ", error);
           });
       }
     }
@@ -198,6 +208,7 @@ export const MemoView: VFC<Props> = ({
             }
           })
           .catch((error) => {
+            alert("削除に失敗しました。時間をおいて再度お試しください。");
             console.error("Error removing document: ", error);
           });
       }
@@ -205,20 +216,35 @@ export const MemoView: VFC<Props> = ({
   }, [currentUser, data, deleteNoteTitle, displayingNoteId]);
 
   // save to add new memo to current displayed note
-  const saveAddingNewMemo = useCallback(() => {
+  const saveMemo = useCallback(() => {
     const oldNote = data.find((note) => note.id === displayingNoteId);
-    if (displayingNoteId && newMemo && oldNote) {
-      const newMemoArray: MemoData[] = [newMemo, ...oldNote.memos].sort(
-        (a, b) => {
-          if (a.blockId - b.blockId > 0) {
-            return 1;
-          } else if (a.blockId === b.blockId && a.createdAt - b.createdAt < 0) {
-            return 1;
-          } else {
-            return -1;
-          }
+    if (displayingNoteId === null) {
+      alert("メモの保存に失敗しました");
+      console.log("Error: displayingNoteId === null");
+    } else if (newMemo === null) {
+      alert("メモの保存に失敗しました");
+      console.log("Error: newMemo === null");
+    } else if (newMemo.text === "") {
+      alert("テキストを入力してください");
+    } else if (oldNote === undefined) {
+      alert("メモの保存に失敗しました");
+      console.log("Error: oldNote === undefined");
+    } else {
+      const newMemoArray: MemoData[] = [
+        { ...newMemo, createdAt: newMemo.createdAt ?? Date.now() },
+        ...oldNote.memos.filter(
+          (m) =>
+            m.blockId !== newMemo.blockId || m.createdAt !== newMemo.createdAt
+        ),
+      ].sort((a, b) => {
+        if (a.blockId - b.blockId > 0) {
+          return 1;
+        } else if (a.blockId === b.blockId && a.createdAt - b.createdAt < 0) {
+          return 1;
+        } else {
+          return -1;
         }
-      );
+      });
       firebase
         .firestore()
         .collection("private_memos")
@@ -241,11 +267,9 @@ export const MemoView: VFC<Props> = ({
           ]);
         })
         .catch((error) => {
-          console.error("Error adding document: ", error);
           alert("メモの作成に失敗しました。時間をおいて再度お試しください。");
+          console.error("Error adding document: ", error);
         });
-    } else {
-      console.log("Error: failed to create new memo Array");
     }
   }, [currentUser, data, displayingNoteId, newMemo]);
 
@@ -328,7 +352,7 @@ export const MemoView: VFC<Props> = ({
               <div key={note.id} className="group relative w-full">
                 {/* メモ帳カード */}
                 <div
-                  className={`w-full px-2 rounded-lg text-left truncate cursor-pointer hover:shadow-md z-0 border ${
+                  className={`w-full px-2 rounded-lg text-left truncate cursor-pointer hover:shadow-md z-0 border-2 ${
                     note.id === displayingNoteId
                       ? "bg-blue-200 border-blue-400"
                       : "bg-white border-white"
@@ -417,7 +441,7 @@ export const MemoView: VFC<Props> = ({
               } else {
                 setNewMemo({
                   blockId: currentBlockId,
-                  createdAt: Date.now(),
+                  createdAt: null,
                   text: "",
                   color: "white",
                 });
@@ -450,7 +474,7 @@ export const MemoView: VFC<Props> = ({
                     onClickCancel={() => {
                       setNewMemo(null);
                     }}
-                    onClickSave={saveAddingNewMemo}
+                    onClickSave={saveMemo}
                     onChangeTextarea={(e) => {
                       setNewMemo((m) => {
                         if (m) {
@@ -492,15 +516,11 @@ export const MemoView: VFC<Props> = ({
                   return (
                     <div
                       key={m.blockId.toString() + "_" + m.createdAt.toString()}
-                      className={`group relative w-full rounded-lg border-2 ${
-                        currentBlockId === m.blockId
-                          ? "border-blue-500"
-                          : "border-white"
-                      }`}
+                      className="group relative w-full"
                     >
                       {/* メモカード */}
                       <div
-                        className={`w-full rounded-lg text-warmGray-600 cursor-pointer hover:shadow-md p-1 z-0 ${
+                        className={`w-full rounded-lg text-warmGray-600 cursor-pointer hover:shadow-md p-1 z-0 border-2 ${
                           m?.color === "yellow"
                             ? "bg-yellow-100"
                             : m?.color === "red"
@@ -508,6 +528,10 @@ export const MemoView: VFC<Props> = ({
                             : m?.color === "green"
                             ? "bg-green-100"
                             : "bg-white"
+                        } ${
+                          currentBlockId === m.blockId
+                            ? "border-blue-500"
+                            : "border-white"
                         }`}
                         onClick={() => onMemoClick(m.blockId)}
                       >
@@ -549,9 +573,16 @@ export const MemoView: VFC<Props> = ({
                         </div>
                       </div>
                       <div className="hidden group-hover:flex space-x-2 absolute bottom-1 right-2 z-10">
-                        {/* タイトル編集ボタン */}
+                        {/* メモ編集ボタン */}
                         <div
-                          onClick={() => {}}
+                          onClick={() => {
+                            setNewMemo({
+                              blockId: m.blockId,
+                              createdAt: m.createdAt,
+                              text: m.text,
+                              color: m.color,
+                            });
+                          }}
                           className="flex items-center w-10 h-10 bg-warmGray-200 bg-opacity-70 rounded-lg hover:shadow-md cursor-pointer"
                         >
                           <svg
@@ -566,9 +597,11 @@ export const MemoView: VFC<Props> = ({
                             <path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z" />
                           </svg>
                         </div>
-                        {/* メモ帳削除ボタン */}
+                        {/* メモ削除ボタン */}
                         <div
-                          onClick={() => {}}
+                          onClick={() => {
+                            console.log("削除するよ");
+                          }}
                           className="flex items-center w-10 h-10 bg-red-300 bg-opacity-70 rounded-lg hover:shadow-md cursor-pointer"
                         >
                           <svg

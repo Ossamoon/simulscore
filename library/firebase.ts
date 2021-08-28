@@ -14,7 +14,7 @@ const config = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-if (!firebase.apps.length) {
+if (typeof window !== "undefined" && !firebase.apps.length) {
   firebase.initializeApp(config);
   firebase.analytics();
 }
