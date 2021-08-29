@@ -54,6 +54,33 @@ const converter = {
     options: firebase.firestore.SnapshotOptions
   ): NoteData {
     const data = snapshot.data(options);
+    // データ検証
+    if (
+      !(
+        typeof data.title === "string" &&
+        data.title !== "" &&
+        data.title.length <= MAX_NOTE_TITLE_LENGTH &&
+        typeof data.musicId === "string" &&
+        data.musicId.length === 5 &&
+        data.timestamp instanceof firebase.firestore.Timestamp &&
+        Array.isArray(data.memos) &&
+        data.memos.length <= MAX_MEMOS_PER_NOTE &&
+        data.memos.every(
+          (memo) =>
+            typeof memo.blockId === "number" &&
+            typeof memo.createdAt === "number" &&
+            typeof memo.text === "string" &&
+            memo.text.length <= MAX_MEMO_TEXT_LENGTH &&
+            typeof memo.color === "string" &&
+            (memo.color === "white" ||
+              memo.color === "yellow" ||
+              memo.color === "red" ||
+              memo.color === "green")
+        )
+      )
+    ) {
+      throw new Error("invalid data schema");
+    }
     const newNote: NoteData = {
       id: snapshot.id,
       title: data.title,
