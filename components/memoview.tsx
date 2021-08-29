@@ -109,7 +109,7 @@ export const MemoView: VFC<Props> = ({
           setData(tempArray);
         })
         .catch((error) => {
-          console.log("Error getting documents: ", error);
+          console.error("Error getting documents: ", error);
         });
     }
   }, [currentUser, musicId]);
@@ -118,7 +118,7 @@ export const MemoView: VFC<Props> = ({
   const saveAddingNewNote = useCallback(() => {
     if (newNoteTitle === null) {
       alert("保存に失敗しました");
-      console.log("Error: newNoteTitle === null");
+      console.error("Error adding new note: newNoteTitle === null");
     } else if (newNoteTitle.title === "") {
       alert("タイトルを記入してください");
     } else if (newNoteTitle.title.length > MAX_NOTE_TITLE_LENGTH) {
@@ -160,7 +160,7 @@ export const MemoView: VFC<Props> = ({
   const saveUpdatingNote = useCallback(() => {
     if (newNoteTitle === null) {
       alert("保存に失敗しました");
-      console.log("Error: newNoteTitle === null");
+      console.error("Error updating note: newNoteTitle === null");
     } else if (newNoteTitle.title === "") {
       alert("タイトルを記入してください");
     } else if (newNoteTitle.title.length > MAX_NOTE_TITLE_LENGTH) {
@@ -170,9 +170,7 @@ export const MemoView: VFC<Props> = ({
     } else {
       const oldNote = data.find((note) => note.id === newNoteTitle.id);
       if (oldNote === undefined) {
-        console.log(
-          "Error: ```data.find((note) => note.id === newNoteTitle.id)``` is undefined"
-        );
+        console.error("Error updating note: oldNote is undefined");
       } else {
         firebase
           .firestore()
@@ -207,13 +205,11 @@ export const MemoView: VFC<Props> = ({
   const deleteNote = useCallback(() => {
     if (deleteNoteTitle === null) {
       alert("削除に失敗しました");
-      console.log("Error: deleteNoteTitle === null");
+      console.error("Error deleting note: deleteNoteTitle === null");
     } else {
       const oldNote = data.find((note) => note.id === deleteNoteTitle.id);
       if (oldNote === undefined) {
-        console.log(
-          "Error: ```data.find((note) => note.id === deleteNoteTitle.id)``` is undefined"
-        );
+        console.error("oldNote is undefined");
       } else {
         firebase
           .firestore()
@@ -241,19 +237,19 @@ export const MemoView: VFC<Props> = ({
   const saveMemo = useCallback(() => {
     if (displayingNoteId === null) {
       alert("メモの保存に失敗しました");
-      console.log("Error: displayingNoteId === null");
+      console.error("Error saving memo: displayingNoteId === null");
+    } else if (displayingNote === undefined) {
+      alert("メモの保存に失敗しました");
+      console.error("Error saving memo: displayingNote === undefined");
     } else if (newMemoEdit === null) {
       alert("メモの保存に失敗しました");
-      console.log("Error: newMemo === null");
+      console.error("Error saving memo: newMemo === null");
     } else if (newMemoEdit.text === "") {
       alert("テキストを入力してください");
     } else if (newMemoEdit.text.length > MAX_MEMO_TEXT_LENGTH) {
       alert(
         `文字数を超過しています。メモは${MAX_MEMO_TEXT_LENGTH}文字以内で記入してください。`
       );
-    } else if (displayingNote === undefined) {
-      alert("メモの保存に失敗しました");
-      console.log("Error: displayingNote === undefined");
     } else {
       const newMemoArray: MemoData[] = [
         { ...newMemoEdit, createdAt: newMemoEdit.createdAt ?? Date.now() },
@@ -304,10 +300,10 @@ export const MemoView: VFC<Props> = ({
     (blockId: number, createdAt: number) => {
       if (displayingNoteId === null) {
         alert("メモの保存に失敗しました");
-        console.log("Error: displayingNoteId === null");
+        console.error("Error deleting memo: displayingNoteId === null");
       } else if (displayingNote === undefined) {
         alert("メモの保存に失敗しました");
-        console.log("Error: displayingNote === undefined");
+        console.error("Error deleting memo: displayingNote === undefined");
       } else {
         const newMemoArray: MemoData[] = [
           ...displayingNote.memos.filter(
@@ -357,7 +353,6 @@ export const MemoView: VFC<Props> = ({
       {/* メモ帳一覧 */}
       <div
         onClick={() => {
-          console.log(data.length);
           if (data.length >= MAX_NOTES_PER_MUSIC) {
             alert(
               `メモ帳の数が上限に達しています。一曲あたり作成できるメモ帳は${MAX_NOTES_PER_MUSIC}件までです。`
@@ -522,7 +517,9 @@ export const MemoView: VFC<Props> = ({
           <div
             onClick={() => {
               if (displayingNote === undefined) {
-                console.log("Error: displayingNote === undefined");
+                console.error(
+                  "Error setting new memo edit: displayingNote === undefined"
+                );
               } else if (displayingNote.memos.length >= MAX_MEMOS_PER_NOTE) {
                 alert(
                   `メモ数が上限に達しています。1つのメモ帳につきメモは最大${MAX_MEMOS_PER_NOTE}件まで登録可能です。`
