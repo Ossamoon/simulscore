@@ -44,14 +44,16 @@
   "movements": [
     {
       "movement": 1,
-      "first_blockId": 1,
+      "firstBlockId": 1,
+      "lastBlockId": 401,
       "reservation": {
         "from": "0",
         "to": "1000"
       },
-      "measure_num": 401,
       "title": "Academic Festival Overture",
-      "title_jp": "大学祝典序曲"
+      "title_jp": "大学祝典序曲",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": []
     }
   ],
   "books": [

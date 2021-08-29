@@ -33,6 +33,7 @@ export const UserCard: VFC<Props> = ({ currentUser }) => {
         className="hover:bg-warmGray-100 cursor-pointer text-warmGray-600 text-sm px-4 py-2"
         onClick={() => {
           firebase.auth().signOut();
+          location.reload();
         }}
       >
         ログアウト

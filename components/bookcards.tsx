@@ -7,7 +7,7 @@ type Props = {
 
 export const BookCards: VFC<Props> = ({ bookInfos }) => {
   return (
-    <div className="w-full flex space-x-2 bg-warmGray-200 rounded-md shadow-inner flex-nowrap overflow-y-auto px-2 pt-2 pb-4">
+    <div className="w-full flex space-x-2 bg-warmGray-200 rounded-md shadow-inner flex-nowrap overflow-x-auto px-2 pt-2 pb-4">
       {bookInfos?.map((b) => {
         return (
           <a

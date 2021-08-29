@@ -9,6 +9,24 @@
   "opus": "Op.68",
   "videos": [
     {
+      "videoId": "yGJEoUdEtiM",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Günter Wand",
+          "name_jp": "ギュンター・ヴァント"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "NDR Elbphilharmonie Orchester",
+          "name_jp": "NDRエルプフィルハーモニー管弦楽団"
+        }
+      ]
+    },
+    {
       "videoId": "9Ij6I_zhBdU",
       "source": "youtube",
       "players": [
@@ -23,6 +41,24 @@
           "part_jp": "オーケストラ",
           "name": "hr-Sinfonieorchester - Frankfurt Radio Symphony",
           "name_jp": "hr交響楽団（フランクフルト放送交響楽団）"
+        }
+      ]
+    },
+    {
+      "videoId": "BRdEgS_OHAk",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Paavo Järvi",
+          "name_jp": "パーヴォ・ヤルヴィ"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "Orchestre de Paris",
+          "name_jp": "パリ管弦楽団"
         }
       ]
     }
@@ -49,48 +85,55 @@
   "movements": [
     {
       "movement": 1,
-      "first_blockId": 1,
+      "firstBlockId": 1,
+      "lastBlockId": 513,
       "reservation": {
         "from": "0",
         "to": "1000"
       },
-      "measure_num": 513,
       "title": "1st mov. Un poco sostenuto - Allegro",
-      "title_jp": "第一楽章 Un poco sostenuto - Allegro"
+      "title_jp": "第一楽章 Un poco sostenuto - Allegro",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": [189, 190]
     },
     {
       "movement": 2,
-      "first_blockId": 1001,
+      "firstBlockId": 1001,
+      "lastBlockId": 1128,
       "reservation": {
         "from": "1000",
         "to": "2000"
       },
-      "measure_num": 128,
       "title": "2nd mov. Andante sostenuto",
-      "title_jp": "第二楽章 Andante sostenuto"
+      "title_jp": "第二楽章 Andante sostenuto",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": []
     },
     {
       "movement": 3,
-      "first_blockId": 2001,
+      "firstBlockId": 2001,
+      "lastBlockId": 2165,
       "reservation": {
         "from": "2000",
         "to": "3000"
       },
-      "measure_num": 165,
       "title": "3rd mov. Un poco allegretto e grazioso",
-      "title_jp": "第三楽章 Un poco allegretto e grazioso"
+      "title_jp": "第三楽章 Un poco allegretto e grazioso",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": [2108]
     },
     {
       "movement": 4,
-      "first_blockId": 3001,
+      "firstBlockId": 3001,
+      "lastBlockId": 3458,
       "reservation": {
         "from": "3000",
         "to": "4000"
       },
-      "measure_num": 458,
       "title": "4th mov. Adagio - Più andante - Allegro non troppo, ma con brio - Più allegro",
       "title_jp": "第四楽章 Adagio - Più andante - Allegro non troppo, ma con brio - Più allegro",
-      "doubled_measures": [61]
+      "devidedFirstBlockId": [3061],
+      "firstEndingBlockId": []
     }
   ],
   "books": [

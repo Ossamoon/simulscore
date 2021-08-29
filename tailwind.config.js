@@ -6,6 +6,7 @@ module.exports = {
   variants: {
     extend: {
       height: ["checked"],
+      display: ["group-hover"],
     },
   },
   theme: {

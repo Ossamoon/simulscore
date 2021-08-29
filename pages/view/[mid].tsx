@@ -4,7 +4,6 @@ import Link from "next/link";
 import React, {
   useState,
   useEffect,
-  useContext,
   useRef,
   useMemo,
   useCallback,
@@ -20,7 +19,7 @@ import { MovList } from "components/movlist";
 import { VideoCards } from "components/videocards";
 import { BookCards } from "components/bookcards";
 import { Avatar } from "components/avatar";
-import { AuthContext } from "components/auth";
+import { MemoView } from "components/memoview";
 
 import { getMusicData, MusicData } from "library/getMusicData";
 import { getVideoData, VideoData } from "library/getVideoData";
@@ -33,9 +32,6 @@ type Props = {
 };
 
 const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
-  // Auth
-  const { currentUser } = useContext(AuthContext);
-
   //
   // Data Source ---------------------------------------------------------
   //
@@ -113,24 +109,18 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
 
   const blocks = useRef<HTMLDivElement[]>(Array(9800));
 
-  const allBlocksMeasures: number[] = useMemo(() => {
+  const [isFirstEndingOmitted, setIsFirstEndingOmitted] = useState<boolean>(
+    scoreData.isFirstEndingOmitted
+  );
+
+  const allBlocksMovement: number[] = useMemo(() => {
     const getCurrentMovementFromBlockId = (id: number): number => {
       if (id >= 9800 && id < 9900) {
         return id - 9800;
       }
-      if (musicData.movements) {
-        for (const mov of musicData.movements) {
-          if (id >= mov.reservation.from && id < mov.reservation.to) {
-            return mov.movement;
-          }
-
-          if (mov.cadenza) {
-            for (const cad of mov.cadenza) {
-              if (id >= cad.reservation.from && id < cad.reservation.to) {
-                return mov.movement;
-              }
-            }
-          }
+      for (const mov of musicData.movements) {
+        if (id >= mov.reservation.from && id < mov.reservation.to) {
+          return mov.movement;
         }
       }
       return -1;
@@ -139,11 +129,148 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
     return [...Array(10000)].map((_, i) => getCurrentMovementFromBlockId(i));
   }, [musicData.movements]);
 
+  const getMovementFromBlockId = useCallback(
+    (blockId: number): number => {
+      return allBlocksMovement[blockId];
+    },
+    [allBlocksMovement]
+  );
+
+  const getMovementTextFromBlockId = useCallback(
+    (blockId: number): string => {
+      const mov = musicData.movements.find(
+        (mov) => mov.movement === allBlocksMovement[blockId]
+      );
+      if (mov) return mov.title_jp ?? mov.title;
+      else return "";
+    },
+    [allBlocksMovement, musicData]
+  );
+
+  const allBlocksMeasureNotOmittingFirstEnding: string[] = useMemo(() => {
+    const res = [...Array(10000)].fill("");
+    for (const mov of musicData.movements) {
+      let id = mov.firstBlockId;
+      let measureCount = id % 10;
+      while (id <= mov.lastBlockId) {
+        if (mov.devidedFirstBlockId.includes(id)) {
+          res[id] = measureCount.toString() + "a";
+          id += 1;
+        } else if (mov.devidedFirstBlockId.includes(id - 1)) {
+          res[id] = measureCount.toString() + "b";
+          measureCount += 1;
+          id += 1;
+        } else {
+          res[id] = measureCount.toString();
+          measureCount += 1;
+          id += 1;
+        }
+      }
+
+      if (mov.cadenza) {
+        for (const c of mov.cadenza) {
+          let id_cadenza = c.firstBlockId;
+          let measureCount_cadenza = id_cadenza % 10;
+          while (id_cadenza <= c.lastBlockId) {
+            if (c.devidedFirstBlockId.includes(id_cadenza)) {
+              res[id_cadenza] = "c" + measureCount.toString() + "a";
+              id_cadenza += 1;
+            } else if (c.devidedFirstBlockId.includes(id_cadenza - 1)) {
+              res[id_cadenza] = "c" + measureCount_cadenza.toString() + "b";
+              measureCount_cadenza += 1;
+              id_cadenza += 1;
+            } else {
+              res[id_cadenza] = "c" + measureCount_cadenza.toString();
+              measureCount_cadenza += 1;
+              id_cadenza += 1;
+            }
+          }
+        }
+      }
+    }
+    return res;
+  }, [musicData.movements]);
+
+  const allBlocksMeasureOmittingFirstEnding: string[] = useMemo(() => {
+    const res = [...Array(10000)].fill("");
+    for (const mov of musicData.movements) {
+      let id = mov.firstBlockId;
+      let measureCount = id % 10;
+      let tempCount = measureCount;
+      while (id <= mov.lastBlockId) {
+        if (mov.firstEndingBlockId.includes(id)) {
+          res[id] = tempCount.toString() + "'";
+          tempCount += 1;
+          id += 1;
+        } else if (mov.devidedFirstBlockId.includes(id)) {
+          res[id] = measureCount.toString() + "a";
+          id += 1;
+        } else if (mov.devidedFirstBlockId.includes(id - 1)) {
+          res[id] = measureCount.toString() + "b";
+          measureCount += 1;
+          tempCount = measureCount;
+          id += 1;
+        } else {
+          res[id] = measureCount.toString();
+          measureCount += 1;
+          tempCount = measureCount;
+          id += 1;
+        }
+      }
+
+      if (mov.cadenza) {
+        for (const c of mov.cadenza) {
+          let id_cadenza = c.firstBlockId;
+          let measureCount_cadenza = id_cadenza % 10;
+          let tempCount_cadenza = measureCount_cadenza;
+          while (id_cadenza <= c.lastBlockId) {
+            if (c.firstEndingBlockId.includes(id_cadenza)) {
+              res[id_cadenza] = "c" + tempCount_cadenza.toString() + "'";
+              tempCount_cadenza += 1;
+              id_cadenza += 1;
+            } else if (c.devidedFirstBlockId.includes(id_cadenza)) {
+              res[id_cadenza] = "c" + measureCount_cadenza.toString() + "a";
+              id_cadenza += 1;
+            } else if (c.devidedFirstBlockId.includes(id_cadenza - 1)) {
+              res[id_cadenza] = "c" + measureCount_cadenza.toString() + "b";
+              measureCount_cadenza += 1;
+              tempCount_cadenza = measureCount_cadenza;
+              id += 1;
+            } else {
+              res[id_cadenza] = "c" + measureCount_cadenza.toString();
+              measureCount_cadenza += 1;
+              tempCount_cadenza = measureCount_cadenza;
+              id_cadenza += 1;
+            }
+          }
+        }
+      }
+    }
+    return res;
+  }, [musicData.movements]);
+
+  const getMeasureFromBlockId = useCallback(
+    (blockId: number): string => {
+      return isFirstEndingOmitted
+        ? allBlocksMeasureOmittingFirstEnding[blockId]
+        : allBlocksMeasureNotOmittingFirstEnding[blockId];
+    },
+    [
+      isFirstEndingOmitted,
+      allBlocksMeasureOmittingFirstEnding,
+      allBlocksMeasureNotOmittingFirstEnding,
+    ]
+  );
+
   const [currentBlockId, setCurrentBlockId] = useState<number>(9999);
-  const [currentMeasure, setCurrentMeasure] = useState<number>(-1);
-  useEffect(() => {
-    setCurrentMeasure(allBlocksMeasures[currentBlockId]);
-  }, [currentBlockId, allBlocksMeasures]);
+
+  const currentMeasure = useMemo(() => {
+    return getMeasureFromBlockId(currentBlockId);
+  }, [currentBlockId, getMeasureFromBlockId]);
+
+  const currentMovement = useMemo(() => {
+    return getMovementFromBlockId(currentBlockId);
+  }, [currentBlockId, getMovementFromBlockId]);
 
   //
   // Timer -----------------------------------------------------------------
@@ -195,7 +322,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
     (event: { target: YouTubePlayer; data: number }): void => {
       console.log(`Player State: ${event.data}`);
       if (event.data === 1) {
-        timerId.current = setInterval(tick, 35);
+        timerId.current = setInterval(tick, 20);
       } else if (event.data !== 1) {
         if (timerId.current) clearInterval(timerId.current);
       }
@@ -210,10 +337,6 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
   const scoreContent = useRef<HTMLDivElement>(null);
   const [isAutoScroll, setIsAutoScroll] = useState<boolean>(true);
 
-  const onToggleClick = useCallback(() => {
-    setIsAutoScroll((b) => !b);
-  }, []);
-
   const scrollScoreView = useCallback(
     (blockId: number): void => {
       if (blockId === 9999) return;
@@ -223,7 +346,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
       if (blockId >= 9800 && blockId < 9900 && musicData.movements) {
         const tempId = musicData.movements.find(
           (mov) => mov.movement === blockId - 9800
-        )?.first_blockId;
+        )?.firstBlockId;
         if (tempId) checkId = tempId;
       }
 
@@ -332,7 +455,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 <div className="flex-grow"></div>
                 {/* ユーザーアバター */}
                 <div className="flex-none pr-1">
-                  <Avatar currentUser={currentUser} />
+                  <Avatar />
                 </div>
               </div>
             </header>
@@ -346,14 +469,33 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
               >
                 {isAutoScroll ? "ON" : "OFF"}
               </p>
-              <Toggle selected={isAutoScroll} onClick={onToggleClick}></Toggle>
+              <Toggle
+                selected={isAutoScroll}
+                onClick={() => setIsAutoScroll((b) => !b)}
+              ></Toggle>
               <p className="text-warmGray-500 text-xs font-bold mx-1 truncate tracking-wide">
                 自動スクロール
               </p>
             </div>
+            <div className="w-full px-2 pt-0.5 flex flex-row-reverse items-center">
+              <p
+                className={`text-xs text-right font-bold w-5 mx-1 ${
+                  isFirstEndingOmitted ? "text-blue-600" : "text-warmGray-500"
+                }`}
+              >
+                {isFirstEndingOmitted ? "ON" : "OFF"}
+              </p>
+              <Toggle
+                selected={isFirstEndingOmitted}
+                onClick={() => setIsFirstEndingOmitted((b) => !b)}
+              ></Toggle>
+              <p className="text-warmGray-500 text-xs font-bold mx-1 truncate tracking-wide">
+                第1,第2括弧で小節番号の重複
+              </p>
+            </div>
 
             {/* 曲のタイトル・作曲家 */}
-            <div className="w-full bg-warmGray-100 px-4 pb-4">
+            <div className="w-full bg-warmGray-100 mx-4 mb-4">
               <p className="text-lg font-bold truncate text-warmGray-500 tracking-wide">
                 {musicData.composer_jp ?? musicData.composer}
               </p>
@@ -373,24 +515,36 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                   onStateChange={onPlayerStateChange}
                 />
               </div>
+
+              {/* 楽章一覧 */}
               {musicData.movements ? (
                 <MovList
-                  currentMeasure={currentMeasure}
+                  currentMovement={currentMovement}
                   movementsData={musicData.movements}
                   onClick={onDivClick}
                 />
               ) : null}
+
+              {/* 小節番号を表示 */}
+              <div className="flex items-end">
+                <div className="flex-none w-16 h-8 bg-warmGray-300 rounded-lg text-right text-warmGray-700 text-xl pr-2 py-0.5 ml-2">
+                  {currentMeasure}
+                </div>
+                <div className="flex-none text-xs text-warmGray-600 px-0.5">
+                  小節
+                </div>
+              </div>
             </div>
 
             {/* 動画の情報 */}
-            <div className="px-4 pb-12">
+            <div className="pl-6 pr-4 pt-4 pb-12">
               {thisVideoInfo?.players.map((p) => {
                 return (
-                  <div key={p.part + "_" + p.name} className="px-4 pt-4">
-                    <p className="text-lg font-medium text-warmGray-700 truncate">
+                  <div key={p.part + "_" + p.name} className="pl-2 pt-4">
+                    <p className="text-lg font-medium text-warmGray-700">
                       {p.name_jp ?? p.name}
                     </p>
-                    <p className="text-sm font-light italic text-warmGray-500 truncate">
+                    <p className="text-sm font-light italic text-warmGray-500">
                       {p.part_jp ?? p.part}
                     </p>
                   </div>
@@ -398,14 +552,14 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
               })}
             </div>
 
-            {/* サイドバー(スマホ版) */}
+            {/* 折り畳み画面(スマホ版) */}
             <div
               className={`fixed lg:static top-full lg:inset-0 z-40 lg:z-0 h-screen lg:h-auto w-screen lg:w-full bg-warmGray-100 transition lg:transition-none transform ease-out duration-300 overflow-y-auto lg:overflow-visible ${
                 isOpenSideMenu ? "-translate-y-full lg:translate-y-0" : ""
               }`}
             >
               <div className="mx-4">
-                {/* スクロールボタン(サイド) */}
+                {/* スクロールボタン(スマホ版のみ) */}
                 <div className="lg:hidden w-full py-2 flex flex-row-reverse items-center">
                   <p
                     className={`text-xs text-right font-bold w-5 mx-1 ${
@@ -416,16 +570,31 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                   </p>
                   <Toggle
                     selected={isAutoScroll}
-                    onClick={onToggleClick}
+                    onClick={() => setIsAutoScroll((b) => !b)}
                   ></Toggle>
                   <p className="text-warmGray-500 text-xs font-bold mx-1 truncate tracking-wide">
                     自動スクロール
                   </p>
                 </div>
 
+                {/* メモ */}
+                <div className="h-px mb-2 mx-2 bg-warmGray-300"></div>
+                <h2 className="text-xl text-green-800 font-bold mx-2 truncate">
+                  メモ帳
+                </h2>
+                <div className="px-2 pt-4">
+                  <MemoView
+                    musicId={musicData.musicId}
+                    currentBlockId={currentBlockId}
+                    getMovementFromBlockId={getMovementTextFromBlockId}
+                    getMeasureFromBlockId={getMeasureFromBlockId}
+                    onMemoClick={onDivClick}
+                  />
+                </div>
+
                 {/* 他の動画リスト */}
-                <div className="h-px mb-2 mx-4 bg-warmGray-300"></div>
-                <h2 className="text-xl text-green-800 font-bold mx-4 truncate">
+                <div className="h-px mt-12 mb-2 mx-2 bg-warmGray-300"></div>
+                <h2 className="text-xl text-green-800 font-bold mx-2 truncate">
                   他の動画
                 </h2>
                 <div className="px-2 pt-4">
@@ -437,11 +606,11 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 </div>
 
                 {/* 楽譜の情報 */}
-                <div className="h-px mt-12 mb-2 mx-4 bg-warmGray-300"></div>
-                <h2 className="text-xl text-green-800 font-bold mx-4 truncate">
+                <div className="h-px mt-12 mb-2 mx-2 bg-warmGray-300"></div>
+                <h2 className="text-xl text-green-800 font-bold mx-2 truncate">
                   楽譜の情報
                 </h2>
-                <div className="w-full px-4 pt-4">
+                <div className="w-full pl-4 pt-4">
                   <img
                     src={`https://storage.googleapis.com/treatedscorebucket/images/${scoreId}/1.png`}
                     alt="sheet"
@@ -473,26 +642,26 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                   <h4 className="font-bold text-base text-green-800 mt-4">
                     出版社情報
                   </h4>
-                  <p className="whitespace-pre-wrap text-warmGray-700 ml-3 mr-1 text-sm">
+                  <p className="whitespace-pre-wrap text-warmGray-700 ml-4 text-sm">
                     {thisScoreInfo?.publisher}
                   </p>
                   <h4 className="font-bold text-base text-green-800 mt-4">
                     著作権
                   </h4>
-                  <p className="whitespace-pre-wrap text-warmGray-700 ml-3 mr-1 text-sm">
+                  <p className="whitespace-pre-wrap text-warmGray-700 ml-4 text-sm">
                     {thisScoreInfo?.copyright}
                   </p>
                 </div>
 
                 {/* 関連書籍 */}
-                <div className="h-px mt-12 mb-2 mx-4 bg-warmGray-300"></div>
-                <h2 className="text-xl text-green-800 font-bold mx-4 truncate">
+                <div className="h-px mt-12 mb-2 mx-2 bg-warmGray-300"></div>
+                <h2 className="text-xl text-green-800 font-bold mx-2 truncate">
                   関連書籍 - amazon.co.jp へのリンク
                 </h2>
-                <h4 className="font-bold text-base text-green-800 mt-4 mx-4">
+                <h4 className="font-bold text-base text-green-800 mt-4 ml-4">
                   この曲のスコア
                 </h4>
-                <div className="mx-2">
+                <div className="mx-4 mt-2">
                   <BookCards
                     bookInfos={musicData.books?.filter(
                       (b) => b.language === "jp" && b.type === "score"

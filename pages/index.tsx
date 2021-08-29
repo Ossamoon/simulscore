@@ -1,10 +1,9 @@
 import { GetStaticProps } from "next";
-import { VFC, useEffect, useContext } from "react";
+import { VFC, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 
 import { getHomeData, HomeData } from "library/getHomeData";
-import { AuthContext } from "components/auth";
 import { Avatar } from "components/avatar";
 
 type Props = {
@@ -12,9 +11,6 @@ type Props = {
 };
 
 const Home: VFC<Props> = ({ homeData }) => {
-  // Auth
-  const { currentUser } = useContext(AuthContext);
-
   // Twitter Script Element
   useEffect(() => {
     const s = document.createElement("script");
@@ -67,7 +63,7 @@ const Home: VFC<Props> = ({ homeData }) => {
           <div className="flex pt-4">
             <div className="flex-grow"></div>
             <div className="flex-none pr-8">
-              <Avatar currentUser={currentUser} />
+              <Avatar />
             </div>
           </div>
 

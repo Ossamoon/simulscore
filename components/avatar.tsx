@@ -1,15 +1,17 @@
-import firebase from "library/firebase";
-import { VFC, useState } from "react";
-import Link from "next/link";
+import { VFC, useState, useContext } from "react";
 
+import { AuthContext } from "components/auth";
 import { UserCard } from "components/usercard";
+import { SigninCard } from "components/signincard";
 
-type Props = {
-  currentUser: firebase.User | null | undefined;
-};
+export const Avatar: VFC = () => {
+  // Auth
+  const { currentUser } = useContext(AuthContext);
 
-export const Avatar: VFC<Props> = ({ currentUser }) => {
+  // State
   const [isOpenUserCard, setIsOpenUserCard] = useState<boolean>(false);
+  const [isOpenSigninCard, setIsOpenSigninCard] = useState<boolean>(false);
+
   return (
     <>
       {currentUser?.photoURL ? (
@@ -35,12 +37,24 @@ export const Avatar: VFC<Props> = ({ currentUser }) => {
           </div>
         </>
       ) : (
-        <div className="my-1.5">
-          <Link href="/signIn">
-            <a className="w-max rounded-md font-bold text-warmGray-100 text-sm hover:text-warmGray-300 text-center border border-warmGray-100 hover:border-warmGray-300 px-4 py-2 cursor-pointer">
-              ログイン
-            </a>
-          </Link>
+        <div className="relative z-50">
+          <div
+            onClick={() => setIsOpenSigninCard((b) => !b)}
+            className="w-max rounded-md font-bold text-warmGray-100 text-sm hover:text-warmGray-300 text-center border border-warmGray-100 hover:border-warmGray-300 px-4 py-2 cursor-pointer"
+          >
+            ログイン
+          </div>
+          {isOpenSigninCard ? (
+            <>
+              <div
+                className="fixed inset-0 w-full h-full z-40"
+                onClick={() => setIsOpenSigninCard(false)}
+              ></div>
+              <div className="absolute top-11 -right-2 z-50">
+                <SigninCard />
+              </div>
+            </>
+          ) : null}
         </div>
       )}
     </>

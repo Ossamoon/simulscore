@@ -70,37 +70,43 @@
   "movements": [
     {
       "movement": 1,
-      "first_blockId": 1,
+      "firstBlockId": 1,
+      "lastBlockId": 138,
       "reservation": {
         "from": "0",
         "to": "1000"
       },
-      "measure_num": 137,
       "title": "1st mov. Allegro piacevole",
       "title_jp": "第一楽章 Allegro piacevole",
-      "doubled_measures": [32]
+      "devidedFirstBlockId": [32],
+      "firstEndingBlockId": []
     },
     {
       "movement": 2,
-      "first_blockId": 1001,
+      "firstBlockId": 1001,
+      "lastBlockId": 1079,
       "reservation": {
         "from": "1000",
         "to": "2000"
       },
-      "measure_num": 79,
       "title": "2nd mov. Larghetto",
-      "title_jp": "第二楽章 Larghetto"
+      "title_jp": "第二楽章 Larghetto",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": []
     },
     {
       "movement": 3,
-      "first_blockId": 2001,
+      "firstBlockId": 2001,
+      "lastBlockId": 2076,
       "reservation": {
         "from": "2000",
         "to": "3000"
       },
       "measure_num": 76,
       "title": "3rd mov. Allegretto",
-      "title_jp": "第三楽章 Allegretto"
+      "title_jp": "第三楽章 Allegretto",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": []
     }
   ],
   "books": [
