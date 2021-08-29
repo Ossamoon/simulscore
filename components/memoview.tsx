@@ -69,7 +69,7 @@ export const MemoView: VFC<Props> = ({
   const [deleteNoteTitle, setDeleteNoteTitle] = useState<NoteTitle | null>(
     null
   );
-  const [newMemo, setNewMemo] = useState<MemoEdit | null>(null);
+  const [newMemoEdit, setNewMemoEdit] = useState<MemoEdit | null>(null);
   const [displayingNoteId, setDisplayingNoteId] = useState<string | null>(null);
 
   // initial effect
@@ -215,26 +215,27 @@ export const MemoView: VFC<Props> = ({
     }
   }, [currentUser, data, deleteNoteTitle, displayingNoteId]);
 
-  // save to add new memo to current displayed note
+  // save to add or edit memo to current displayed note
   const saveMemo = useCallback(() => {
     const oldNote = data.find((note) => note.id === displayingNoteId);
     if (displayingNoteId === null) {
       alert("メモの保存に失敗しました");
       console.log("Error: displayingNoteId === null");
-    } else if (newMemo === null) {
+    } else if (newMemoEdit === null) {
       alert("メモの保存に失敗しました");
       console.log("Error: newMemo === null");
-    } else if (newMemo.text === "") {
+    } else if (newMemoEdit.text === "") {
       alert("テキストを入力してください");
     } else if (oldNote === undefined) {
       alert("メモの保存に失敗しました");
       console.log("Error: oldNote === undefined");
     } else {
       const newMemoArray: MemoData[] = [
-        { ...newMemo, createdAt: newMemo.createdAt ?? Date.now() },
+        { ...newMemoEdit, createdAt: newMemoEdit.createdAt ?? Date.now() },
         ...oldNote.memos.filter(
           (m) =>
-            m.blockId !== newMemo.blockId || m.createdAt !== newMemo.createdAt
+            m.blockId !== newMemoEdit.blockId ||
+            m.createdAt !== newMemoEdit.createdAt
         ),
       ].sort((a, b) => {
         if (a.blockId - b.blockId > 0) {
@@ -260,7 +261,7 @@ export const MemoView: VFC<Props> = ({
           newNote["memos"] = newMemoArray;
           newNote["timestamp"] = "now";
 
-          setNewMemo(null);
+          setNewMemoEdit(null);
           setData([
             newNote,
             ...data.filter((note) => note.id !== displayingNoteId),
@@ -271,7 +272,60 @@ export const MemoView: VFC<Props> = ({
           console.error("Error adding document: ", error);
         });
     }
-  }, [currentUser, data, displayingNoteId, newMemo]);
+  }, [currentUser, data, displayingNoteId, newMemoEdit]);
+
+  // delete memo
+  const deleteMemo = useCallback(
+    (blockId: number, createdAt: number) => {
+      const oldNote = data.find((note) => note.id === displayingNoteId);
+      if (displayingNoteId === null) {
+        alert("メモの保存に失敗しました");
+        console.log("Error: displayingNoteId === null");
+      } else if (oldNote === undefined) {
+        alert("メモの保存に失敗しました");
+        console.log("Error: oldNote === undefined");
+      } else {
+        const newMemoArray: MemoData[] = [
+          ...oldNote.memos.filter(
+            (m) => m.blockId !== blockId || m.createdAt !== createdAt
+          ),
+        ].sort((a, b) => {
+          if (a.blockId - b.blockId > 0) {
+            return 1;
+          } else if (a.blockId === b.blockId && a.createdAt - b.createdAt < 0) {
+            return 1;
+          } else {
+            return -1;
+          }
+        });
+        firebase
+          .firestore()
+          .collection("private_memos")
+          .doc(currentUser?.uid)
+          .collection("memos")
+          .doc(displayingNoteId)
+          .update({
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            memos: newMemoArray,
+          })
+          .then(() => {
+            const newNote = { ...oldNote };
+            newNote["memos"] = newMemoArray;
+            newNote["timestamp"] = "now";
+
+            setData([
+              newNote,
+              ...data.filter((note) => note.id !== displayingNoteId),
+            ]);
+          })
+          .catch((error) => {
+            alert("メモの削除に失敗しました。時間をおいて再度お試しください。");
+            console.error("Error adding document: ", error);
+          });
+      }
+    },
+    [currentUser, data, displayingNoteId]
+  );
 
   // JSX
   return (
@@ -439,7 +493,7 @@ export const MemoView: VFC<Props> = ({
               if (getMeasureFromBlockId(currentBlockId) === "") {
                 alert("楽譜から小節を選択してください");
               } else {
-                setNewMemo({
+                setNewMemoEdit({
                   blockId: currentBlockId,
                   createdAt: null,
                   text: "",
@@ -464,19 +518,19 @@ export const MemoView: VFC<Props> = ({
             </div>
           </div>
           <div className="relative w-full h-96">
-            {newMemo === null ? null : (
+            {newMemoEdit === null ? null : (
               <>
                 {/* メモの追加・編集モーダル */}
                 <div className="absolute inset-0 w-full h-full rounded-md bg-black bg-opacity-20 z-20"></div>
                 <div className="absolute inset-0 w-full h-full p-3 z-30">
                   <NewMemoCard
-                    newMemo={newMemo}
+                    newMemo={newMemoEdit}
                     onClickCancel={() => {
-                      setNewMemo(null);
+                      setNewMemoEdit(null);
                     }}
                     onClickSave={saveMemo}
                     onChangeTextarea={(e) => {
-                      setNewMemo((m) => {
+                      setNewMemoEdit((m) => {
                         if (m) {
                           return {
                             blockId: m.blockId,
@@ -490,7 +544,7 @@ export const MemoView: VFC<Props> = ({
                       });
                     }}
                     onChangeColor={(color) => {
-                      setNewMemo((m) => {
+                      setNewMemoEdit((m) => {
                         if (m) {
                           return {
                             blockId: m.blockId,
@@ -536,7 +590,7 @@ export const MemoView: VFC<Props> = ({
                         onClick={() => onMemoClick(m.blockId)}
                       >
                         <div
-                          className={`flex items-baseline border-b mx-1 px-2 py-1 ${
+                          className={`flex items-center border-b mx-1 px-2 py-1 ${
                             m?.color === "yellow"
                               ? "border-yellow-300"
                               : m?.color === "red"
@@ -576,7 +630,7 @@ export const MemoView: VFC<Props> = ({
                         {/* メモ編集ボタン */}
                         <div
                           onClick={() => {
-                            setNewMemo({
+                            setNewMemoEdit({
                               blockId: m.blockId,
                               createdAt: m.createdAt,
                               text: m.text,
@@ -600,7 +654,7 @@ export const MemoView: VFC<Props> = ({
                         {/* メモ削除ボタン */}
                         <div
                           onClick={() => {
-                            console.log("削除するよ");
+                            deleteMemo(m.blockId, m.createdAt);
                           }}
                           className="flex items-center w-10 h-10 bg-red-300 bg-opacity-70 rounded-lg hover:shadow-md cursor-pointer"
                         >

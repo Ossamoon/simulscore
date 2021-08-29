@@ -1,7 +1,7 @@
 {
   "scoreId": "262804",
   "musicId": "A0006",
-  "isFirstEndingOmitted": false,
+  "isFirstEndingOmitted": true,
   "positions": [
     {
       "page": 1,
