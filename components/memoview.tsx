@@ -1,9 +1,21 @@
-import { VFC, useState, useEffect, useContext, useCallback } from "react";
+import {
+  VFC,
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+  useMemo,
+} from "react";
 
 import firebase from "library/firebase";
 import { AuthContext } from "components/auth";
 import { MemoEdit, NewMemoCard, Color } from "components/memocard";
 import { NoteTitle, NewNoteCard, DeleteNoteCard } from "components/notecard";
+
+const MAX_MEMO_TEXT_LENGTH = 140;
+const MAX_NOTE_TITLE_LENGTH = 40;
+const MAX_MEMOS_PER_NOTE = 100;
+const MAX_NOTES_PER_MUSIC = 10;
 
 type NoteData = {
   id: string;
@@ -71,6 +83,10 @@ export const MemoView: VFC<Props> = ({
   );
   const [newMemoEdit, setNewMemoEdit] = useState<MemoEdit | null>(null);
   const [displayingNoteId, setDisplayingNoteId] = useState<string | null>(null);
+  const displayingNote: NoteData | undefined = useMemo(
+    () => data.find((n) => n.id === displayingNoteId),
+    [data, displayingNoteId]
+  );
 
   // initial effect
   useEffect(() => {
@@ -105,6 +121,8 @@ export const MemoView: VFC<Props> = ({
       console.log("Error: newNoteTitle === null");
     } else if (newNoteTitle.title === "") {
       alert("タイトルを記入してください");
+    } else if (newNoteTitle.title.length > MAX_NOTE_TITLE_LENGTH) {
+      alert("文字数を超過しています。タイトルは40文字以内で記入してください。");
     } else {
       firebase
         .firestore()
@@ -145,6 +163,10 @@ export const MemoView: VFC<Props> = ({
       console.log("Error: newNoteTitle === null");
     } else if (newNoteTitle.title === "") {
       alert("タイトルを記入してください");
+    } else if (newNoteTitle.title.length > MAX_NOTE_TITLE_LENGTH) {
+      alert(
+        `文字数を超過しています。タイトルは${MAX_NOTE_TITLE_LENGTH}文字以内で記入してください。`
+      );
     } else {
       const oldNote = data.find((note) => note.id === newNoteTitle.id);
       if (oldNote === undefined) {
@@ -217,7 +239,6 @@ export const MemoView: VFC<Props> = ({
 
   // save to add or edit memo to current displayed note
   const saveMemo = useCallback(() => {
-    const oldNote = data.find((note) => note.id === displayingNoteId);
     if (displayingNoteId === null) {
       alert("メモの保存に失敗しました");
       console.log("Error: displayingNoteId === null");
@@ -226,13 +247,17 @@ export const MemoView: VFC<Props> = ({
       console.log("Error: newMemo === null");
     } else if (newMemoEdit.text === "") {
       alert("テキストを入力してください");
-    } else if (oldNote === undefined) {
+    } else if (newMemoEdit.text.length > MAX_MEMO_TEXT_LENGTH) {
+      alert(
+        `文字数を超過しています。メモは${MAX_MEMO_TEXT_LENGTH}文字以内で記入してください。`
+      );
+    } else if (displayingNote === undefined) {
       alert("メモの保存に失敗しました");
-      console.log("Error: oldNote === undefined");
+      console.log("Error: displayingNote === undefined");
     } else {
       const newMemoArray: MemoData[] = [
         { ...newMemoEdit, createdAt: newMemoEdit.createdAt ?? Date.now() },
-        ...oldNote.memos.filter(
+        ...displayingNote.memos.filter(
           (m) =>
             m.blockId !== newMemoEdit.blockId ||
             m.createdAt !== newMemoEdit.createdAt
@@ -257,7 +282,7 @@ export const MemoView: VFC<Props> = ({
           memos: newMemoArray,
         })
         .then(() => {
-          const newNote = { ...oldNote };
+          const newNote = { ...displayingNote };
           newNote["memos"] = newMemoArray;
           newNote["timestamp"] = "now";
 
@@ -272,21 +297,20 @@ export const MemoView: VFC<Props> = ({
           console.error("Error adding document: ", error);
         });
     }
-  }, [currentUser, data, displayingNoteId, newMemoEdit]);
+  }, [currentUser, data, displayingNoteId, displayingNote, newMemoEdit]);
 
   // delete memo
   const deleteMemo = useCallback(
     (blockId: number, createdAt: number) => {
-      const oldNote = data.find((note) => note.id === displayingNoteId);
       if (displayingNoteId === null) {
         alert("メモの保存に失敗しました");
         console.log("Error: displayingNoteId === null");
-      } else if (oldNote === undefined) {
+      } else if (displayingNote === undefined) {
         alert("メモの保存に失敗しました");
-        console.log("Error: oldNote === undefined");
+        console.log("Error: displayingNote === undefined");
       } else {
         const newMemoArray: MemoData[] = [
-          ...oldNote.memos.filter(
+          ...displayingNote.memos.filter(
             (m) => m.blockId !== blockId || m.createdAt !== createdAt
           ),
         ].sort((a, b) => {
@@ -309,7 +333,7 @@ export const MemoView: VFC<Props> = ({
             memos: newMemoArray,
           })
           .then(() => {
-            const newNote = { ...oldNote };
+            const newNote = { ...displayingNote };
             newNote["memos"] = newMemoArray;
             newNote["timestamp"] = "now";
 
@@ -324,7 +348,7 @@ export const MemoView: VFC<Props> = ({
           });
       }
     },
-    [currentUser, data, displayingNoteId]
+    [currentUser, data, displayingNoteId, displayingNote]
   );
 
   // JSX
@@ -333,7 +357,14 @@ export const MemoView: VFC<Props> = ({
       {/* メモ帳一覧 */}
       <div
         onClick={() => {
-          setNewNoteTitle({ id: "", title: "" });
+          console.log(data.length);
+          if (data.length >= MAX_NOTES_PER_MUSIC) {
+            alert(
+              `メモ帳の数が上限に達しています。一曲あたり作成できるメモ帳は${MAX_NOTES_PER_MUSIC}件までです。`
+            );
+          } else {
+            setNewNoteTitle({ id: "", title: "" });
+          }
         }}
         className="w-min flex items-center hover:bg-warmGray-50 hover:shadow-md rounded-md cursor-pointer px-2 py-1 mb-1"
       >
@@ -401,7 +432,7 @@ export const MemoView: VFC<Props> = ({
           </>
         )}
         <div className="w-full h-full space-y-2 bg-warmGray-200 rounded-md shadow-inner flex-nowrap overflow-y-auto pl-2 pr-4 py-2">
-          {data?.map((note) => {
+          {data.map((note) => {
             return (
               <div key={note.id} className="group relative w-full">
                 {/* メモ帳カード */}
@@ -490,7 +521,13 @@ export const MemoView: VFC<Props> = ({
         <>
           <div
             onClick={() => {
-              if (getMeasureFromBlockId(currentBlockId) === "") {
+              if (displayingNote === undefined) {
+                console.log("Error: displayingNote === undefined");
+              } else if (displayingNote.memos.length >= MAX_MEMOS_PER_NOTE) {
+                alert(
+                  `メモ数が上限に達しています。1つのメモ帳につきメモは最大${MAX_MEMOS_PER_NOTE}件まで登録可能です。`
+                );
+              } else if (getMeasureFromBlockId(currentBlockId) === "") {
                 alert("楽譜から小節を選択してください");
               } else {
                 setNewMemoEdit({
@@ -564,33 +601,45 @@ export const MemoView: VFC<Props> = ({
               </>
             )}
             <div className="w-full h-full space-y-3 bg-warmGray-200 rounded-md shadow-inner flex-nowrap overflow-y-auto pl-2 pr-4 py-2">
-              {data
-                ?.find((n) => n.id === displayingNoteId)
-                ?.memos.map((m) => {
-                  return (
+              {displayingNote?.memos.map((m) => {
+                return (
+                  <div
+                    key={m.blockId.toString() + "_" + m.createdAt.toString()}
+                    className="group relative w-full"
+                  >
+                    {/* メモカード */}
                     <div
-                      key={m.blockId.toString() + "_" + m.createdAt.toString()}
-                      className="group relative w-full"
+                      className={`w-full rounded-lg text-warmGray-600 cursor-pointer hover:shadow-md p-1 z-0 border-2 ${
+                        m?.color === "yellow"
+                          ? "bg-yellow-100"
+                          : m?.color === "red"
+                          ? "bg-red-100"
+                          : m?.color === "green"
+                          ? "bg-green-100"
+                          : "bg-white"
+                      } ${
+                        currentBlockId === m.blockId
+                          ? "border-blue-500"
+                          : "border-white"
+                      }`}
+                      onClick={() => onMemoClick(m.blockId)}
                     >
-                      {/* メモカード */}
                       <div
-                        className={`w-full rounded-lg text-warmGray-600 cursor-pointer hover:shadow-md p-1 z-0 border-2 ${
+                        className={`flex items-center border-b mx-1 px-2 py-1 ${
                           m?.color === "yellow"
-                            ? "bg-yellow-100"
+                            ? "border-yellow-300"
                             : m?.color === "red"
-                            ? "bg-red-100"
+                            ? "border-red-300"
                             : m?.color === "green"
-                            ? "bg-green-100"
-                            : "bg-white"
-                        } ${
-                          currentBlockId === m.blockId
-                            ? "border-blue-500"
-                            : "border-white"
+                            ? "border-green-300"
+                            : "border-warmGray-200"
                         }`}
-                        onClick={() => onMemoClick(m.blockId)}
                       >
+                        <div className="flex-grow text-xs text-warmGray-500 truncate mr-1">
+                          {getMovementFromBlockId(m.blockId)}
+                        </div>
                         <div
-                          className={`flex items-center border-b mx-1 px-2 py-1 ${
+                          className={`flex-none w-20 text-right border-l truncate ${
                             m?.color === "yellow"
                               ? "border-yellow-300"
                               : m?.color === "red"
@@ -600,80 +649,66 @@ export const MemoView: VFC<Props> = ({
                               : "border-warmGray-200"
                           }`}
                         >
-                          <div className="flex-grow text-xs text-warmGray-500 truncate mr-1">
-                            {getMovementFromBlockId(m.blockId)}
-                          </div>
-                          <div
-                            className={`flex-none w-20 text-right border-l truncate ${
-                              m?.color === "yellow"
-                                ? "border-yellow-300"
-                                : m?.color === "red"
-                                ? "border-red-300"
-                                : m?.color === "green"
-                                ? "border-green-300"
-                                : "border-warmGray-200"
-                            }`}
-                          >
-                            <span className="text-base font-bold">
-                              {getMeasureFromBlockId(m.blockId)}{" "}
-                            </span>
-                            <span className="text-xs text-warmGray-500">
-                              小節
-                            </span>
-                          </div>
-                        </div>
-                        <div className="px-3 py-2 text-sm text-warmGray-600">
-                          {m.text}
+                          <span className="text-base font-bold">
+                            {getMeasureFromBlockId(m.blockId)}{" "}
+                          </span>
+                          <span className="text-xs text-warmGray-500">
+                            小節
+                          </span>
                         </div>
                       </div>
-                      <div className="hidden group-hover:flex space-x-2 absolute bottom-1 right-2 z-10">
-                        {/* メモ編集ボタン */}
-                        <div
-                          onClick={() => {
-                            setNewMemoEdit({
-                              blockId: m.blockId,
-                              createdAt: m.createdAt,
-                              text: m.text,
-                              color: m.color,
-                            });
-                          }}
-                          className="flex items-center w-10 h-10 bg-warmGray-200 bg-opacity-70 rounded-lg hover:shadow-md cursor-pointer"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="28px"
-                            height="28px"
-                            viewBox="0 0 24 24"
-                            fill="#78716C"
-                            className="mx-auto"
-                          >
-                            <path d="M0 0h24v24H0V0z" fill="none" />
-                            <path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z" />
-                          </svg>
-                        </div>
-                        {/* メモ削除ボタン */}
-                        <div
-                          onClick={() => {
-                            deleteMemo(m.blockId, m.createdAt);
-                          }}
-                          className="flex items-center w-10 h-10 bg-red-300 bg-opacity-70 rounded-lg hover:shadow-md cursor-pointer"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="28px"
-                            height="28px"
-                            viewBox="0 0 24 24"
-                            fill="#EF4444"
-                            className="mx-auto"
-                          >
-                            <path d="M0 0h24v24H0V0z" fill="none" />
-                            <path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z" />
-                          </svg>
-                        </div>
+                      <div className="px-3 py-2 text-sm text-warmGray-600">
+                        {m.text}
                       </div>
                     </div>
-                  );
-                })}
+                    <div className="hidden group-hover:flex space-x-2 absolute bottom-1 right-2 z-10">
+                      {/* メモ編集ボタン */}
+                      <div
+                        onClick={() => {
+                          setNewMemoEdit({
+                            blockId: m.blockId,
+                            createdAt: m.createdAt,
+                            text: m.text,
+                            color: m.color,
+                          });
+                        }}
+                        className="flex items-center w-10 h-10 bg-warmGray-200 bg-opacity-70 rounded-lg hover:shadow-md cursor-pointer"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="28px"
+                          height="28px"
+                          viewBox="0 0 24 24"
+                          fill="#78716C"
+                          className="mx-auto"
+                        >
+                          <path d="M0 0h24v24H0V0z" fill="none" />
+                          <path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z" />
+                        </svg>
+                      </div>
+                      {/* メモ削除ボタン */}
+                      <div
+                        onClick={() => {
+                          deleteMemo(m.blockId, m.createdAt);
+                        }}
+                        className="flex items-center w-10 h-10 bg-red-300 bg-opacity-70 rounded-lg hover:shadow-md cursor-pointer"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="28px"
+                          height="28px"
+                          viewBox="0 0 24 24"
+                          fill="#EF4444"
+                          className="mx-auto"
+                        >
+                          <path d="M0 0h24v24H0V0z" fill="none" />
+                          <path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </>
