@@ -25,6 +25,24 @@
           "name_jp": "ウィーン・フィルハーモニー管弦楽団"
         }
       ]
+    },
+    {
+      "videoId": "R5pzr5655yw",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Paavo Järvi",
+          "name_jp": "パーヴォ・ヤルヴィ"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "Orchestre de Paris",
+          "name_jp": "パリ管弦楽団"
+        }
+      ]
     }
   ],
   "scores": [
