@@ -3,6 +3,7 @@ import Document, {
   Html,
   Head,
   Main,
+  NextScript,
   DocumentContext,
   DocumentInitialProps,
 } from "next/document";
@@ -51,6 +52,7 @@ class MyDocument extends Document {
         </Head>
         <body>
           <Main />
+          <NextScript />
         </body>
       </Html>
     );
