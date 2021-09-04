@@ -28,34 +28,12 @@ const Home: VFC<Props> = ({ homeData }) => {
           name="description"
           content="クラシック音楽のスコアリーディングを支援する動画・楽譜閲覧サイト"
         />
-        <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="apple-touch-icon"
-          type="image/png"
-          sizes="180x180"
-          href="/apple-touch-icon-180x180.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="192x192"
-          href="/icon-192x192.png"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#047857" />
-        <meta property="og:url" content="https://www.simulscore.net/" />
-        <meta property="og:type" content="website" />
         <meta property="og:title" content="SimulScore" />
+        <meta property="og:url" content="https://www.simulscore.app/" />
         <meta
           property="og:description"
           content="クラシック音楽のスコアリーディングを支援する動画・楽譜閲覧サイト"
         />
-        <meta property="og:site_name" content="SimulScore" />
-        <meta
-          property="og:image"
-          content="https://www.simulscore.net/ogp.png"
-        />
-        <meta name="twitter:card" content="summary_large_image" />
       </Head>
 
       <div className="w-screen flex flex-col overflow-auto">
