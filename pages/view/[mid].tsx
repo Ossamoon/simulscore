@@ -411,6 +411,26 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
     <>
       <Head>
         <title>{musicData.title_jp ?? musicData.title} - SimulScore</title>
+        <meta
+          name="description"
+          content={`${musicData.title_jp ?? musicData.title}(${
+            musicData.composer_jp ?? musicData.composer
+          })の動画・楽譜を閲覧`}
+        />
+        <meta
+          property="og:title"
+          content={`${musicData.title_jp ?? musicData.title} - SimulScore`}
+        />
+        <meta
+          property="og:url"
+          content={`https://www.simulscore.app/${musicData.musicId}`}
+        />
+        <meta
+          property="og:description"
+          content={`${musicData.title_jp ?? musicData.title}(${
+            musicData.composer_jp ?? musicData.composer
+          })の動画・楽譜を閲覧`}
+        />
       </Head>
 
       <div>
