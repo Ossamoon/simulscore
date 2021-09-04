@@ -27,6 +27,24 @@
       ]
     },
     {
+      "videoId": "lT_yrsJwt7w",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Manfred Honeck",
+          "name_jp": "マンフレート・ホーネック"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "NDR Elbphilharmonie Orchester",
+          "name_jp": "NDRエルプフィルハーモニー管弦楽団"
+        }
+      ]
+    },
+    {
       "videoId": "jOofzffyDSA",
       "source": "youtube",
       "players": [
