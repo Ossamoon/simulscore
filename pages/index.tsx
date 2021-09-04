@@ -37,21 +37,21 @@ const Home: VFC<Props> = ({ homeData }) => {
       </Head>
 
       <div className="w-screen flex flex-col overflow-auto">
-        <header className="w-full text-warmGray-100 bg-green-800">
-          <div className="flex pt-4">
+        <header className="w-full text-warmGray-100 bg-green-800 pb-6 md:pb-8">
+          <div className="flex px-4 md:px-8 py-2 md:py-4">
             <div className="flex-grow"></div>
-            <div className="flex-none pr-8">
+            <div className="flex-none">
               <Avatar />
             </div>
           </div>
 
-          <div className="pb-8 text-center tracking-wide">
-            <p className="text-xs sm:text-sm w-max mx-auto">
+          <div className="text-center tracking-wide">
+            <p className="text-xs md:text-sm w-max mx-auto">
               クラシック音楽のスコアリーディングを支援する
               <br />
               動画・楽譜閲覧サイト
             </p>
-            <h1 className="font-extrabold text-5xl sm:text-7xl pt-4 mx-auto">
+            <h1 className="font-extrabold text-5xl md:text-7xl pt-2 md:pt-4 mx-auto">
               SimulScore
             </h1>
           </div>
