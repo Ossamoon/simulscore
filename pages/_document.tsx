@@ -18,11 +18,10 @@ class MyDocument extends Document {
 
   render(): ReactElement {
     return (
-      <Html>
-        <Head lang="ja">
-          <meta property="og:type" content="website" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <Html lang="ja">
+        <Head>
           <meta name="theme-color" content="#047857" />
+          <meta property="og:type" content="website" />
           <meta property="og:site_name" content="SimulScore" />
           <meta
             property="og:image"
