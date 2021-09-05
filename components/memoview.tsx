@@ -413,6 +413,7 @@ export const MemoView: VFC<Props> = ({
             <div className="absolute inset-0 p-3 z-30">
               <NewNoteCard
                 newNoteTitle={newNoteTitle}
+                maxNoteTitleLength={MAX_NOTE_TITLE_LENGTH}
                 onClickCancel={() => {
                   setNewNoteTitle(null);
                 }}
@@ -586,6 +587,7 @@ export const MemoView: VFC<Props> = ({
                 <div className="absolute inset-0 w-full h-full p-3 z-30">
                   <NewMemoCard
                     newMemo={newMemoEdit}
+                    maxMemoTextLength={MAX_MEMO_TEXT_LENGTH}
                     onClickCancel={() => {
                       setNewMemoEdit(null);
                     }}

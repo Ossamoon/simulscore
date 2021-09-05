@@ -11,6 +11,7 @@ export type MemoEdit = {
 
 type Props = {
   newMemo: MemoEdit;
+  maxMemoTextLength: number;
   onClickCancel: () => void;
   onClickSave: () => void;
   onChangeTextarea: (e: ChangeEvent<HTMLTextAreaElement>) => void;
@@ -21,6 +22,7 @@ type Props = {
 
 export const NewMemoCard: VFC<Props> = ({
   newMemo,
+  maxMemoTextLength,
   onClickCancel,
   onClickSave,
   onChangeTextarea,
@@ -120,18 +122,29 @@ export const NewMemoCard: VFC<Props> = ({
         onChange={onChangeTextarea}
         className="resize-none w-full border rounded px-1"
       />
-      <div className="flex flex-row-reverse items-center pt-1">
+      <div className="flex items-center pt-1">
+        <div className="flex-none text-xs text-warmGray-400 mx-1">文字数:</div>
         <div
-          onClick={onClickSave}
-          className="text-sm bg-blue-500 rounded text-white cursor-pointer px-2 py-1 mx-2"
+          className={`flex-none text-xs text-right truncate mr-1 ${
+            newMemo.text.length > maxMemoTextLength
+              ? "text-red-400 font-bold"
+              : "text-warmGray-400"
+          }`}
         >
-          保存
+          {newMemo.text.length} / {maxMemoTextLength}
         </div>
+        <div className="flex-grow"></div>
         <div
           onClick={onClickCancel}
-          className="text-sm text-blue-600 cursor-pointer"
+          className="flex-none text-sm text-blue-600 cursor-pointer"
         >
           キャンセル
+        </div>
+        <div
+          onClick={onClickSave}
+          className="flex-none text-sm bg-blue-500 rounded text-white cursor-pointer px-2 py-1 mx-2"
+        >
+          保存
         </div>
       </div>
     </div>
