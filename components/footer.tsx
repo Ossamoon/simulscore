@@ -8,7 +8,7 @@ export const Footer: VFC = () => {
         <Link href="/terms">
           <a>利用規約</a>
         </Link>
-        <Link href="/terms">
+        <Link href="/privacy">
           <a>プライバシーポリシー</a>
         </Link>
       </div>
