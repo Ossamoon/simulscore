@@ -1,4 +1,5 @@
 import { VFC } from "react";
+import Link from "next/link";
 import firebase from "../library/firebase";
 
 export const SigninCard: VFC = () => {
@@ -8,11 +9,11 @@ export const SigninCard: VFC = () => {
   };
 
   return (
-    <div className="relative w-72 bg-warmGray-200 shadow-xl rounded-lg pt-4 pb-2">
+    <div className="relative w-72 bg-warmGray-200 shadow-xl rounded-lg pt-8 pb-4 px-6">
       <div className="absolute w-2 h-2 -top-1 right-12 transform rotate-45 bg-warmGray-200" />
-      <div className="w-56 mx-auto my-4">
+      <div className="w-56 mx-auto">
         <div
-          className="shadow-md hover:shadow-xl flex items-center bg-white w-full h-10 cursor-pointer rounded-md"
+          className="shadow-sm hover:shadow-md flex items-center bg-white w-full h-10 cursor-pointer rounded-md"
           onClick={login}
         >
           <svg
@@ -77,6 +78,20 @@ export const SigninCard: VFC = () => {
           </span>
         </div>
       </div>
+      <p className="text-xs text-warmGray-600 pt-6">
+        <Link href="/terms">
+          <a className="underline hover:no-underline hover:text-blue-500">
+            利用規約
+          </a>
+        </Link>
+        、
+        <Link href="/privacy">
+          <a className="underline hover:no-underline hover:text-blue-500">
+            プライバシーポリシー
+          </a>
+        </Link>
+        に同意した上でログインしてください。
+      </p>
     </div>
   );
 };

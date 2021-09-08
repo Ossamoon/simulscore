@@ -13,37 +13,37 @@ const Privacy: VFC = () => {
           <h1 className="font-bold text-4xl text-green-800">
             プライバシーポリシー
           </h1>
-          <p className="pt-8">
+          <p className="pt-12">
             SimulScore運営者（以下「運営者」といいます。）は、SimulScore（以下「本サービス」といいます。）の運営において取り扱う利用者の個人情報について、個人情報保護法その他法令を遵守し、適切な個人情報の保護を実践するために、以下のとおりプライバシーポリシーを定めます。
           </p>
           <ul className="pt-16 space-y-16">
-            <li>
+            <li className="space-y-4">
               <h2 className="font-bold text-xl">
                 1. 運営者が取得する情報とその取得方法
               </h2>
-              <p className="pt-4">
+              <p>
                 本サービスはGoogle
                 Analyticsを用いて利用状況を把握しています。そのため、本サービスにアクセスした際に以下の情報が自動的に取得されます。これらの情報には個人を特定できる情報を含みません。
               </p>
-              <ul className="list-disc pt-4 pl-12 space-y-4">
+              <ul className="list-disc pl-12 space-y-4">
                 <li>Cookie情報</li>
                 <li>ユーザーエージェント情報</li>
                 <li>IPアドレス</li>
               </ul>
-              <p className="pt-4">
+              <p>
                 また、ログイン時にGoogleアカウントと連携された際、運営者は以下の情報を取得します
               </p>
-              <ul className="list-disc pt-4 pl-12 space-y-4">
+              <ul className="list-discpl-12 space-y-4">
                 <li>アカウントID</li>
                 <li>メールアドレス</li>
               </ul>
             </li>
-            <li>
+            <li className="space-y-4">
               <h2 className="font-bold text-xl">2. 利用目的</h2>
-              <p className="pt-4">
+              <p>
                 運営者は、取得した利用者の情報を以下の目的のために利用します。
               </p>
-              <ul className="pt-4 pl-8 space-y-4">
+              <ul className="pl-8 space-y-4">
                 <li>(1) 利用者の本人確認および認証のため</li>
                 <li>(2) 利用者からの問い合わせに対応するため</li>
                 <li>
@@ -60,14 +60,14 @@ const Privacy: VFC = () => {
                 </li>
               </ul>
             </li>
-            <li>
+            <li className="space-y-4">
               <h2 className="font-bold text-xl">
                 3. 運営者が取得する情報の第三者への提供
               </h2>
-              <p className="pt-4">
+              <p>
                 運営者は、以下の場合を除き、取得した個人情報を第三者に開示・提供・共有することはありません
               </p>
-              <ul className="pt-4 pl-8 space-y-4">
+              <ul className="pl-8 space-y-4">
                 <li>(1) 利用者本人の同意を得た場合</li>
                 <li>
                   (2)
@@ -78,15 +78,15 @@ const Privacy: VFC = () => {
                 </li>
               </ul>
             </li>
-            <li>
+            <li className="space-y-4">
               <h2 className="font-bold text-xl">
                 4. 第三者が取得する情報とその取得方法・利用目的
               </h2>
-              <p className="pt-4">
+              <p>
                 本サービスではGoogle Analytics、Google
                 AdSenseおよびYouTubeのサービスを利用しているため、本サービスへのアクセス時、広告のクリック時、埋め込み動画の再生時等に以下のような情報がGoogle、広告主、動画投稿者等の第三者へ提供されます。これらの情報には個人を特定できる情報を含みません。
               </p>
-              <ul className="list-disc pt-4 pl-12 space-y-4">
+              <ul className="list-disc pl-12 space-y-4">
                 <li>Cookie情報</li>
                 <li>IPアドレス</li>
                 <li>広告識別子</li>
@@ -94,10 +94,10 @@ const Privacy: VFC = () => {
                   利用者のアクティビティ（再生した動画や、広告への反応等）
                 </li>
               </ul>
-              <p className="pt-4">
+              <p>
                 これらの取得方法および利用目的に関しては下記ページを参照してください。
               </p>
-              <ul className="pt-4 text-sm">
+              <ul className="text-sm">
                 <li>
                   Google社のプライバシーポリシー:{" "}
                   <a
@@ -144,19 +144,19 @@ const Privacy: VFC = () => {
                 </li>
               </ul>
             </li>
-            <li>
+            <li className="space-y-4">
               <h2 className="font-bold text-xl">5. 個人情報の保護</h2>
-              <p className="pt-4">
+              <p>
                 運営者は、利用者の個人情報の紛失、盗用、悪用、不正アクセス、改ざんおよび破損を防ぐために、合理的範囲内で技術的および物理的措置を講じています。
               </p>
             </li>
-            <li>
+            <li className="space-y-4">
               <h2 className="font-bold text-xl">6. Cookieの利用</h2>
-              <p className="pt-4">
+              <p>
                 本サービスではGoogle
                 AdSenseを用いた広告の表示をすることがあり、Googleなどの第三者は、Cookie情報をパーソナライズ広告の配信のため利用することがあります。なお、利用者は下記ページにアクセスすることでパーソナライズ広告を無効にすることができます。
               </p>
-              <div className="text-sm pt-4">
+              <div className="text-sm">
                 Google広告設定:{" "}
                 <a
                   href="https://support.google.com/ads/answer/2662922?hl=ja"
@@ -168,11 +168,11 @@ const Privacy: VFC = () => {
                 </a>
               </div>
             </li>
-            <li>
+            <li className="space-y-4">
               <h2 className="font-bold text-xl">
                 7. プライバシーポリシーの改定
               </h2>
-              <p className="pt-4">
+              <p>
                 運営者は、事前の通知をすることなくプライバシーポリシーを随時改定することがあり、運営者のウェブサイトに掲載した時点から適用されるものとします。ただし、利用目的が大きく変更される場合は、改めて利用者から同意を得るものとします。
               </p>
             </li>

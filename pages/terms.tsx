@@ -11,23 +11,23 @@ const Terms: VFC = () => {
 
         <div className="max-w-3xl mx-auto px-8 my-16 text-warmGray-800">
           <h1 className="font-bold text-4xl text-green-800">利用規約</h1>
-          <p className="pt-8">
+          <p className="pt-12">
             SimulScore（以下
             「本サービス」といいます。）のご利用にあたり、このSimulScore利用規約
             （以下
             「本規約」といいます。）のすべての条項をお読みいただき、同意していただく必要がございます。
           </p>
           <ul className="pt-16 space-y-16">
-            <li>
+            <li className="space-y-4">
               <h2 className="font-bold text-xl">第1条（適用）</h2>
-              <p className="pt-4">
+              <p>
                 本規約は、利用者とSimulScore運営者 （以下
                 「運営者」といいます。）との間の本サービス利用に関わる一切の関係に適用されます。
               </p>
             </li>
-            <li>
+            <li className="space-y-4">
               <h2 className="font-bold text-xl">第2条（登録）</h2>
-              <ul className="list-decimal pt-4 pl-4 space-y-4">
+              <ul className="list-decimal pl-4 space-y-4">
                 <li>
                   本サービス内のメモ機能を利用する場合は、本規約に同意の上、ログイン登録をしていただく必要があります。
                 </li>
@@ -56,9 +56,9 @@ const Terms: VFC = () => {
                 </li>
               </ul>
             </li>
-            <li>
+            <li className="space-y-4">
               <h2 className="font-bold text-xl">第3条（連絡・通知）</h2>
-              <ul className="list-decimal pt-4 pl-4 space-y-4">
+              <ul className="list-decimalpl-4 space-y-4">
                 <li>
                   本サービスは、ログイン登録をされた利用者に対して、連携されたGoogleアカウントから取得したメールアドレスに対し連絡または通知を行うことがあります。
                 </li>
@@ -67,9 +67,9 @@ const Terms: VFC = () => {
                 </li>
               </ul>
             </li>
-            <li>
+            <li className="space-y-4">
               <h2 className="font-bold text-xl">第4条（権利の帰属）</h2>
-              <ul className="list-decimal pt-4 pl-4 space-y-4">
+              <ul className="list-decimal pl-4 space-y-4">
                 <li>
                   利用者が本サービスのメモ機能を用いて作成した文章の著作権・その他知的財産権は、当該利用者に帰属し、運営者は一切の権利を取得しません。運営者はサービス向上のため利用者が作成したメモを閲覧することがあります。運営者が利用者によって作成されたメモを複製または引用する場合は、利用者に対し利用方法を通知し、許諾を得るものとします。
                 </li>
@@ -93,12 +93,12 @@ const Terms: VFC = () => {
                 </li>
               </ul>
             </li>
-            <li>
+            <li className="space-y-4">
               <h2 className="font-bold text-xl">第5条（禁止事項）</h2>
-              <p className="pt-4">
+              <p>
                 利用者は、本サービスの利用にあたり、以下の行為をしてはなりません。これらの行為が発覚した場合、利用者のアカウントを停止・削除する場合があります。
               </p>
-              <ul className="pt-4 pl-8 space-y-4">
+              <ul className="pl-8 space-y-4">
                 <li>(1) 法令または公序良俗に違反する行為</li>
                 <li>(2) 犯罪に関連する行為</li>
                 <li>
@@ -126,14 +126,14 @@ const Terms: VFC = () => {
                 <li>(11) その他、運営者が不適切と判断する行為</li>
               </ul>
             </li>
-            <li>
+            <li className="space-y-4">
               <h2 className="font-bold text-xl">
                 第6条（本サービスの停止・中断）
               </h2>
-              <p className="pt-4">
+              <p>
                 運営者は、以下のいずれかに該当する場合には、利用者に事前に通知することなく、本サービスの全部または一部の提供を停止または中断することができるものとします。
               </p>
-              <ul className="pt-4 pl-8 space-y-4">
+              <ul className="pl-8 space-y-4">
                 <li>
                   (1)本サービスに係るコンピューター・システムの点検または保守作業を緊急に行う場合
                 </li>
@@ -149,18 +149,20 @@ const Terms: VFC = () => {
                 <li>(5)その他、運営者が停止または中断を必要と判断した場合</li>
               </ul>
             </li>
-            <li>
+            <li className="space-y-4">
               <h2 className="font-bold text-xl">
                 第7条（本サービスの変更および終了）
               </h2>
-              <p className="pt-4">
+              <p>
                 運営者は、運営者の都合により、利用者に対して事前の通知をすることなく本サービスの内容を変更することができ、また30日前までに通知することにより本サービスを終了することができます。この変更または終了によって利用者に損害や不利益が生じた場合、運営者は一切の責任を負いません。
               </p>
-              <h2 className="font-bold text-xl pt-16">第8条（登録抹消等）</h2>
-              <p className="pt-4">
+            </li>
+            <li className="space-y-4">
+              <h2 className="font-bold text-xl">第8条（登録抹消等）</h2>
+              <p>
                 運営者は、利用者が以下のいずれかに該当すると判断した場合は、事前に通知または催告することのなく、当該利用者のアカウントを停止または抹消することができます。
               </p>
-              <ul className="pt-4 pl-8 space-y-4">
+              <ul className="pl-8 space-y-4">
                 <li>(1)第5条（禁止事項）にあたる行為をした場合</li>
                 <li>(2)第2条第3項各号に該当すると判明した場合</li>
                 <li>
@@ -169,15 +171,15 @@ const Terms: VFC = () => {
                 <li>(4)その他、運営者が登録の継続を適当でないと判断した場合</li>
               </ul>
             </li>
-            <li>
+            <li className="space-y-4">
               <h2 className="font-bold text-xl">第9条（個人情報の取扱い）</h2>
-              <p className="pt-4">
+              <p>
                 運営者による利用者の個人情報の取扱いについては、別途プライバシーポリシーの定めによるものとし、利用者はこのプライバシーポリシーに従って運営者が利用者の個人情報を取扱うことについて同意するものとします。
               </p>
-              <h2 className="font-bold text-xl pt-16">
-                第10条（本規約の改定）
-              </h2>
-              <ul className="list-decimal pt-4 pl-4 space-y-4">
+            </li>
+            <li className="space-y-4">
+              <h2 className="font-bold text-xl">第10条（本規約の改定）</h2>
+              <ul className="list-decimal pl-4 space-y-4">
                 <li>
                   運営者は、運営者が必要と認めた場合は、本規約を改定できるものとします。
                 </li>
@@ -189,9 +191,9 @@ const Terms: VFC = () => {
                 </li>
               </ul>
             </li>
-            <li>
+            <li className="space-y-4">
               <h2 className="font-bold text-xl">第11条（免責事項）</h2>
-              <ul className="list-decimal pt-4 pl-4 space-y-4">
+              <ul className="list-decimal pl-4 space-y-4">
                 <li>
                   運営者は、本サービスが利用者の特定の目的に適合すること、期待する安全性・正確性・有用性を有すること、利用者による本サービスの利用が利用者に適用される法令または規則等に適合すること、継続的に利用できること、および不具合が生じないことについて、明示または黙示を問わず何ら保証するものではなく、これらに関する瑕疵を除去する義務を利用者に対して負いません。
                 </li>
@@ -200,17 +202,17 @@ const Terms: VFC = () => {
                 </li>
               </ul>
             </li>
-            <li>
+            <li className="space-y-4">
               <h2 className="font-bold text-xl">第12条（分離可能性）</h2>
-              <p className="pt-4">
+              <p>
                 本規約のいずれかの条項またはその一部が、消費者契約法その他の法令等により無効または執行不能と判断された場合であっても、本規約のその他の条項および一部が無効または執行不能と判断された条項の残りの部分については、継続して完全に効力を有するものとします。
               </p>
             </li>
-            <li>
+            <li className="space-y-4">
               <h2 className="font-bold text-xl">
                 第13条（準拠法および管轄裁判所）
               </h2>
-              <p className="pt-4">
+              <p>
                 本規約は日本法に準拠し、本規約に起因し、又は関連する一切の紛争については、京都地方裁判所を第一審の専属的合意管轄裁判所とします。
               </p>
             </li>
