@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import { getHomeData, HomeData } from "library/getHomeData";
 import { Avatar } from "components/avatar";
+import { Footer } from "components/footer";
 
 type Props = {
   homeData: HomeData;
@@ -26,13 +27,13 @@ const Home: VFC<Props> = ({ homeData }) => {
         <title>SimulScore</title>
         <meta
           name="description"
-          content="クラシック音楽のスコアリーディングを支援する動画・楽譜閲覧サイト"
+          content="SimulScore(サイマルスコア)はクラシック音楽のスコアリーディングを支援する動画・楽譜閲覧サイトです。動画の再生に合わせて楽譜を自動でスクロールしたり、楽譜をクリックすることで動画を該当の場所から再生することができます。"
         />
         <meta property="og:title" content="SimulScore" />
         <meta property="og:url" content="https://www.simulscore.app/" />
         <meta
           property="og:description"
-          content="クラシック音楽のスコアリーディングを支援する動画・楽譜閲覧サイト"
+          content="SimulScore(サイマルスコア)はクラシック音楽のスコアリーディングを支援する動画・楽譜閲覧サイトです。動画の再生に合わせて楽譜を自動でスクロールしたり、楽譜をクリックすることで動画を該当の場所から再生することができます。"
         />
       </Head>
 
@@ -107,13 +108,7 @@ const Home: VFC<Props> = ({ homeData }) => {
           </div>
         </main>
 
-        <footer className="text-center bg-green-800 p-4">
-          <small>
-            <span className="text-warmGray-100 font-light text-xs">
-              &copy; SimulScore 2021
-            </span>
-          </small>
-        </footer>
+        <Footer />
       </div>
     </>
   );
