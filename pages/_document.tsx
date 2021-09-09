@@ -43,11 +43,6 @@ class MyDocument extends Document {
             sizes="192x192"
             href="/icon-192x192.png"
           />
-          <script
-            data-ad-client="ca-pub-5392547007745588"
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-          ></script>
         </Head>
         <body>
           <Main />
