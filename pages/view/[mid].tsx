@@ -1,6 +1,5 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import Link from "next/link";
 import React, {
   useState,
   useEffect,
@@ -10,6 +9,7 @@ import React, {
   VFC,
   MouseEventHandler,
 } from "react";
+import Iframe from "react-iframe";
 import Youtube from "react-youtube";
 import { YouTubePlayer } from "youtube-player/dist/types";
 
@@ -18,8 +18,9 @@ import { Toggle } from "components/toggle";
 import { MovList } from "components/movlist";
 import { VideoCards } from "components/videocards";
 import { BookCards } from "components/bookcards";
-import { Avatar } from "components/avatar";
 import { MemoView } from "components/memoview";
+import { Header } from "components/header";
+import { Footer } from "components/footer";
 
 import { getMusicData, MusicData } from "library/getMusicData";
 import { getVideoData, VideoData } from "library/getVideoData";
@@ -452,33 +453,9 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
             className="flex flex-col bg-warmGray-100 w-full lg:w-1/2 lg:min-w-80 lg:overflow-y-auto lg:overflow-x-hidden"
           >
             {/* ヘッダー */}
-            <header className="w-full bg-green-800 z-20">
-              <div className="flex px-4 py-2 items-center">
-                <div className="flex-none">
-                  {/* ホームへのリンク */}
-                  <Link href="/">
-                    <a className="flex">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="24px"
-                        viewBox="0 0 24 24"
-                        width="24px"
-                        fill="#FFFFFF"
-                      >
-                        <path d="M0 0h24v24H0V0z" fill="none" />
-                        <path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z" />
-                      </svg>
-                      <span className="font-bold text-white pl-1">Home</span>
-                    </a>
-                  </Link>
-                </div>
-                <div className="flex-grow"></div>
-                {/* ユーザーアバター */}
-                <div className="flex-none pr-1">
-                  <Avatar />
-                </div>
-              </div>
-            </header>
+            <div className="w-full z-20">
+              <Header />
+            </div>
 
             {/* スクロールボタン(メイン) */}
             <div className="w-full px-2 pt-2 flex flex-row-reverse items-center">
@@ -497,6 +474,8 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                 自動スクロール
               </p>
             </div>
+
+            {/* 1カッコ,2カッコで小節を重複して数えるかどうか設定するボタン */}
             <div className="w-full px-2 pt-0.5 flex flex-row-reverse items-center">
               <p
                 className={`text-xs text-right font-bold w-5 mx-1 ${
@@ -557,7 +536,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
             </div>
 
             {/* 動画の情報 */}
-            <div className="pl-6 pr-4 pt-4 pb-12">
+            <div className="pl-6 pr-4 pt-4">
               {thisVideoInfo?.players.map((p) => {
                 return (
                   <div key={p.part + "_" + p.name} className="pl-2 pt-4">
@@ -570,6 +549,16 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                   </div>
                 );
               })}
+            </div>
+
+            {/* Amazonバナー広告 */}
+            <div className="pb-16 px-8 pt-8">
+              <div className="text-xs text-warmGray-400">広告</div>
+              <Iframe
+                url="https://rcm-fe.amazon-adsystem.com/e/cm?o=9&p=12&l=ur1&category=music&f=ifr&linkID=c6550cbe48775987a26f9187b81f68b1&t=simulscore-22&tracking_id=simulscore-22"
+                width="300px"
+                height="250px"
+              />
             </div>
 
             {/* 折り畳み画面(スマホ版) */}
@@ -691,13 +680,9 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
               </div>
 
               {/* フッター */}
-              <footer className="flex w-full bg-green-800 justify-center mt-14">
-                <Link href="/">
-                  <a className="text-warmGray-100 font-extrabold text-lg my-4">
-                    SimulScore
-                  </a>
-                </Link>
-              </footer>
+              <div className="mt-20">
+                <Footer />
+              </div>
             </div>
           </div>
 

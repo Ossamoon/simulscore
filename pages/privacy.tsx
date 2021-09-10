@@ -33,9 +33,37 @@ const Privacy: VFC = () => {
               <p>
                 また、ログイン時にGoogleアカウントと連携された際、運営者は以下の情報を取得します
               </p>
-              <ul className="list-discpl-12 space-y-4">
+              <ul className="list-disc pl-12 space-y-4">
                 <li>アカウントID</li>
                 <li>メールアドレス</li>
+              </ul>
+              <p>
+                なお、Google
+                Analyticsによる情報の取得方法については、下記ページを参照してください。
+              </p>
+              <ul className="text-sm pl-8">
+                <li>
+                  Google社のプライバシーポリシー:{" "}
+                  <a
+                    href="https://policies.google.com/privacy?hl=ja"
+                    rel="noreferrer"
+                    target="_blank"
+                    className="text-blue-700"
+                  >
+                    https://policies.google.com/privacy?hl=ja
+                  </a>
+                </li>
+                <li>
+                  Google Analyticsのデータ保護:{" "}
+                  <a
+                    href="https://support.google.com/analytics/answer/6004245?hl=ja"
+                    rel="noreferrer"
+                    target="_blank"
+                    className="text-blue-700"
+                  >
+                    https://support.google.com/analytics/answer/6004245?hl=ja
+                  </a>
+                </li>
               </ul>
             </li>
             <li className="space-y-4">
@@ -79,98 +107,14 @@ const Privacy: VFC = () => {
               </ul>
             </li>
             <li className="space-y-4">
-              <h2 className="font-bold text-xl">
-                4. 第三者が取得する情報とその取得方法・利用目的
-              </h2>
-              <p>
-                本サービスではGoogle Analytics、Google
-                AdSenseおよびYouTubeのサービスを利用しているため、本サービスへのアクセス時、広告のクリック時、埋め込み動画の再生時等に以下のような情報がGoogle、広告主、動画投稿者等の第三者へ提供されます。これらの情報には個人を特定できる情報を含みません。
-              </p>
-              <ul className="list-disc pl-12 space-y-4">
-                <li>Cookie情報</li>
-                <li>IPアドレス</li>
-                <li>広告識別子</li>
-                <li>
-                  利用者のアクティビティ（再生した動画や、広告への反応等）
-                </li>
-              </ul>
-              <p>
-                これらの取得方法および利用目的に関しては下記ページを参照してください。
-              </p>
-              <ul className="text-sm">
-                <li>
-                  Google社のプライバシーポリシー:{" "}
-                  <a
-                    href="https://policies.google.com/privacy?hl=ja"
-                    rel="noreferrer"
-                    target="_blank"
-                    className="text-blue-700"
-                  >
-                    https://policies.google.com/privacy?hl=ja
-                  </a>
-                </li>
-                <li>
-                  Google Analyticsのデータ取扱い:{" "}
-                  <a
-                    href="https://support.google.com/analytics/answer/6004245?hl=ja"
-                    rel="noreferrer"
-                    target="_blank"
-                    className="text-blue-700"
-                  >
-                    https://support.google.com/analytics/answer/6004245?hl=ja
-                  </a>
-                </li>
-                <li>
-                  Google AdSenseにおける個人情報の扱い:{" "}
-                  <a
-                    href="https://support.google.com/adsense/answer/7686480?hl=ja"
-                    rel="noreferrer"
-                    target="_blank"
-                    className="text-blue-700"
-                  >
-                    https://support.google.com/adsense/answer/7686480?hl=ja
-                  </a>
-                </li>
-                <li>
-                  YouTube利用規約:{" "}
-                  <a
-                    href="https://www.youtube.com/static?template=terms&hl=ja"
-                    rel="noreferrer"
-                    target="_blank"
-                    className="text-blue-700"
-                  >
-                    https://www.youtube.com/static?template=terms&hl=ja
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li className="space-y-4">
-              <h2 className="font-bold text-xl">5. 個人情報の保護</h2>
+              <h2 className="font-bold text-xl">4. 個人情報の保護</h2>
               <p>
                 運営者は、利用者の個人情報の紛失、盗用、悪用、不正アクセス、改ざんおよび破損を防ぐために、合理的範囲内で技術的および物理的措置を講じています。
               </p>
             </li>
             <li className="space-y-4">
-              <h2 className="font-bold text-xl">6. Cookieの利用</h2>
-              <p>
-                本サービスではGoogle
-                AdSenseを用いた広告の表示をすることがあり、Googleなどの第三者は、Cookie情報をパーソナライズ広告の配信のため利用することがあります。なお、利用者は下記ページにアクセスすることでパーソナライズ広告を無効にすることができます。
-              </p>
-              <div className="text-sm">
-                Google広告設定:{" "}
-                <a
-                  href="https://support.google.com/ads/answer/2662922?hl=ja"
-                  rel="noreferrer"
-                  target="_blank"
-                  className="text-blue-700"
-                >
-                  https://support.google.com/ads/answer/2662922?hl=ja
-                </a>
-              </div>
-            </li>
-            <li className="space-y-4">
               <h2 className="font-bold text-xl">
-                7. プライバシーポリシーの改定
+                5. プライバシーポリシーの改定
               </h2>
               <p>
                 運営者は、事前の通知をすることなくプライバシーポリシーを随時改定することがあり、運営者のウェブサイトに掲載した時点から適用されるものとします。ただし、利用目的が大きく変更される場合は、改めて利用者から同意を得るものとします。
@@ -178,7 +122,7 @@ const Privacy: VFC = () => {
             </li>
           </ul>
 
-          <p className="pt-20 text-sm">2021年9月8日 制定</p>
+          <p className="pt-20 text-sm">2021年9月13日 制定</p>
         </div>
 
         <Footer />

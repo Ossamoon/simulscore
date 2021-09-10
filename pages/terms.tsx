@@ -218,7 +218,7 @@ const Terms: VFC = () => {
             </li>
           </ul>
 
-          <p className="pt-20 text-sm">2021年9月8日 制定</p>
+          <p className="pt-20 text-sm">2021年9月13日 制定</p>
         </div>
 
         <Footer />
