@@ -380,7 +380,9 @@ export const MemoView: VFC<Props> = ({
       {/* メモ帳一覧 */}
       <div
         onClick={() => {
-          if (data.length >= MAX_NOTES_PER_MUSIC) {
+          if (!currentUser) {
+            alert("メモ帳を作成するにはログインが必要です。");
+          } else if (data.length >= MAX_NOTES_PER_MUSIC) {
             alert(
               `メモ帳の数が上限に達しています。一曲あたり作成できるメモ帳は${MAX_NOTES_PER_MUSIC}件までです。`
             );
