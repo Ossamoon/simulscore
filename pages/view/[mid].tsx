@@ -552,7 +552,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
             </div>
 
             {/* Amazonバナー広告 */}
-            <div className="pb-16 px-8 pt-8">
+            <div className="px-8 pt-8 pb-12">
               <div className="text-xs text-warmGray-400">広告</div>
               <Iframe
                 url="https://rcm-fe.amazon-adsystem.com/e/cm?o=9&p=12&l=ur1&category=music&f=ifr&linkID=c6550cbe48775987a26f9187b81f68b1&t=simulscore-22&tracking_id=simulscore-22"
@@ -662,10 +662,10 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                   </p>
                 </div>
 
-                {/* 関連書籍 */}
+                {/* 関連商品 */}
                 <div className="h-px mt-12 mb-2 mx-2 bg-warmGray-300"></div>
                 <h2 className="text-xl text-green-800 font-bold mx-2 truncate">
-                  関連書籍 - amazon.co.jp へのリンク
+                  関連商品 - Amazon.co.jp へのリンク
                 </h2>
                 <h4 className="font-bold text-base text-green-800 mt-4 ml-4">
                   この曲のスコア
