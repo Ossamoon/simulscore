@@ -457,8 +457,19 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
               <Header />
             </div>
 
+            {/* 曲のタイトル・作曲家 */}
+            <div className="w-full px-4 pt-4 pb-2">
+              <p className="text-lg font-bold truncate text-warmGray-500 tracking-wide">
+                {musicData.composer_jp ?? musicData.composer}
+              </p>
+              <h1 className="text-3xl text-green-800 font-bold pt-1 tracking-wide">
+                {musicData.title_jp ?? musicData.title}{" "}
+                <span className="text-xl tracking-wide">{musicData.opus}</span>
+              </h1>
+            </div>
+
             {/* スクロールボタン(メイン) */}
-            <div className="w-full px-2 pt-2 flex flex-row-reverse items-center">
+            <div className="w-full px-2 flex flex-row-reverse items-center">
               <p
                 className={`text-xs text-right font-bold w-5 mx-1 ${
                   isAutoScroll ? "text-blue-600" : "text-warmGray-500"
@@ -493,19 +504,8 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
               </p>
             </div>
 
-            {/* 曲のタイトル・作曲家 */}
-            <div className="w-full bg-warmGray-100 mx-4 mb-4">
-              <p className="text-lg font-bold truncate text-warmGray-500 tracking-wide">
-                {musicData.composer_jp ?? musicData.composer}
-              </p>
-              <h1 className="text-3xl text-green-800 font-bold pt-1 tracking-wide">
-                {musicData.title_jp ?? musicData.title}{" "}
-                <span className="text-xl tracking-wide">{musicData.opus}</span>
-              </h1>
-            </div>
-
             {/* YouTube埋め込み */}
-            <div className="px-4">
+            <div className="px-4 pt-2">
               <div className="relative w-full h-0 overflow-hidden pb-9/16">
                 <Youtube
                   videoId={videoId}
@@ -536,7 +536,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
             </div>
 
             {/* 動画の情報 */}
-            <div className="pl-6 pr-4 pt-4">
+            <div className="px-2 sm:px-6 pt-4">
               {thisVideoInfo?.players.map((p) => {
                 return (
                   <div key={p.part + "_" + p.name} className="pl-2 pt-4">
@@ -552,7 +552,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
             </div>
 
             {/* Amazonバナー広告 */}
-            <div className="px-8 pt-8 pb-12">
+            <div className="pl-2 sm:pl-8 pt-8 pb-12">
               <div className="text-xs text-warmGray-400">広告</div>
               <Iframe
                 url="https://rcm-fe.amazon-adsystem.com/e/cm?o=9&p=12&l=ur1&category=music&f=ifr&linkID=c6550cbe48775987a26f9187b81f68b1&t=simulscore-22&tracking_id=simulscore-22"
