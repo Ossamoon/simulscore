@@ -437,11 +437,34 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
       <div>
         {/* プライマリボタン(スマホ版のみ) */}
         <div
-          className={`fixed lg:hidden z-50 rounded-full cursor-pointer w-16 h-16 bottom-12 right-4 border-4 bg-green-800 ${
-            isOpenSideMenu ? "border-red-500" : "border-blue-500"
-          }`}
+          className="fixed lg:hidden flex justify-center items-center z-50 rounded-full cursor-pointer w-14 h-14 bottom-12 right-4 bg-blue-600"
           onClick={() => setIsOpenSideMenu((b) => !b)}
-        ></div>
+        >
+          {isOpenSideMenu ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="30px"
+              width="30px"
+              viewBox="0 0 24 24"
+              fill="#FFFFFF"
+            >
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="30px"
+              width="30px"
+              viewBox="0 0 24 24"
+              fill="#FFFFFF"
+              className="transform rotate-90"
+            >
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
+            </svg>
+          )}
+        </div>
 
         {/* メインスクリーン */}
         <div
