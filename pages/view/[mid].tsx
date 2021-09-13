@@ -334,7 +334,6 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
 
   const onPlayerStateChange = useCallback(
     (event: { target: YouTubePlayer; data: number }): void => {
-      console.log(`Player State: ${event.data}`);
       if (event.data === 1) {
         timerId.current = setInterval(tick, 20);
       } else if (event.data !== 1) {
@@ -354,7 +353,6 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
   const scrollScoreView = useCallback(
     (blockId: number): void => {
       if (blockId === 9999) return;
-      console.log("scroll");
 
       let checkId = blockId;
       if (blockId >= 9800 && blockId < 9900 && musicData.movements) {
