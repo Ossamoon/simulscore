@@ -405,7 +405,6 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
       player.current.seekTo(jumpdata.time, true);
       setCurrentBlockId(id);
     }
-    console.log(`Clicked BlodkId: ${id}`);
 
     // Analytics Event
     firebase
