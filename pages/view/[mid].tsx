@@ -22,6 +22,7 @@ import { MemoView } from "components/memoview";
 import { Header } from "components/header";
 import { Footer } from "components/footer";
 
+import firebase from "library/firebase";
 import { getMusicData, MusicData } from "library/getMusicData";
 import { getVideoData, VideoData } from "library/getVideoData";
 import { getScoreData, ScoreData } from "library/getScoreData";
@@ -103,6 +104,18 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
     },
     []
   );
+
+  //
+  // Analytics Event ------------------------------------------------------
+  //
+
+  useEffect(() => {
+    firebase.analytics().logEvent("open_view", {
+      musicId: musicData.musicId,
+      videoId: videoData.videoId,
+      scoreId: scoreData.scoreId,
+    });
+  }, [musicData.musicId, videoData.videoId, scoreData.scoreId]);
 
   //
   // Main Logic -----------------------------------------------------------
@@ -384,19 +397,21 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
   // Click Event ------------------------------------------------------------
   //
 
-  const onDivClick = useCallback(
-    (id: number): void => {
-      const jumpdata = videoData.times
-        .filter((data) => data.id === id)
-        .slice(-1)[0];
-      if (player.current && jumpdata) {
-        player.current.seekTo(jumpdata.time, true);
-        setCurrentBlockId(id);
-      }
-      console.log(`Clicked BlodkId: ${id}`);
-    },
-    [videoData.times]
-  );
+  const onDivClick = (id: number): void => {
+    const jumpdata = videoData.times
+      .filter((data) => data.id === id)
+      .slice(-1)[0];
+    if (player.current && jumpdata) {
+      player.current.seekTo(jumpdata.time, true);
+      setCurrentBlockId(id);
+    }
+    console.log(`Clicked BlodkId: ${id}`);
+
+    // Analytics Event
+    firebase
+      .analytics()
+      .logEvent("click_block", { musicId: musicData.musicId, blockId: id });
+  };
 
   //
   // Side Menu --------------------------------------------------------------

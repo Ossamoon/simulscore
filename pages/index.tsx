@@ -3,15 +3,22 @@ import { VFC, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 
+import { Footer } from "components/footer";
+
+import firebase from "library/firebase";
 import { getHomeData, HomeData } from "library/getHomeData";
 import { Avatar } from "components/avatar";
-import { Footer } from "components/footer";
 
 type Props = {
   homeData: HomeData;
 };
 
 const Home: VFC<Props> = ({ homeData }) => {
+  // Analytics Event
+  useEffect(() => {
+    firebase.analytics().logEvent("open_index");
+  }, []);
+
   // Twitter Script Element
   useEffect(() => {
     const s = document.createElement("script");
