@@ -1,0 +1,143 @@
+{
+  "musicId": "A0012",
+  "type": "symphony",
+  "title": "Symphony No. 2 in D major",
+  "title_jp": "交響曲第2番 ニ長調",
+  "composerId": "JBR",
+  "composer": "Brahms",
+  "composer_jp": "ブラームス",
+  "opus": "Op.73",
+  "videos": [
+    {
+      "videoId": "jVV9J4onhsA",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Semyon Bychkov",
+          "name_jp": "セミヨン・ビシュコフ"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "WDR Sinfonieorchester",
+          "name_jp": "ケルンWDR交響楽団"
+        }
+      ]
+    }
+  ],
+  "scores": [
+    {
+      "scoreId": "317804",
+      "source": "imslp",
+      "publisher": "Sämtliche Werke, Band 1\nLeipzig: Breitkopf & Härtel, 1926-27. Plate J.B. 2.",
+      "copyright": "Public Domain",
+      "summary": "Breitkopf & Härtel, 1926-27"
+    }
+  ],
+  "blockId_reservations": [
+    { "num": 0, "description": "1st movement" },
+    { "num": 1000, "description": "2nd movement" },
+    { "num": 2000, "description": "3rd movement" },
+    { "num": 3000, "description": "4th movement" },
+    { "num": 4000, "description": "free" },
+    { "num": 9800, "description": "Start times" },
+    { "num": 9900, "description": "End times" },
+    { "num": 9999, "description": "null" }
+  ],
+  "movements": [
+    {
+      "movement": 1,
+      "firstBlockId": 1,
+      "lastBlockId": 531,
+      "reservation": {
+        "from": "0",
+        "to": "1000"
+      },
+      "title": "1st mov. Allegro non troppo",
+      "title_jp": "第一楽章 Allegro non troppo",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": [179, 180, 181, 182, 183, 184, 185, 186]
+    },
+    {
+      "movement": 2,
+      "firstBlockId": 1000,
+      "lastBlockId": 1104,
+      "reservation": {
+        "from": "1000",
+        "to": "2000"
+      },
+      "title": "2nd mov. Adagio non troppo",
+      "title_jp": "第二楽章 Adagio non troppo",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": []
+    },
+    {
+      "movement": 3,
+      "firstBlockId": 2001,
+      "lastBlockId": 2240,
+      "reservation": {
+        "from": "2000",
+        "to": "3000"
+      },
+      "title": "3rd mov. Allegretto grazioso (Quasi Andantino)",
+      "title_jp": "第三楽章 Allegretto grazioso (Quasi Andantino)",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": []
+    },
+    {
+      "movement": 4,
+      "firstBlockId": 3001,
+      "lastBlockId": 3429,
+      "reservation": {
+        "from": "3000",
+        "to": "4000"
+      },
+      "title": "4th mov. Allegro con spirito",
+      "title_jp": "第四楽章 Allegro con spirito",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": []
+    }
+  ],
+  "books": [
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4118970422",
+      "link": "https://amzn.to/2XkyEfK",
+      "page": 176,
+      "size": "A5版",
+      "publisher": "全音楽譜出版社",
+      "release": "2016/9/15"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4860603109",
+      "link": "https://amzn.to/3li1Fkd",
+      "page": 138,
+      "size": "A5版",
+      "publisher": "日本楽譜出版社",
+      "release": "2014/10/2"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4276919592",
+      "link": "https://amzn.to/395XDpw",
+      "page": 152,
+      "size": "A5版",
+      "publisher": "音楽之友社",
+      "release": "2004/7/1"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4636022718",
+      "link": "https://amzn.to/2XdwH4v",
+      "publisher": "ブライトコップ&ヘルテル社",
+      "release": "2009/11/1"
+    }
+  ]
+}
