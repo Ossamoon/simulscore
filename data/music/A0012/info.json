@@ -25,6 +25,24 @@
           "name_jp": "ケルンWDR交響楽団"
         }
       ]
+    },
+    {
+      "videoId": "5MfuE50OrSk",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Fabio Luisi",
+          "name_jp": "ファビオ・ルイージ"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "Danish National Symphony Orchestra",
+          "name_jp": "デンマーク国立交響楽団"
+        }
+      ]
     }
   ],
   "scores": [
