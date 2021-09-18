@@ -586,19 +586,9 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
               })}
             </div>
 
-            {/* Amazonバナー広告 */}
-            <div className="pl-2 sm:pl-8 pt-8 pb-12">
-              <div className="text-xs text-warmGray-400">広告</div>
-              <Iframe
-                url="https://rcm-fe.amazon-adsystem.com/e/cm?o=9&p=12&l=ur1&category=music&f=ifr&linkID=c6550cbe48775987a26f9187b81f68b1&t=simulscore-22&tracking_id=simulscore-22"
-                width="300px"
-                height="250px"
-              />
-            </div>
-
             {/* 折り畳み画面(スマホ版) */}
             <div
-              className={`fixed lg:static top-full lg:inset-0 z-40 lg:z-0 h-screen lg:h-auto w-screen lg:w-full bg-warmGray-100 transition lg:transition-none transform ease-out duration-300 overflow-y-auto lg:overflow-visible ${
+              className={`fixed lg:static top-full lg:inset-0 z-40 lg:z-0 h-screen lg:h-auto w-screen lg:w-full bg-warmGray-100 transition lg:transition-none transform ease-out duration-300 pt-12 overflow-y-auto lg:overflow-visible ${
                 isOpenSideMenu ? "-translate-y-full lg:translate-y-0" : ""
               }`}
             >
@@ -712,6 +702,16 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
                     )}
                   />
                 </div>
+              </div>
+
+              {/* Amazonバナー広告 */}
+              <div className="ml-3 sm:ml-8 mt-4">
+                <div className="text-xs text-warmGray-400">PR</div>
+                <Iframe
+                  url="https://rcm-fe.amazon-adsystem.com/e/cm?o=9&p=12&l=ur1&category=music&f=ifr&linkID=c6550cbe48775987a26f9187b81f68b1&t=simulscore-22&tracking_id=simulscore-22"
+                  width="300px"
+                  height="250px"
+                />
               </div>
 
               {/* フッター */}
