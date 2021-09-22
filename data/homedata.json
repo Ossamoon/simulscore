@@ -1,6 +1,19 @@
 {
   "composer": [
     {
+      "id": "FJH",
+      "name": "Haydn",
+      "name_jp": "ハイドン",
+      "musics": [
+        {
+          "id": "A0013",
+          "title": "Symphony No. 45 in F-sharp minor",
+          "title_jp": "交響曲第45番 嬰ヘ短調 『告別』",
+          "opus": "Hob.I:45"
+        }
+      ]
+    },
+    {
       "id": "WAM",
       "name": "Mozart",
       "name_jp": "モーツァルト",
