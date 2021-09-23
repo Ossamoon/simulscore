@@ -1,0 +1,133 @@
+{
+  "musicId": "A0013",
+  "type": "symphony",
+  "title": "Symphony No. 45 in F-sharp minor",
+  "title_jp": "交響曲第45番 嬰ヘ短調 『告別』",
+  "composerId": "FJH",
+  "composer": "Haydn",
+  "composer_jp": "ハイドン",
+  "opus": "Hob.I:45",
+  "videos": [
+    {
+      "videoId": "GMaM6ivx8X8",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Giovanni Antonini",
+          "name_jp": "ジョヴァンニ・アントニーニ"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "Il Giardino Armonico",
+          "name_jp": "イル・ジャルディーノ・アルモニコ"
+        }
+      ]
+    },
+    {
+      "videoId": "OpD9ofCm6Ak",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Conrad van Alphen",
+          "name_jp": "コンラート・ファン・アルフェン"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "Sinfonia Rotterdam",
+          "name_jp": "シンフォニア・ロッテルダム"
+        }
+      ]
+    }
+  ],
+  "scores": [
+    {
+      "scoreId": "22608",
+      "source": "imslp",
+      "publisher": "Leipzig: Ernst Eulenburg, No.86, n.d.(ca.1936). Plate E.E. 3660.",
+      "copyright": "Public Domain",
+      "summary": "Ernst Eulenburg, 1936"
+    }
+  ],
+  "blockId_reservations": [
+    { "num": 0, "description": "1st movement" },
+    { "num": 1000, "description": "2nd movement" },
+    { "num": 2000, "description": "3rd movement" },
+    { "num": 3000, "description": "4th movement" },
+    { "num": 4000, "description": "free" },
+    { "num": 9800, "description": "Start times" },
+    { "num": 9900, "description": "End times" },
+    { "num": 9999, "description": "null" }
+  ],
+  "movements": [
+    {
+      "movement": 1,
+      "firstBlockId": 1,
+      "lastBlockId": 211,
+      "reservation": {
+        "from": "0",
+        "to": "1000"
+      },
+      "title": "1st mov. Allegro assai",
+      "title_jp": "第一楽章 Allegro assai",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": [71, 72]
+    },
+    {
+      "movement": 2,
+      "firstBlockId": 1001,
+      "lastBlockId": 1190,
+      "reservation": {
+        "from": "1000",
+        "to": "2000"
+      },
+      "title": "2nd mov. Adagio",
+      "title_jp": "第二楽章 Adagio",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": []
+    },
+    {
+      "movement": 3,
+      "firstBlockId": 2001,
+      "lastBlockId": 2076,
+      "reservation": {
+        "from": "2000",
+        "to": "3000"
+      },
+      "title": "3rd mov. Menuet - Trio: Allegretto",
+      "title_jp": "第三楽章 Menuet - Trio: Allegretto",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": []
+    },
+    {
+      "movement": 4,
+      "firstBlockId": 3000,
+      "lastBlockId": 3999,
+      "reservation": {
+        "from": "3000",
+        "to": "4000"
+      },
+      "title": "4th mov. Finale: Presto - Adagio",
+      "title_jp": "第四楽章 Finale: Presto - Adagio",
+      "devidedFirstBlockId": [3056],
+      "firstEndingBlockId": []
+    }
+  ],
+  "books": [
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "3795766427",
+      "link": "https://amzn.to/2XBSeEg",
+      "page": 44,
+      "size": "13.34 x 19.05 cm",
+      "publisher": "Schott & Co Ltd",
+      "release": "1986/6/1"
+    }
+  ]
+}
