@@ -9,6 +9,24 @@
   "opus": "Hob.I:45",
   "videos": [
     {
+      "videoId": "GMaM6ivx8X8",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Giovanni Antonini",
+          "name_jp": "ジョヴァンニ・アントニーニ"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "Il Giardino Armonico",
+          "name_jp": "イル・ジャルディーノ・アルモニコ"
+        }
+      ]
+    },
+    {
       "videoId": "OpD9ofCm6Ak",
       "source": "youtube",
       "players": [
