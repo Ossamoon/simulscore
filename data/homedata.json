@@ -7,9 +7,15 @@
       "musics": [
         {
           "id": "A0013",
-          "title": "Symphony No. 45 in F-sharp minor",
+          "title": "Symphony No. 45 in F-sharp minor, \"Farewell\"",
           "title_jp": "交響曲第45番 嬰ヘ短調 『告別』",
           "opus": "Hob.I:45"
+        },
+        {
+          "id": "A0014",
+          "title": "Symphony No. 104 in D major, \"London\"",
+          "title_jp": "交響曲第104番 ニ長調 『ロンドン』",
+          "opus": "Hob.I:104"
         }
       ]
     },

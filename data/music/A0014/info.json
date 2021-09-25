@@ -1,0 +1,125 @@
+{
+  "musicId": "A0014",
+  "type": "symphony",
+  "title": "Symphony No. 104 in D major, \"London\"",
+  "title_jp": "交響曲第104番 ニ長調 『ロンドン』",
+  "composerId": "FJH",
+  "composer": "Haydn",
+  "composer_jp": "ハイドン",
+  "opus": "Hob.I:104",
+  "videos": [
+    {
+      "videoId": "nvSKMcS7Bdk",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Gergely Madaras",
+          "name_jp": "ゲルゲイ・マダラシュ"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "Savaria Szimfonikus Zenekar",
+          "name_jp": "サヴァリア交響楽団"
+        }
+      ]
+    }
+  ],
+  "scores": [
+    {
+      "scoreId": "513446",
+      "source": "imslp",
+      "publisher": "Philharmonia series, No.5\nVienna: Universal Edition, n.d.(ca.1910). Plate W.Ph.V. 5.",
+      "copyright": "Public Domain",
+      "summary": "Universal Edition, 1910"
+    }
+  ],
+  "blockId_reservations": [
+    { "num": 0, "description": "1st movement" },
+    { "num": 1000, "description": "2nd movement" },
+    { "num": 2000, "description": "3rd movement" },
+    { "num": 3000, "description": "4th movement" },
+    { "num": 4000, "description": "free" },
+    { "num": 9800, "description": "Start times" },
+    { "num": 9900, "description": "End times" },
+    { "num": 9999, "description": "null" }
+  ],
+  "movements": [
+    {
+      "movement": 1,
+      "firstBlockId": 1,
+      "lastBlockId": 295,
+      "reservation": {
+        "from": "0",
+        "to": "1000"
+      },
+      "title": "1st mov. Adagio – Allegro",
+      "title_jp": "第一楽章 Adagio – Allegro",
+      "devidedFirstBlockId": [16],
+      "firstEndingBlockId": []
+    },
+    {
+      "movement": 2,
+      "firstBlockId": 1001,
+      "lastBlockId": 1152,
+      "reservation": {
+        "from": "1000",
+        "to": "2000"
+      },
+      "title": "2nd mov. Andante",
+      "title_jp": "第二楽章 Andante",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": []
+    },
+    {
+      "movement": 3,
+      "firstBlockId": 2000,
+      "lastBlockId": 2108,
+      "reservation": {
+        "from": "2000",
+        "to": "3000"
+      },
+      "title": "3rd mov. Menuet - Trio: Allegro",
+      "title_jp": "第三楽章 Menuet - Trio: Allegro",
+      "devidedFirstBlockId": [2016, 2053, 2066, 2097],
+      "firstEndingBlockId": []
+    },
+    {
+      "movement": 4,
+      "firstBlockId": 3001,
+      "lastBlockId": 3338,
+      "reservation": {
+        "from": "3000",
+        "to": "4000"
+      },
+      "title": "4th mov. Finale: Spiritoso",
+      "title_jp": "第四楽章 Finale: Spiritoso",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": [3118, 3119, 3120, 3121]
+    }
+  ],
+  "books": [
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4118940698",
+      "link": "https://amzn.to/3zwFlIv",
+      "page": 136,
+      "size": "四六版",
+      "publisher": "全音楽譜出版社",
+      "release": "2005/10/24"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4276908124",
+      "link": "https://amzn.to/3kyQB36",
+      "page": 80,
+      "size": "四六版",
+      "publisher": "音楽之友社",
+      "release": "1978/3/1"
+    }
+  ]
+}
