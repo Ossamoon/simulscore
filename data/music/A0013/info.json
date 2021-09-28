@@ -1,7 +1,7 @@
 {
   "musicId": "A0013",
   "type": "symphony",
-  "title": "Symphony No. 45 in F-sharp minor",
+  "title": "Symphony No. 45 in F-sharp minor, \"Farewell\"",
   "title_jp": "交響曲第45番 嬰ヘ短調 『告別』",
   "composerId": "FJH",
   "composer": "Haydn",
@@ -107,7 +107,7 @@
     {
       "movement": 4,
       "firstBlockId": 3000,
-      "lastBlockId": 3999,
+      "lastBlockId": 3258,
       "reservation": {
         "from": "3000",
         "to": "4000"
