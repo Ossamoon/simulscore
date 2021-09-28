@@ -504,14 +504,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
             </div>
 
             {/* スクロールボタン(メイン) */}
-            <div className="w-full px-2 flex flex-row-reverse items-center">
-              <p
-                className={`text-xs text-right font-bold w-5 mx-1 ${
-                  isAutoScroll ? "text-blue-600" : "text-warmGray-500"
-                }`}
-              >
-                {isAutoScroll ? "ON" : "OFF"}
-              </p>
+            <div className="w-full pr-4 flex flex-row-reverse items-center">
               <Toggle
                 selected={isAutoScroll}
                 onClick={() => setIsAutoScroll((b) => !b)}
@@ -522,14 +515,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
             </div>
 
             {/* 1カッコ,2カッコで小節を重複して数えるかどうか設定するボタン */}
-            <div className="w-full px-2 pt-0.5 flex flex-row-reverse items-center">
-              <p
-                className={`text-xs text-right font-bold w-5 mx-1 ${
-                  isFirstEndingOmitted ? "text-blue-600" : "text-warmGray-500"
-                }`}
-              >
-                {isFirstEndingOmitted ? "ON" : "OFF"}
-              </p>
+            <div className="w-full pr-4 pt-0.5 flex flex-row-reverse items-center">
               <Toggle
                 selected={isFirstEndingOmitted}
                 onClick={() => setIsFirstEndingOmitted((b) => !b)}
@@ -594,14 +580,7 @@ const SmartScoreReader: VFC<Props> = ({ musicData, videoData, scoreData }) => {
             >
               <div className="mx-4">
                 {/* スクロールボタン(スマホ版のみ) */}
-                <div className="lg:hidden w-full py-2 flex flex-row-reverse items-center">
-                  <p
-                    className={`text-xs text-right font-bold w-5 mx-1 ${
-                      isAutoScroll ? "text-blue-600" : "text-warmGray-500"
-                    }`}
-                  >
-                    {isAutoScroll ? "ON" : "OFF"}
-                  </p>
+                <div className="lg:hidden w-full py-2 pr-2 flex flex-row-reverse items-center">
                   <Toggle
                     selected={isAutoScroll}
                     onClick={() => setIsAutoScroll((b) => !b)}
