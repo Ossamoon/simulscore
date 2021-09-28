@@ -25,6 +25,24 @@
           "name_jp": "サヴァリア交響楽団"
         }
       ]
+    },
+    {
+      "videoId": "FTT8siNGDX4",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Dima Slobodeniouk",
+          "name_jp": "ディーマ・スロボデニューク"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "Sinfónica de Galicia",
+          "name_jp": "ガリシア交響楽団"
+        }
+      ]
     }
   ],
   "scores": [
