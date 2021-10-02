@@ -44,6 +44,12 @@
       "name_jp": "ベートーヴェン",
       "musics": [
         {
+          "id": "A0015",
+          "title": "Symphony No. 5 in C minor",
+          "title_jp": "交響曲第5番 ハ短調",
+          "opus": "Op.67"
+        },
+        {
           "id": "A0003",
           "title": "Symphony No. 7 in A major",
           "title_jp": "交響曲第7番 イ長調",
