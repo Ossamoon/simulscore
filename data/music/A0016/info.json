@@ -25,6 +25,24 @@
           "name_jp": "ベルリン・フィルハーモニー管弦楽団"
         }
       ]
+    },
+    {
+      "videoId": "YTh9KzfWUfU",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Rafael Frühbeck de Burgos",
+          "name_jp": "ラファエル・フリューベック・デ・ブルゴス"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "Danish National Symphony Orchestra",
+          "name_jp": "デンマーク国立交響楽団"
+        }
+      ]
     }
   ],
   "scores": [
@@ -113,7 +131,7 @@
         "to": "5000"
       },
       "title": "5th mov. Hirtengesang. Frohe und dankbare Gefühle nach dem Sturm: Allegretto",
-      "title_jp": "第五楽章 牧歌。嵐の後の喜ばしい感謝の気持ち: Allegretto",
+      "title_jp": "第五楽章 牧歌 嵐の後の喜ばしい感謝の気持ち: Allegretto",
       "title_en": "5th mov. Shepherd's song. Cheerful and thankful feelings after the storm: Allegretto",
       "devidedFirstBlockId": [],
       "firstEndingBlockId": []
