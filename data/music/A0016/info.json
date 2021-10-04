@@ -1,0 +1,189 @@
+{
+  "musicId": "A0016",
+  "type": "symphony",
+  "title": "Symphony No. 6 in F major, \"Pastoral\"",
+  "title_jp": "交響曲第6番 ヘ長調 『田園』",
+  "composerId": "LVB",
+  "composer": "Ludwig van Beethoven",
+  "composer_jp": "ベートーヴェン",
+  "opus": "Op.68",
+  "videos": [
+    {
+      "videoId": "9ORsinmqm0M",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Bernard Haitink",
+          "name_jp": "ベルナルト・ハイティンク"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "Berliner Philharmoniker",
+          "name_jp": "ベルリン・フィルハーモニー管弦楽団"
+        }
+      ]
+    },
+    {
+      "videoId": "YTh9KzfWUfU",
+      "source": "youtube",
+      "players": [
+        {
+          "part": "conductor",
+          "part_jp": "指揮",
+          "name": "Rafael Frühbeck de Burgos",
+          "name_jp": "ラファエル・フリューベック・デ・ブルゴス"
+        },
+        {
+          "part": "orchestra",
+          "part_jp": "オーケストラ",
+          "name": "Danish National Symphony Orchestra",
+          "name_jp": "デンマーク国立交響楽団"
+        }
+      ]
+    }
+  ],
+  "scores": [
+    {
+      "scoreId": "312394",
+      "source": "imslp",
+      "publisher": "Ludwig van Beethovens Werke, Serie 1: Symphonien, Nr.6 (pp.3-86)\nLeipzig: Breitkopf und Härtel, n.d.[n.d.[1863]]. Plate B.6.",
+      "copyright": "Public Domain",
+      "summary": "Breitkopf und Härtel, 1863"
+    }
+  ],
+  "blockId_reservations": [
+    { "num": 0, "description": "1st movement" },
+    { "num": 1000, "description": "2nd movement" },
+    { "num": 2000, "description": "3rd movement" },
+    { "num": 3000, "description": "4th movement" },
+    { "num": 4000, "description": "5th movement" },
+    { "num": 5000, "description": "free" },
+    { "num": 9800, "description": "Start times" },
+    { "num": 9900, "description": "End times" },
+    { "num": 9999, "description": "null" }
+  ],
+  "movements": [
+    {
+      "movement": 1,
+      "firstBlockId": 1,
+      "lastBlockId": 512,
+      "reservation": {
+        "from": "0",
+        "to": "1000"
+      },
+      "title": "1st mov. Erwachen heiterer Empfindungen bei der Ankunft auf dem Lande: Allegro ma non troppo",
+      "title_jp": "第一楽章 田舎に到着したときの愉快な感情の目覚め: Allegro ma non troppo",
+      "title_en": "1st mov. Awakening of cheerful feelings on arrival in the countryside: Allegro ma non troppo",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": []
+    },
+    {
+      "movement": 2,
+      "firstBlockId": 1001,
+      "lastBlockId": 1139,
+      "reservation": {
+        "from": "1000",
+        "to": "2000"
+      },
+      "title": "2nd mov. Szene am Bach: Andante molto mosso",
+      "title_jp": "第二楽章 小川のほとりの情景: Andante molto mosso",
+      "title_en": "2nd mov. Scene by the brook: Andante molto mosso",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": []
+    },
+    {
+      "movement": 3,
+      "firstBlockId": 2000,
+      "lastBlockId": 2265,
+      "reservation": {
+        "from": "2000",
+        "to": "3000"
+      },
+      "title": "3rd mov. Lustiges Zusammensein der Landleute: Allegro",
+      "title_jp": "第三楽章 田舎の人々の楽しい集い: Allegro",
+      "title_en": "3rd mov. Merry gathering of country folk: Allegro",
+      "devidedFirstBlockId": [2204],
+      "firstEndingBlockId": []
+    },
+    {
+      "movement": 4,
+      "firstBlockId": 3001,
+      "lastBlockId": 3155,
+      "reservation": {
+        "from": "3000",
+        "to": "4000"
+      },
+      "title": "4th mov. Gewitter, Sturm: Allegro",
+      "title_jp": "第四楽章 雷雨、嵐: Allegro",
+      "title_en": "4th mov. Thunder, Storm: Allegro",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": []
+    },
+    {
+      "movement": 5,
+      "firstBlockId": 4001,
+      "lastBlockId": 4264,
+      "reservation": {
+        "from": "4000",
+        "to": "5000"
+      },
+      "title": "5th mov. Hirtengesang. Frohe und dankbare Gefühle nach dem Sturm: Allegretto",
+      "title_jp": "第五楽章 牧歌 嵐の後の喜ばしい感謝の気持ち: Allegretto",
+      "title_en": "5th mov. Shepherd's song. Cheerful and thankful feelings after the storm: Allegretto",
+      "devidedFirstBlockId": [],
+      "firstEndingBlockId": []
+    }
+  ],
+  "books": [
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4118970066",
+      "link": "https://amzn.to/3uxYzN1",
+      "page": 176,
+      "size": "A5版",
+      "publisher": "全音楽譜出版社",
+      "release": "2015/12/15"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4860600711",
+      "link": "https://amzn.to/3F7xW6C",
+      "page": 130,
+      "size": "A5版",
+      "publisher": "日本楽譜出版社",
+      "release": "2006/1/1"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4276921090",
+      "link": "https://amzn.to/3Ae2v7b",
+      "page": 176,
+      "size": "A5版",
+      "publisher": "音楽之友社",
+      "release": "2010/5/31"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4636032446",
+      "link": "https://amzn.to/3iqthms",
+      "publisher": "ブライトコップ&ヘルテル社",
+      "release": "2013/9/11"
+    },
+    {
+      "language": "jp",
+      "type": "score",
+      "isbn10": "4636026241",
+      "link": "https://amzn.to/3osuD3R",
+      "size": "中型",
+      "publisher": "ベーレンライター社",
+      "release": "2011/10/1"
+    }
+  ]
+}

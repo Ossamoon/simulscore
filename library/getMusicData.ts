@@ -32,6 +32,7 @@ export type MovementInfo = {
   };
   title: string;
   title_jp?: string;
+  title_en?: string;
   devidedFirstBlockId: number[];
   firstEndingBlockId: number[];
   cadenza?: {
